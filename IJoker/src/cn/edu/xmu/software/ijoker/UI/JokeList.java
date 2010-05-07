@@ -57,6 +57,11 @@ public class JokeList extends Activity {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			playService = IPlayService.Stub.asInterface((IBinder) service);
 			Log.i(TAG, "connect to playservice.");
+			try {
+				playService.updateJokeList();
+			} catch (RemoteException e) {
+				Log.e(TAG, e.getMessage(), e);
+			}
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -126,14 +131,14 @@ public class JokeList extends Activity {
 	// clear the jokelist data int playservice to get new data from
 	// webservice into playlist.
 	private List<Map<String, Object>> buildPlayListForSimpleAdapter() {
-		// try {
-		// playService.clearJokeList();
-		// if (jokeList == null)
-		// jokeList = playService.getJokeList();
-		// Log.i(TAG, "jokeList: " + jokeList + "; size: " + jokeList.size());
-		// } catch (RemoteException e) {
-		// Log.e(TAG, e.getMessage(), e);
-		// }
+		try {
+			// playService.clearJokeList();
+			// if (jokeList == null)
+			jokeList = playService.getJokeList();
+			Log.i(TAG, "jokeList: " + jokeList + "; size: " + jokeList.size());
+		} catch (RemoteException e) {
+			Log.e(TAG, e.getMessage(), e);
+		}
 		if (jokeList != null) {
 			ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>(
 					jokeList.size());
@@ -165,14 +170,7 @@ public class JokeList extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equalsIgnoreCase(
 					Consts.ACTION_JOKELIST_READY)) {
-				try {
-					jokeList = playService.getJokeList();
-					Log.i(TAG, "get jokelist from playservice: "
-							+ jokeList.toString());
-					updateJokeList();
-				} catch (RemoteException e) {
-					Log.e(TAG, e.getMessage(), e);
-				}
+				updateJokeList();
 			}
 		}
 	};
