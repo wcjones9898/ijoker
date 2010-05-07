@@ -3,7 +3,6 @@ package cn.edu.xmu.software.ijoker.engine;
 import java.util.HashMap;
 
 import android.os.Handler;
-import android.util.Log;
 import cn.edu.xmu.software.ijoker.ws.AbstractWSMethod;
 import cn.edu.xmu.software.ijoker.ws.CallWSMethodFactory;
 
@@ -28,16 +27,8 @@ public class WSEngine extends Thread {
 	@Override
 	public void run() {
 		super.run();
-		try {
-			AbstractWSMethod abstractWSMethod = CallWSMethodFactory
-					.CreateWSMethod(methodName);
-			abstractWSMethod.invokeWSMethod(handler, parms);
-		} catch (InstantiationException e) {
-			Log.e(TAG, e.getMessage(), e);
-		} catch (IllegalAccessException e) {
-			Log.e(TAG, e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
-			Log.e(TAG, e.getMessage(), e);
-		}
+		AbstractWSMethod abstractWSMethod = CallWSMethodFactory.CreateWSMethod(
+				methodName, handler, parms);
+		abstractWSMethod.invokeWSMethod();
 	}
 }

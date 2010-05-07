@@ -13,8 +13,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Log;
 
 public class WSUtils {
-	private static final String wsdl = "http://59.77.5.181:8080/IJokerDataService/services/jokeListService?wsdl";
-	private static final String nameSpace = "http://59.77.5.181:8080/IJokerDataService/services/jokeListService";
+	private static final String wsdl = "http://59.77.5.42:8080/axis/services/jokeListService?wsdl";
+	private static final String nameSpace = "http://59.77.5.42:8080/axis/services/jokeListService";
 
 	public WSUtils() {
 	}

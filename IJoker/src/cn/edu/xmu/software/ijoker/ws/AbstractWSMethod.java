@@ -6,8 +6,9 @@ import android.os.Handler;
 
 public abstract class AbstractWSMethod {
 	protected String methodName;
+	protected Handler handler;
+	protected HashMap<String, Object> parms;
 	protected final String TAG = AbstractWSMethod.class.getName();
 
-	public abstract void invokeWSMethod(Handler handler,
-			HashMap<String, Object> parms);
+	public abstract void invokeWSMethod();
 }

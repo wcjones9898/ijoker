@@ -116,7 +116,7 @@ public class PlayService extends Service {
 				WSEngine wsEngine = new WSEngine(handler);
 				HashMap<String, Object> parms = new HashMap<String, Object>();
 				// parms.put("listStyle", 1);
-				wsEngine.doStart("getJokeList", parms);
+				wsEngine.doStart("GetJokeList", parms);
 //			}
 			return jokeList;
 		}
