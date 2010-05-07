@@ -2,7 +2,6 @@ package cn.edu.xmu.software.ijoker.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,29 +11,45 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
-import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
 import cn.edu.xmu.software.ijoker.entity.Joke;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class PlayService extends Service {
 	public final String TAG = PlayService.class.getName();
 	private MediaPlayer mp = new MediaPlayer();
-	private List<Joke> jokeList;
+	private ArrayList<Joke> jokeList;
 	private int currentPosition;
 	private NotificationManager nm;
-	private static final int NOTIFY_ID = R.layout.player;
-	public static final String ACTION_STOP_PLAY = "cn.edu.xmu.software.ijoker.action.STOP_PLAY";
+
 	private Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			super.handleMessage(msg);
+			switch (msg.what) {
+			case Consts.MSG_JOKELIST_UPDATE:
+				initJokeList();
+				break;
+			case Consts.MSG_JOKELIST_READY:
+				jokeList = msg.getData().getParcelableArrayList("data");
+				Intent intent = new Intent(Consts.ACTION_JOKELIST_READY);
+				sendBroadcast(intent);
+				Log
+						.i(
+								TAG,
+								"playservice get the jokelist from webservice and pass the jokelist to jokelist UI!"
+										+ jokeList.size());
+				break;
+			default:
+			}
+
 		}
 
 	};
@@ -49,7 +64,7 @@ public class PlayService extends Service {
 		try {
 
 			Notification notification = new Notification();
-			nm.notify(NOTIFY_ID, notification);
+			nm.notify(Consts.NOTIFY_ID, notification);
 			Log.i("playJoke:", "------------------------");
 			mp.reset();
 			mp.setDataSource(file);
@@ -57,7 +72,7 @@ public class PlayService extends Service {
 			mp.start();
 			mp.setOnCompletionListener(new OnCompletionListener() {
 				public void onCompletion(MediaPlayer arg0) {
-					Intent intent = new Intent(ACTION_STOP_PLAY);
+					Intent intent = new Intent(Consts.ACTION_STOP_PLAY);
 					sendBroadcast(intent);
 				}
 			});
@@ -78,7 +93,7 @@ public class PlayService extends Service {
 		@Override
 		public void pause() throws RemoteException {
 			Notification notification = new Notification();
-			nm.notify(NOTIFY_ID, notification);
+			nm.notify(Consts.NOTIFY_ID, notification);
 			mp.pause();
 		}
 
@@ -96,7 +111,7 @@ public class PlayService extends Service {
 
 		@Override
 		public void stop() throws RemoteException {
-			nm.cancel(NOTIFY_ID);
+			nm.cancel(Consts.NOTIFY_ID);
 			mp.stop();
 		}
 
@@ -107,18 +122,11 @@ public class PlayService extends Service {
 
 		@Override
 		public List<Joke> getJokeList() throws RemoteException {
-			Log
-					.i(
-							TAG,
-							"playservice get the jokelist from webservice and pass the jokelist to jokelist UI!"
-									+ jokeList.size());
-//			if (jokeList == null) {
-				WSEngine wsEngine = new WSEngine(handler);
-				HashMap<String, Object> parms = new HashMap<String, Object>();
-				// parms.put("listStyle", 1);
-				wsEngine.doStart("GetJokeList", parms);
-//			}
+			// if (jokeList == null) {
+			// initJokeList();
+			// }
 			return jokeList;
+
 		}
 
 		@Override
@@ -130,43 +138,33 @@ public class PlayService extends Service {
 		public void like(boolean isLike) throws RemoteException {
 			// invoke the webservice to add the like to joke;
 		}
+
+		@Override
+		public void updateJokeList() throws RemoteException {
+			Message message = handler.obtainMessage(Consts.MSG_JOKELIST_UPDATE);
+			handler.sendMessage(message);
+		}
 	};
+
+	public void initJokeList() {
+		Log.i(TAG, "init the jokelist for playservice!");
+		WSEngine wsEngine = new WSEngine(handler);
+		HashMap<String, Object> parms = new HashMap<String, Object>();
+		// parms.put("listStyle", 1);
+		wsEngine.doStart("getJokeList", parms);
+	}
 
 	public void onCreate() {
 		super.onCreate();
+		initJokeList();
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		// 生成动态数组，加入数据
-		jokeList = new ArrayList<Joke>();
-		Joke joke1 = new Joke();
-		joke1.setAuthor("邱鸿斌");
-		joke1.setId(1);
-		joke1.setLocation("http://59.77.5.42:80/jokes/real.mp3");
-		joke1.setTitle("joke1");
-		joke1.setUploadTime(new Date().toString());
-		jokeList.add(joke1);
-		Joke joke2 = new Joke();
-		joke2.setAuthor("白志斌");
-		joke2.setId(2);
-		joke2.setLocation("http://59.77.5.42:80/jokes/real.mp3");
-		joke2.setTitle("joke2");
-		joke2.setUploadTime(new Date().toString());
-		jokeList.add(joke2);
-		Joke joke3 = new Joke();
-		joke3.setAuthor("翁晓奇");
-		joke3.setId(3);
-		joke3.setLocation("http://59.77.5.42:80/jokes/real.mp3");
-		joke3.setTitle("joke3");
-		joke3.setUploadTime(new Date().toString());
-		jokeList.add(joke3);
-		Log.i(TAG, "create jokeList: " + jokeList + "; size: "
-				+ jokeList.size());
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
 		mp.stop();
 		mp.release();
-		nm.cancel(NOTIFY_ID);
+		nm.cancel(Consts.NOTIFY_ID);
 	}
 
 }
