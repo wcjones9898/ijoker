@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
@@ -14,6 +13,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Log;
 
 public class WSUtils {
+	private static final String wsdl = "http://59.77.5.181:8080/IJokerDataService/services/jokeListService?wsdl";
+	private static final String nameSpace = "http://59.77.5.181:8080/IJokerDataService/services/jokeListService";
 
 	public WSUtils() {
 	}
@@ -25,8 +26,8 @@ public class WSUtils {
 	 * @param wsdl
 	 * @return SoapObject
 	 */
-	public static SoapObject callWebService(String nameSpace,
-			String methodName, Map<String, Object> params, String wsdl) {
+	public static SoapObject callWebService(String methodName,
+			Map<String, Object> params) {
 
 		final String SOAP_ACTION = nameSpace + methodName;
 		SoapObject request = new SoapObject(nameSpace, methodName);
