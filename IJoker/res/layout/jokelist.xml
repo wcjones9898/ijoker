@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:background="@drawable/bg_list"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+ 
+  	  
+	<TextView 
+		android:text="笑话列表" 
+		android:textSize="30px"
+		android:layout_width="fill_parent" 
+		android:layout_height="50px"
+		android:gravity="center"/>
+	
+	
+	<ListView android:id="@+id/JokeList"
+		android:paddingTop="60px"
+		android:layout_width="fill_parent"
+		android:paddingLeft="20px" 
+		android:paddingRight="15px" 
+		android:layout_height="290px"/>	
+	
+	
+</RelativeLayout>

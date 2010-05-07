@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="cn.edu.xmu.software.ijoker" android:versionCode="1"
+	android:versionName="1.0">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:icon="@drawable/icon" android:label="@string/app_name"
+		android:theme="@style/blackShadow">
+		<activity android:name=".UI.Login" android:label="@string/app_name"
+			android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".UI.Loading"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.Functions"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.JokeList"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.PlayerUI"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.RecorderUI"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.About" android:screenOrientation="portrait" />
+		<service android:enabled="true" android:name=".service.PlayService"
+			android:process=":remote">
+		</service>
+		<!-- The application's publisher ID assigned by AdMob -->
+		<meta-data android:value="a14be0d9f170a4e" android:name="ADMOB_PUBLISHER_ID" />
+
+	</application>
+	<uses-sdk android:minSdkVersion="3" />
+
+</manifest> 
