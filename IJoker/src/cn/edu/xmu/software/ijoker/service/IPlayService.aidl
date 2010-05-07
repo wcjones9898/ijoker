@@ -9,4 +9,5 @@ interface IPlayService {
     void addJokeList(String location);
 	void clearJokeList();
 	List<Joke> getJokeList();
+	void updateJokeList();
 }

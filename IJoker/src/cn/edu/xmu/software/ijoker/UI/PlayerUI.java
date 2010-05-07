@@ -20,6 +20,7 @@ import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class PlayerUI extends Activity {
 
@@ -39,9 +40,10 @@ public class PlayerUI extends Activity {
 		setContentView(R.layout.player);
 		revParams();
 		find();
-		// loadValues();
-		registerReceiver(receiver, new IntentFilter(
-				PlayService.ACTION_STOP_PLAY));
+		loadValues();
+		this.bindService(new Intent(PlayerUI.this, PlayService.class),
+				serviceConnection, Context.BIND_AUTO_CREATE);
+		registerReceiver(receiver, new IntentFilter(Consts.ACTION_STOP_PLAY));
 	}
 
 	// 接收传递进来的笑话信息
@@ -57,14 +59,12 @@ public class PlayerUI extends Activity {
 			is_valid = true;
 		} else
 			is_valid = false;
-		this.bindService(new Intent(PlayerUI.this, PlayService.class),
-				serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			playService = IPlayService.Stub.asInterface((IBinder) service);
-			loadValues();
+			// loadValues();
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -106,8 +106,7 @@ public class PlayerUI extends Activity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equalsIgnoreCase(
-					PlayService.ACTION_STOP_PLAY)) {
+			if (intent.getAction().equalsIgnoreCase(Consts.ACTION_STOP_PLAY)) {
 				play_btn.setBackgroundResource(R.drawable.play);
 				play_btn.setOnClickListener(play);
 			}
@@ -163,8 +162,7 @@ public class PlayerUI extends Activity {
 
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(receiver, new IntentFilter(
-				PlayService.ACTION_STOP_PLAY));
+		registerReceiver(receiver, new IntentFilter(Consts.ACTION_STOP_PLAY));
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 	}

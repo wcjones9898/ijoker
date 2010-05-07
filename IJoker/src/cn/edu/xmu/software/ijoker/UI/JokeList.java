@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -28,28 +30,33 @@ import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class JokeList extends Activity {
-	private ListView itemlist;
+	private ListView listView;
 	private List<Joke> jokeList;
 	private IPlayService playService;
 	private int position = 0;
 	private final String TAG = JokeList.class.getName();
 
+	// private ProgressDialog progressDialog;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jokelist);
+		listView = (ListView) findViewById(R.id.JokeList);
+		registerReceiver(receiver, new IntentFilter(
+				Consts.ACTION_JOKELIST_READY));
 		this.bindService(new Intent(JokeList.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
-		itemlist = (ListView) findViewById(R.id.JokeList);
+
 	}
 
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			playService = IPlayService.Stub.asInterface((IBinder) service);
-			Log.i(TAG, "connect to playservice and update the jokelist in UI.");
-			updateJokeList();
+			Log.i(TAG, "connect to playservice.");
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -59,6 +66,8 @@ public class JokeList extends Activity {
 
 	// update the jokelist in UI.
 	public void updateJokeList() {
+		// progressDialog = ProgressDialog.show(JokeList.this, "提示",
+		// "正在获取列表，请稍候...", true);
 		List<Map<String, Object>> list = buildPlayListForSimpleAdapter();
 		// 生成适配器的Item和动态数组对应的元素
 		SimpleAdapter listItemAdapter = new SimpleAdapter(this, list,// 数据源
@@ -69,9 +78,11 @@ public class JokeList extends Activity {
 				new int[] { R.id.ItemImage, R.id.ItemTitle, R.id.ItemText });
 
 		// 添加并且显示
-		itemlist.setAdapter(listItemAdapter);
-		itemlist.setSelection(position);
-		itemlist.setOnItemClickListener(new OnItemClickListener() {
+		listView.setAdapter(listItemAdapter);
+		listView.setSelection(position);
+		// if (jokeList != null)
+		// progressDialog.dismiss();
+		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -99,7 +110,7 @@ public class JokeList extends Activity {
 		});
 
 		// 添加长按点击
-		itemlist
+		listView
 				.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
 					@Override
@@ -115,13 +126,14 @@ public class JokeList extends Activity {
 	// clear the jokelist data int playservice to get new data from
 	// webservice into playlist.
 	private List<Map<String, Object>> buildPlayListForSimpleAdapter() {
-		try {
-			// playService.clearJokeList();
-			jokeList = playService.getJokeList();
-			Log.i(TAG, "jokeList: " + jokeList + "; size: " + jokeList.size());
-		} catch (RemoteException e) {
-			Log.e(TAG, e.getMessage(), e);
-		}
+		// try {
+		// playService.clearJokeList();
+		// if (jokeList == null)
+		// jokeList = playService.getJokeList();
+		// Log.i(TAG, "jokeList: " + jokeList + "; size: " + jokeList.size());
+		// } catch (RemoteException e) {
+		// Log.e(TAG, e.getMessage(), e);
+		// }
 		if (jokeList != null) {
 			ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>(
 					jokeList.size());
@@ -147,6 +159,24 @@ public class JokeList extends Activity {
 
 	}
 
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equalsIgnoreCase(
+					Consts.ACTION_JOKELIST_READY)) {
+				try {
+					jokeList = playService.getJokeList();
+					Log.i(TAG, "get jokelist from playservice: "
+							+ jokeList.toString());
+					updateJokeList();
+				} catch (RemoteException e) {
+					Log.e(TAG, e.getMessage(), e);
+				}
+			}
+		}
+	};
+
 	// 长按菜单响应函数
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
@@ -158,10 +188,13 @@ public class JokeList extends Activity {
 		super.onResume();
 		this.bindService(new Intent(JokeList.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
+		registerReceiver(receiver, new IntentFilter(
+				Consts.ACTION_JOKELIST_READY));
 	}
 
 	protected void onDestroy() {
 		super.onDestroy();
+		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
 	}
 }
