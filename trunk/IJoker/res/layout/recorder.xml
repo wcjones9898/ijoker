@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"	android:layout_height="fill_parent" 
+	android:background="@drawable/bg_player">
+	
+	<RelativeLayout android:id="@+id/record_info" android:layout_marginTop="10px" 
+	    android:layout_marginLeft="30px" android:layout_marginRight="30px" 
+		android:gravity="center_horizontal" android:background="@drawable/recordinfo_pad"
+		android:layout_width="fill_parent"	android:layout_height="242px">
+		
+		<RelativeLayout 
+			android:layout_marginTop="20px" android:layout_marginLeft="20px"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+		
+		</RelativeLayout>
+	
+	</RelativeLayout>
+	
+	<RelativeLayout android:id="@+id/record_progress" android:layout_below="@id/record_info"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" 
+		android:gravity="center" android:layout_marginTop="10px" 
+	    android:layout_marginLeft="50px" android:layout_marginRight="50px">
+		
+		<ProgressBar android:id="@+id/record_progress" android:indeterminate="false"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="fill_parent" android:layout_height="12px"/>
+			
+		
+	</RelativeLayout>
+	
+	<RelativeLayout android:layout_below="@id/record_progress"	android:layout_marginTop="20px" 		
+		android:layout_width="fill_parent"	android:layout_height="wrap_content"
+		android:gravity="center">
+		
+		<RelativeLayout android:background="@drawable/record_pad" 
+			android:layout_width="wrap_content"	android:layout_height="wrap_content">
+			
+			
+		</RelativeLayout>
+		
+	</RelativeLayout>
+		
+		
+	
+	
+		
+
+</RelativeLayout>
