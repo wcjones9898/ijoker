@@ -11,7 +11,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -156,7 +155,7 @@ public class PlayService extends Service {
 
 	public void onCreate() {
 		super.onCreate();
-		initJokeList();
+		// initJokeList();
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	}
 

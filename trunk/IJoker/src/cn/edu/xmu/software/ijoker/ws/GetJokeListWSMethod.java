@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.entity.Joke;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class GetJokeListWSMethod extends AbstractWSMethod {
 	public GetJokeListWSMethod(String methodName, Handler handler,
@@ -53,7 +54,7 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 		Log.i(TAG, "create jokeList: " + list.toString() + "; size: "
 				+ list.size());
 		// construct the message;
-		Message message = handler.obtainMessage();
+		Message message = handler.obtainMessage(Consts.MSG_JOKELIST_READY);
 		Bundle b = new Bundle();
 		b.putParcelableArrayList("data", list);
 		message.setData(b);
