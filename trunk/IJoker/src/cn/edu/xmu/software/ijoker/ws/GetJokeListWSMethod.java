@@ -2,21 +2,26 @@ package cn.edu.xmu.software.ijoker.ws;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
-import cn.edu.xmu.software.ijoker.entity.Joke;
-import cn.edu.xmu.software.ijoker.util.WSUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.entity.Joke;
+import cn.edu.xmu.software.ijoker.util.WSUtils;
 
-public class GetJokeListMethod extends AbstractWSMethod {
+public class GetJokeListWSMethod extends AbstractWSMethod {
+	public GetJokeListWSMethod(String methodName, Handler handler,
+			HashMap<String, Object> parms) {
+		this.methodName = methodName;
+		this.handler = handler;
+		this.parms = parms;
+	}
 
 	@Override
-	public void invokeWSMethod(Handler handler, HashMap<String, Object> parms) {
+	public void invokeWSMethod() {
 		SoapObject result = WSUtils.callWebService(this.methodName, parms);
 		ArrayList<Joke> list = null;
 		if (result != null && result.getPropertyCount() > 0) {
