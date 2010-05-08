@@ -102,6 +102,7 @@ public class PlayerUI extends Activity {
 				if (playingJoke.getId() == joke.getId())
 					play_btn.setBackgroundResource(R.drawable.pause);
 				play_btn.setOnClickListener(pause);
+				play_btn.setOnTouchListener(pauseTouched);
 			}
 		} catch (RemoteException e) {
 			Log.i(TAG, e.getMessage(), e);
