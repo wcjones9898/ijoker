@@ -12,16 +12,12 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".UI.Loading"
-			android:screenOrientation="portrait" />
-		<activity android:name=".UI.Functions"
-			android:screenOrientation="portrait" />
-		<activity android:name=".UI.JokeList"
-			android:screenOrientation="portrait" />
-		<activity android:name=".UI.PlayerUI"
-			android:screenOrientation="portrait" />
-		<activity android:name=".UI.RecorderUI"
-			android:screenOrientation="portrait" />
+		<activity android:name=".UI.Loading" android:screenOrientation="portrait" />
+		<activity android:name=".UI.Register" android:screenOrientation="portrait" />
+		<activity android:name=".UI.Functions" android:screenOrientation="portrait" />
+		<activity android:name=".UI.JokeList" android:screenOrientation="portrait" />
+		<activity android:name=".UI.PlayerUI" android:screenOrientation="portrait" />
+		<activity android:name=".UI.RecorderUI"	android:screenOrientation="portrait" />
 		<activity android:name=".UI.About" android:screenOrientation="portrait" />
 		<service android:enabled="true" android:name=".service.PlayService"
 			android:process=":remote">

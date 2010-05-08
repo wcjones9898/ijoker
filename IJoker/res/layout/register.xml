@@ -10,20 +10,20 @@
 	<RelativeLayout 		
 		android:layout_width="fill_parent" 
 		android:layout_height="fill_parent"
-		android:layout_marginTop="160px"
+		android:layout_marginTop="150px"
 		android:layout_marginLeft="65px"
 		android:layout_marginRight="65px">   	
     
     	
 		<TextView  
-			android:id="@+id/usernametxt"
+			android:id="@+id/usernamelabel"
 		    android:layout_width="fill_parent" 
 		    android:layout_height="wrap_content" 	
 		    android:textColor="#ffffff"	 		    
 		    android:text="用户名"/>
 		    
 		<EditText android:id="@+id/username"
-			android:layout_below="@id/usernametxt"
+			android:layout_below="@id/usernamelabel"
 		    android:layout_width="fill_parent"
 		    android:layout_height="40px"		    
 		    android:text=""		  
@@ -35,7 +35,7 @@
 		    android:capitalize="sentences"/>
 		    
 		<TextView  
-			android:id="@+id/passwordtxt"
+			android:id="@+id/passwordlabel"
 			android:layout_below="@id/username"
 		    android:layout_width="fill_parent" 
 		    android:layout_height="wrap_content" 		    
@@ -44,48 +44,45 @@
 		    android:textSize="14sp"/>
 		    
 		<EditText android:id="@+id/password"
-			android:layout_below="@id/passwordtxt"
+			android:layout_below="@id/passwordlabel"
 		    android:layout_width="fill_parent"
 		    android:layout_height="40px"		    
 		    android:text=""	
 		    android:password="true" 
 		    android:autoText="false"
-		    android:capitalize="sentences"/>	 
-	
-	
-		<CheckBox android:id="@+id/rempw_cbx" 	
+		    android:capitalize="sentences"/>
+		<TextView  
+			android:id="@+id/repeatPasswordlabel"
 			android:layout_below="@id/password"
-			android:text="记住密码" 			
-			android:textSize="13sp"	
-			android:layout_width="wrap_content" 	
-			android:layout_height="wrap_content"/>
-			
-		
-		<CheckBox android:id="@+id/autologin_cbx" 	 
-			android:text="自动登录" 
-			android:layout_below="@id/password"
-			android:layout_toRightOf="@id/rempw_cbx"	
-			android:textSize="13sp"	
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 		    
+		    android:text="再次输入密码"
+		    android:textColor="#ffffffff"
+		    android:textSize="14sp"/>
+		    
+		<EditText android:id="@+id/repeatPassword"
+			android:layout_below="@id/repeatPasswordlabel"
+		    android:layout_width="fill_parent"
+		    android:layout_height="40px"		    
+		    android:text=""	
+		    android:password="true" 
+		    android:autoText="false"
+		    android:capitalize="sentences"/>
 	
-		<Button android:id="@+id/login_btn" 
-			android:layout_below="@id/rempw_cbx"
-			android:layout_width="90px" 				
-			android:text="登录" 
-			android:textSize="18px"	
-			android:shadowRadius="0"	
-			android:layout_height="wrap_content"/>
+		<RelativeLayout 
+			android:layout_below="@id/repeatPassword"
+			android:gravity="center"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content">
 		
-		<Button android:id="@+id/register_btn" 
-			android:layout_below="@id/rempw_cbx"
-			android:layout_toRightOf="@id/login_btn"
-			android:layout_width="90px" 				
-			android:text="注册" 
-			android:textSize="18px"	
-			android:shadowRadius="0"	
-			android:textColorHighlight="#666666"
-			android:layout_height="wrap_content"/>
+			<Button android:id="@+id/register_btn" 			
+				android:layout_width="100px" 				
+				android:text="注册" 
+				android:textSize="18px"	
+				android:shadowRadius="0"	
+				android:textColorHighlight="#666666"
+				android:layout_height="wrap_content"/>
+		</RelativeLayout>
 	
 
 </RelativeLayout>
