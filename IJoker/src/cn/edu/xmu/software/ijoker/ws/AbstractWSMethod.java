@@ -10,5 +10,12 @@ public abstract class AbstractWSMethod {
 	protected HashMap<String, Object> parms;
 	protected final String TAG = AbstractWSMethod.class.getName();
 
+	public AbstractWSMethod(String methodName, Handler handler,
+			HashMap<String, Object> parms) {
+		this.methodName = methodName;
+		this.handler = handler;
+		this.parms = parms;
+	}
+
 	public abstract void invokeWSMethod();
 }

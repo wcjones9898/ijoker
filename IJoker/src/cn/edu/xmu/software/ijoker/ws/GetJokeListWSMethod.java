@@ -14,9 +14,7 @@ import cn.edu.xmu.software.ijoker.util.Consts;
 public class GetJokeListWSMethod extends AbstractWSMethod {
 	public GetJokeListWSMethod(String methodName, Handler handler,
 			HashMap<String, Object> parms) {
-		this.methodName = methodName;
-		this.handler = handler;
-		this.parms = parms;
+		super(methodName, handler, parms);
 	}
 
 	@Override
@@ -58,6 +56,12 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 		Log.i(TAG, "create jokeList: " + list.toString() + "; size: "
 				+ list.size());
 		// construct the message;
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Message message = handler.obtainMessage(Consts.MSG_JOKELIST_READY);
 		Bundle b = new Bundle();
 		b.putParcelableArrayList("data", list);
