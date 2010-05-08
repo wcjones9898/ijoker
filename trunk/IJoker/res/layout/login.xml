@@ -71,7 +71,7 @@
 	
 		<Button android:id="@+id/login_btn" 
 			android:layout_below="@id/rempw_cbx"
-			android:layout_width="90px" 				
+			android:layout_width="95px" 				
 			android:text="登录" 
 			android:textSize="18px"	
 			android:shadowRadius="0"	
@@ -80,7 +80,7 @@
 		<Button android:id="@+id/register_btn" 
 			android:layout_below="@id/rempw_cbx"
 			android:layout_toRightOf="@id/login_btn"
-			android:layout_width="90px" 				
+			android:layout_width="95px" 				
 			android:text="注册" 
 			android:textSize="18px"	
 			android:shadowRadius="0"	

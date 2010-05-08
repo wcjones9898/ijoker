@@ -18,6 +18,7 @@
 		<activity android:name=".UI.JokeList" android:screenOrientation="portrait" />
 		<activity android:name=".UI.PlayerUI" android:screenOrientation="portrait" />
 		<activity android:name=".UI.RecorderUI"	android:screenOrientation="portrait" />
+		<activity android:name=".UI.Search"	android:screenOrientation="portrait" />
 		<activity android:name=".UI.About" android:screenOrientation="portrait" />
 		<service android:enabled="true" android:name=".service.PlayService"
 			android:process=":remote">
