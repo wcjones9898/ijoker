@@ -10,4 +10,6 @@ interface IPlayService {
 	void clearJokeList();
 	List<Joke> getJokeList();
 	void updateJokeList();
+	 boolean isPlaying();
+	 Joke getJokePlaying();
 }

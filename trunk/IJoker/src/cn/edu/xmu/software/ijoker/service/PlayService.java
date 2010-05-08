@@ -24,6 +24,7 @@ public class PlayService extends Service {
 	public final String TAG = PlayService.class.getName();
 	private MediaPlayer mp = new MediaPlayer();
 	private ArrayList<Joke> jokeList;
+	private int playingPosition = -1;
 	private int currentPosition;
 	private NotificationManager nm;
 
@@ -59,22 +60,28 @@ public class PlayService extends Service {
 	}
 
 	private void playJoke(String file) {
-		Log.i("playJoke:", file);
 		try {
 
 			Notification notification = new Notification();
 			nm.notify(Consts.NOTIFY_ID, notification);
-			Log.i("playJoke:", "------------------------");
-			mp.reset();
-			mp.setDataSource(file);
-			mp.prepare();
-			mp.start();
-			mp.setOnCompletionListener(new OnCompletionListener() {
-				public void onCompletion(MediaPlayer arg0) {
-					Intent intent = new Intent(Consts.ACTION_STOP_PLAY);
-					sendBroadcast(intent);
-				}
-			});
+			if (playingPosition == currentPosition) {
+				mp.start();
+				Log.i(TAG, "media player go on play the joke!");
+			} else {
+				Log.i("play a new joke: ", file);
+				mp.reset();
+				mp.setDataSource(file);
+
+				playingPosition = currentPosition;
+				mp.prepare();
+				mp.start();
+				mp.setOnCompletionListener(new OnCompletionListener() {
+					public void onCompletion(MediaPlayer arg0) {
+						Intent intent = new Intent(Consts.ACTION_STOP_PLAY);
+						sendBroadcast(intent);
+					}
+				});
+			}
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage(), e);
 		}
@@ -142,6 +149,17 @@ public class PlayService extends Service {
 		public void updateJokeList() throws RemoteException {
 			Message message = handler.obtainMessage(Consts.MSG_JOKELIST_UPDATE);
 			handler.sendMessage(message);
+		}
+
+		@Override
+		public Joke getJokePlaying() throws RemoteException {
+			return jokeList.get(playingPosition);
+		}
+
+		@Override
+		public boolean isPlaying() throws RemoteException {
+			Log.i(TAG, "the mediaplayer playing status: " + mp.isPlaying());
+			return mp.isPlaying();
 		}
 	};
 
