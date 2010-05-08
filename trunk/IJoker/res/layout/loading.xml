@@ -16,35 +16,38 @@
 		android:gravity="center">   	
 	
 		
-		<ImageView 
-			android:id="@+id/star"
-			android:src="@drawable/star"			
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"/>
-		
-		<TextView 
-			android:id="@+id/loging"
-			android:layout_toRightOf="@id/star"	
-			android:layout_marginTop="10px"		
-			android:text="正在登录中..." 			
-			android:layout_width="wrap_content" 						
-			android:layout_height="wrap_content"/>
+		<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:gravity="center" android:id="@+id/loging">
+			<ImageView 
+				android:id="@+id/star"
+				android:src="@drawable/star"			
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>			
+			<TextView 				
+				android:layout_toRightOf="@id/star"	
+				android:layout_marginTop="10px"		
+				android:text="正在登录中..." 			
+				android:layout_width="wrap_content" 						
+				android:layout_height="wrap_content"/>
+		</RelativeLayout>
 		
 		<ProgressBar 
 			android:id="@+id/loadingprogress"
-			android:layout_below="@id/loging"
-			android:layout_marginTop="20px"	
+			android:layout_below="@id/loging"			
 			android:indeterminate="false"
 			style="?android:attr/progressBarStyleHorizontal"
-			android:layout_width="180px" 
+			android:layout_width="fill_parent" 
 			android:layout_height="15px"/>
-					
-		<TextView 
-			android:layout_below="@id/loadingprogress"	
-			android:layout_marginTop="20px"	
-			android:text="找寻每一天的精彩" 
-			android:layout_width="wrap_content" 						
-			android:layout_height="wrap_content"/>			
+		
+		<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:gravity="center" android:layout_below="@id/loadingprogress"	>			
+			
+			<TextView 				
+				android:layout_marginTop="20px"	
+				android:text="找寻每一天的精彩" 
+				android:layout_width="wrap_content" 						
+				android:layout_height="wrap_content"/>	
+		</RelativeLayout>	
 			
 	</RelativeLayout>
 	</RelativeLayout>
