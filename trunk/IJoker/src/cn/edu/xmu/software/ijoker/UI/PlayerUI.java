@@ -41,7 +41,7 @@ public class PlayerUI extends Activity {
 		setContentView(R.layout.player);
 		revParams();
 		find();
-		loadValues();
+		// loadValues();
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 		registerReceiver(receiver, new IntentFilter(Consts.ACTION_STOP_PLAY));
@@ -65,7 +65,7 @@ public class PlayerUI extends Activity {
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			playService = IPlayService.Stub.asInterface((IBinder) service);
-			// loadValues();
+			loadValues();
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -80,14 +80,12 @@ public class PlayerUI extends Activity {
 		uploadTime_txt = (TextView) findViewById(R.id.uploadtime_txt);
 		title_txt = (TextView) findViewById(R.id.title_txt);
 		pre_btn = (ImageButton) findViewById(R.id.pre_btn);
-		play_btn = (ImageButton) findViewById(R.id.play_btn);		
+		play_btn = (ImageButton) findViewById(R.id.play_btn);
 		next_btn = (ImageButton) findViewById(R.id.next_btn);
-
 		pre_btn.setOnClickListener(like);
 		play_btn.setOnClickListener(play);
 		play_btn.setOnTouchListener(playTouched);
 		next_btn.setOnClickListener(dislike);
-		
 
 		progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 	}
@@ -98,7 +96,16 @@ public class PlayerUI extends Activity {
 		uploadTime_txt.setText("上传时间: " + joke.getUploadTime().toString());
 		level_img.setBackgroundResource(R.drawable.star3);
 		title_txt.setText(joke.getTitle());
-
+		try {
+			if (playService.isPlaying()) {
+				Joke playingJoke = playService.getJokePlaying();
+				if (playingJoke.getId() == joke.getId())
+					play_btn.setBackgroundResource(R.drawable.pause);
+				play_btn.setOnClickListener(pause);
+			}
+		} catch (RemoteException e) {
+			Log.i(TAG, e.getMessage(), e);
+		}
 		progress_bar.setMax(100);
 		progress_bar.setProgress(30);
 		progress_bar.setSecondaryProgress(70);
@@ -126,7 +133,7 @@ public class PlayerUI extends Activity {
 			}
 		}
 	};
-	
+
 	private ImageButton.OnClickListener dislike = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -145,12 +152,12 @@ public class PlayerUI extends Activity {
 				playService.play();
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
-			}			
+			}
 			play_btn.setOnClickListener(pause);
 			play_btn.setOnTouchListener(pauseTouched);
 		}
 	};
-	
+
 	private ImageButton.OnClickListener pause = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -158,13 +165,11 @@ public class PlayerUI extends Activity {
 				playService.pause();
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
-			}			
+			}
 			play_btn.setOnClickListener(play);
 			play_btn.setOnTouchListener(playTouched);
 		}
-	};	
-	
-	
+	};
 
 	protected void onResume() {
 		super.onResume();
@@ -178,35 +183,35 @@ public class PlayerUI extends Activity {
 		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
 	}
-	
-	//点击效果
+
+	// 点击效果
 	private ImageButton.OnTouchListener playTouched = new ImageButton.OnTouchListener() {
-		
+
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {			   
-			   case MotionEvent.ACTION_DOWN:
-				   play_btn.setBackgroundResource(R.drawable.play_touched);				   
-				   break;
-			   case MotionEvent.ACTION_UP:
-				   play_btn.setBackgroundResource(R.drawable.pause);
-				   break;			  
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				play_btn.setBackgroundResource(R.drawable.play_touched);
+				break;
+			case MotionEvent.ACTION_UP:
+				play_btn.setBackgroundResource(R.drawable.pause);
+				break;
 			}
 			return false;
 		}
 	};
-	
+
 	private ImageButton.OnTouchListener pauseTouched = new ImageButton.OnTouchListener() {
-		
+
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {			   
-			   case MotionEvent.ACTION_DOWN:
-				   play_btn.setBackgroundResource(R.drawable.pause_touched);				   
-				   break;
-			   case MotionEvent.ACTION_UP:
-				   play_btn.setBackgroundResource(R.drawable.play);	
-				   break;			  
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				play_btn.setBackgroundResource(R.drawable.pause_touched);
+				break;
+			case MotionEvent.ACTION_UP:
+				play_btn.setBackgroundResource(R.drawable.play);
+				break;
 			}
 			return false;
 		}
