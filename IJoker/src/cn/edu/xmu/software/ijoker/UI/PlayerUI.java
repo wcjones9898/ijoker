@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -79,12 +80,14 @@ public class PlayerUI extends Activity {
 		uploadTime_txt = (TextView) findViewById(R.id.uploadtime_txt);
 		title_txt = (TextView) findViewById(R.id.title_txt);
 		pre_btn = (ImageButton) findViewById(R.id.pre_btn);
-		play_btn = (ImageButton) findViewById(R.id.play_btn);
+		play_btn = (ImageButton) findViewById(R.id.play_btn);		
 		next_btn = (ImageButton) findViewById(R.id.next_btn);
 
 		pre_btn.setOnClickListener(like);
 		play_btn.setOnClickListener(play);
+		play_btn.setOnTouchListener(playTouched);
 		next_btn.setOnClickListener(dislike);
+		
 
 		progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 	}
@@ -109,6 +112,7 @@ public class PlayerUI extends Activity {
 			if (intent.getAction().equalsIgnoreCase(Consts.ACTION_STOP_PLAY)) {
 				play_btn.setBackgroundResource(R.drawable.play);
 				play_btn.setOnClickListener(play);
+				play_btn.setOnTouchListener(playTouched);
 			}
 		}
 	};
@@ -122,33 +126,7 @@ public class PlayerUI extends Activity {
 			}
 		}
 	};
-
-	private ImageButton.OnClickListener play = new ImageButton.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			try {
-				playService.play();
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
-			play_btn.setBackgroundResource(R.drawable.suspend);
-			play_btn.setOnClickListener(pause);
-		}
-	};
-
-	private ImageButton.OnClickListener pause = new ImageButton.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			try {
-				playService.pause();
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
-			play_btn.setBackgroundResource(R.drawable.play);
-			play_btn.setOnClickListener(play);
-		}
-	};
-
+	
 	private ImageButton.OnClickListener dislike = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -159,6 +137,34 @@ public class PlayerUI extends Activity {
 			}
 		}
 	};
+
+	private ImageButton.OnClickListener play = new ImageButton.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			try {
+				playService.play();
+			} catch (RemoteException e) {
+				Log.e(TAG, e.getMessage(), e);
+			}			
+			play_btn.setOnClickListener(pause);
+			play_btn.setOnTouchListener(pauseTouched);
+		}
+	};
+	
+	private ImageButton.OnClickListener pause = new ImageButton.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			try {
+				playService.pause();
+			} catch (RemoteException e) {
+				Log.e(TAG, e.getMessage(), e);
+			}			
+			play_btn.setOnClickListener(play);
+			play_btn.setOnTouchListener(playTouched);
+		}
+	};	
+	
+	
 
 	protected void onResume() {
 		super.onResume();
@@ -172,4 +178,38 @@ public class PlayerUI extends Activity {
 		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
 	}
+	
+	//点击效果
+	private ImageButton.OnTouchListener playTouched = new ImageButton.OnTouchListener() {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch (event.getAction()) {			   
+			   case MotionEvent.ACTION_DOWN:
+				   play_btn.setBackgroundResource(R.drawable.play_touched);				   
+				   break;
+			   case MotionEvent.ACTION_UP:
+				   play_btn.setBackgroundResource(R.drawable.pause);
+				   break;			  
+			}
+			return false;
+		}
+	};
+	
+	private ImageButton.OnTouchListener pauseTouched = new ImageButton.OnTouchListener() {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch (event.getAction()) {			   
+			   case MotionEvent.ACTION_DOWN:
+				   play_btn.setBackgroundResource(R.drawable.pause_touched);				   
+				   break;
+			   case MotionEvent.ACTION_UP:
+				   play_btn.setBackgroundResource(R.drawable.play);	
+				   break;			  
+			}
+			return false;
+		}
+	};
+
 }

@@ -10,7 +10,7 @@
 			
 			<TextView android:id="@+id/Funcs_text" 						
 				android:text="听笑话"
-				android:textSize="22px"
+				android:textSize="32px"
 				android:textColor="#FFFFFF"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
@@ -22,16 +22,16 @@
 			android:layout_width="fill_parent" 	android:layout_height="130px">
 			
 			<ImageButton android:id="@+id/Funcs_button"	
-			    android:background="@drawable/icon_laugh"				    	    
-				android:layout_width="78px"
-				android:layout_height="78px"
-				android:layout_marginLeft="68px"/>	
+			    android:background="@drawable/icon_listen"				    	    
+				android:layout_width="76px"
+				android:layout_height="77px"
+				android:layout_marginLeft="80px"/>	
 	
 			<ImageButton android:id="@+id/LeftFunc_button" 			
 				android:src="@drawable/button_left"
 				android:background="@drawable/button_left"
 				android:layout_toLeftOf="@id/Funcs_button"
-				android:layout_marginTop="10px"
+				
 				android:layout_marginRight="30px"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
@@ -40,7 +40,7 @@
 				android:src="@drawable/button_right"
 				android:background="@drawable/button_right"
 				android:layout_toRightOf="@id/Funcs_button" 
-				android:layout_marginTop="10px"
+				
 				android:layout_marginLeft="30px"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
