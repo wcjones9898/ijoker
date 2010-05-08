@@ -6,11 +6,14 @@ import android.os.Handler;
 
 public class CallWSMethodFactory {
 	public static AbstractWSMethod CreateWSMethod(String methodName,
-			Handler handler, HashMap<String, Object> parms) {
+			Handler handler, HashMap<String, Object> parms)
+			throws ClassNotFoundException {
 		if (methodName.equalsIgnoreCase("getJokeList"))
 
 			return new GetJokeListWSMethod(methodName, handler, parms);
+		else if (methodName.equalsIgnoreCase("authenticate"))
+			return new AuthenticateWSMethod(methodName, handler, parms);
 		else
-			return null;
+			throw new ClassNotFoundException("no class named as " + methodName);
 	}
 }
