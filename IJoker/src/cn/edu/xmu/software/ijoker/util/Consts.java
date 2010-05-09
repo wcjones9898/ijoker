@@ -10,8 +10,8 @@ public class Consts {
 	public static final String METHODNAME_GETJOKELIST = "getJokeList";
 	public static final String METHODNAME_AUTHORIZATION = "authorization";
 	public static final String USER_NOTEXIST = "user not exist!";
-	public static final String BASE_URL = "http://59.77.5.181:8080/";
-	public static final String SERVICE_BASE_URL = "http://59.77.5.181:8080/ijoker-server/services/";
+	public static final String BASE_URL = "http://59.77.5.42:8080/";
+	public static final String SERVICE_BASE_URL = "http://59.77.5.42:8080/ijoker-server/services/";
 	public static final int MSG_JOKELIST_UPDATE = 0x1;
 	public static final int MSG_JOKELIST_READY = 0x2;
 	public static final int MSG_LOGIN_REQEST = 0x3;
