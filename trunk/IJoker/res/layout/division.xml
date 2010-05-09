@@ -24,7 +24,6 @@
 				<TextView android:layout_toRightOf="@id/star"
 					android:layout_marginTop="10px" 
 					android:text="找笑话"
-					android:textSize="22px"
 					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content" />
 			</RelativeLayout>
@@ -38,10 +37,9 @@
 				android:layout_height="wrap_content" android:gravity="center"
 				android:layout_below="@id/searchKeyword_txt">
 				
-				<Button android:id="@+id/search_btn"
-					android:text="查找"
-					android:shadowRadius="0"
-					android:layout_width="100px" 
+				<Button android:id="@+id/search"
+					android:text="查询"
+					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content"/>
 					
 			</RelativeLayout>

@@ -11,12 +11,12 @@ import cn.edu.xmu.software.ijoker.R;
 
 public class Functions extends Activity {
 
-	private String funcNames[] = { "听笑话", "讲笑话", "搜索" , "关于'笑客'" };
+	private String funcNames[] = { "听笑话", "讲笑话", "找笑话" , "关于'笑客'" };
 	private int funcImages[] = { R.drawable.icon_listen, R.drawable.icon_record, R.drawable.icon_search,R.drawable.icon_about };
 	private int funcIndex;
 	private int funcNum;
 	private TextView funcs_text;
-	private ImageButton funcs_img,leftfunc_btn,rightfunc_btn;
+	private ImageButton funcs_btn,leftfunc_btn,rightfunc_btn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,14 +26,13 @@ public class Functions extends Activity {
 		funcNum = 4;
 
 		funcs_text = (TextView) findViewById(R.id.Funcs_text);
-		funcs_img = (ImageButton) findViewById(R.id.Funcs_button);
-		funcs_img.setOnClickListener(enterFunc);
+		funcs_btn = (ImageButton) findViewById(R.id.Funcs_button);
+		funcs_btn.setOnClickListener(enterFunc);
+		
 		leftfunc_btn = (ImageButton) findViewById(R.id.LeftFunc_button);
 		rightfunc_btn = (ImageButton) findViewById(R.id.RightFunc_button);
-		leftfunc_btn.setOnClickListener(leftFunc);
-		leftfunc_btn.setOnTouchListener(leftFuncTouched);
+		leftfunc_btn.setOnClickListener(leftFunc);		
 		rightfunc_btn.setOnClickListener(rightFunc);
-		rightfunc_btn.setOnTouchListener(rightFuncTouched);
 
 	}
 
@@ -45,26 +44,10 @@ public class Functions extends Activity {
 			if (funcIndex < 0)
 				funcIndex = funcNum - 1;
 			funcs_text.setText(funcNames[funcIndex]);
-			funcs_img.setBackgroundResource(funcImages[funcIndex]);			
+			funcs_btn.setBackgroundResource(funcImages[funcIndex]);			
 		}
-	};
+	};	
 	
-	private ImageButton.OnTouchListener leftFuncTouched = new ImageButton.OnTouchListener() {
-		
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {
-			   
-			   case MotionEvent.ACTION_DOWN:
-				   leftfunc_btn.setImageResource(R.drawable.button_left_touched);				   
-				   break;			   
-			   case MotionEvent.ACTION_UP:				   
-				   leftfunc_btn.setImageResource(R.drawable.button_left);
-				   break;			   
-			}
-			return false;
-		}
-	};
 
 	private ImageButton.OnClickListener rightFunc = new ImageButton.OnClickListener() {
 		@Override
@@ -73,25 +56,10 @@ public class Functions extends Activity {
 			if (funcIndex == funcNum)
 				funcIndex = 0;
 			funcs_text.setText(funcNames[funcIndex]);
-			funcs_img.setBackgroundResource(funcImages[funcIndex]);
+			funcs_btn.setBackgroundResource(funcImages[funcIndex]);
 		}
 	};
 	
-	private ImageButton.OnTouchListener rightFuncTouched = new ImageButton.OnTouchListener() {
-		
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {			   
-			   case MotionEvent.ACTION_DOWN:
-				   rightfunc_btn.setImageResource(R.drawable.button_right_touched);				   
-				   break;
-			   case MotionEvent.ACTION_UP:
-				   rightfunc_btn.setImageResource(R.drawable.button_right);
-				   break;			  
-			}
-			return false;
-		}
-	};
 
 	private ImageButton.OnClickListener enterFunc = new ImageButton.OnClickListener() {
 		@Override
