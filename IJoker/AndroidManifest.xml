@@ -18,6 +18,8 @@
 			android:screenOrientation="portrait" />
 		<activity android:name=".UI.Functions"
 			android:screenOrientation="portrait" />
+		<activity android:name=".UI.JokeDivision"
+			android:screenOrientation="portrait" />
 		<activity android:name=".UI.JokeList"
 			android:screenOrientation="portrait" />
 		<activity android:name=".UI.PlayerUI"
