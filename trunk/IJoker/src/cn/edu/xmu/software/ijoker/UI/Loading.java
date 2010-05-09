@@ -2,6 +2,8 @@ package cn.edu.xmu.software.ijoker.UI;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,7 @@ import android.widget.ProgressBar;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.service.LoginService;
 import cn.edu.xmu.software.ijoker.util.Consts;
+import cn.edu.xmu.software.ijoker.util.PreferencesUtil;
 
 public class Loading extends Activity {
 	private static final String TAG = Loading.class.getName();
@@ -28,15 +31,24 @@ public class Loading extends Activity {
 				Message message = new Message();
 				message.what = Consts.GUI_STOP_NOTIFIER;
 				handler.sendMessage(message);
+				String session = "";
 				if (msg.arg1 == Consts.FLAG_LOGIN_SUCCESS) {
 					Log.i(TAG, "login success! now step into functions UI");
+					session = PreferencesUtil.session;
 					callFunctionsUI();
 				} else {
 					Log
 							.i(TAG,
 									"can not login,check the imformation and login again!");
+					session = "";
 					callLoginUI(msg.arg2);
 				}
+				SharedPreferences settings = getSharedPreferences(
+						PreferencesUtil.preferencesSetting, 0);
+				Editor editer = settings.edit();
+				editer.putString(PreferencesUtil.session, session);
+				Log.i(TAG, "save data to preferences with session: " + session);
+				editer.commit();
 				break;
 			case Consts.GUI_STOP_NOTIFIER:
 				isLoading = false;
@@ -79,6 +91,7 @@ public class Loading extends Activity {
 		intent.setClass(Loading.this, Login.class);
 		intent.putExtra("errorCode", errorCode);
 		startActivity(intent);
+		finish();
 	}
 
 	private void updateProgressBar() {
