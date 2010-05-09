@@ -68,7 +68,7 @@ public class Functions extends Activity {
 
 			switch (funcIndex) {
 			case 0:
-				intent.setClass(Functions.this, JokeList.class);
+				intent.setClass(Functions.this, JokeDivision.class);
 				break;
 			case 1:
 				intent.setClass(Functions.this, RecorderUI.class);

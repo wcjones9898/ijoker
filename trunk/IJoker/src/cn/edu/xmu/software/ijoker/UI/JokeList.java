@@ -81,9 +81,9 @@ public class JokeList extends Activity {
 		SimpleAdapter listItemAdapter = new SimpleAdapter(this, list,// 数据源
 				R.layout.jokelist_style,// ListItem的XML实现
 				// 动态数组与ImageItem对应的子项
-				new String[] { "ItemImage", "ItemTitle", "ItemText" },
+				new String[] { "likeNum", "jokeTitle", "joker", "uploadTime" },
 				// ImageItem的XML文件里面的一个ImageView,两个TextView ID
-				new int[] { R.id.ItemImage, R.id.ItemTitle, R.id.ItemText });
+				new int[] { R.id.likeNum, R.id.jokeTitle, R.id.joker, R.id.uploadTime });
 
 		// 添加并且显示
 		listView.setAdapter(listItemAdapter);
@@ -153,11 +153,10 @@ public class JokeList extends Activity {
 				// e.printStackTrace();
 				// }
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				map
-						.put("ItemImage",
-								android.R.drawable.checkbox_off_background);// 图像资源的ID
-				map.put("ItemTitle", joke.getTitle());
-				map.put("ItemText", joke.getAuthor());
+				map.put("likeNum", joke.getLike());// 图像资源的ID
+				map.put("jokeTitle", joke.getTitle());
+				map.put("joker", joke.getAuthor());
+				map.put("uploadTime", "（"+joke.getUploadTime()+"）");
 				list.add(map);
 			}
 			return list;
