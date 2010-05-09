@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"	android:layout_height="fill_parent" 
-	android:background="@drawable/bg_player">
+	android:background="@drawable/bg_player" >
 	
 	<RelativeLayout android:id="@+id/record_info" android:layout_marginTop="10px" 
 	    android:layout_marginLeft="30px" android:layout_marginRight="30px" 
@@ -10,14 +10,41 @@
 		
 		<RelativeLayout 
 			android:layout_marginTop="20px" android:layout_marginLeft="20px"
+			android:layout_marginRight="20px"
 			android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-		
-		</RelativeLayout>
-	
+			
+			<TextView android:text="笑话标题（30字以内）" 
+				android:id="@+id/jokeTitleLabel" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" />
+				
+			<EditText android:id="@+id/jokeTitle_txt" 
+				android:text="" 				
+				android:maxLines="3"
+				android:lines="3"
+				android:layout_below="@+id/jokeTitleLabel"
+				android:layout_width="fill_parent"  			
+				android:layout_height="wrap_content"/>
+				
+			<TextView android:text="关键字（3-5个，用空格隔开，帮助更好找到笑话）"
+				android:layout_below="@+id/jokeTitle_txt" 			
+				android:id="@+id/keywordLabel" 
+				android:maxLines="1"
+				android:lines="1"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+				
+			<EditText android:id="@+id/keyword_txt"  
+				android:text="" 
+				android:layout_below="@+id/keywordLabel" 			
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"/>
+				
+		</RelativeLayout>	
 	</RelativeLayout>
 	
-	<RelativeLayout android:id="@+id/record_progress" android:layout_below="@id/record_info"
+	<RelativeLayout android:id="@+id/progress_pad" android:layout_below="@id/record_info"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" 
 		android:gravity="center" android:layout_marginTop="10px" 
 	    android:layout_marginLeft="50px" android:layout_marginRight="50px">
@@ -29,21 +56,48 @@
 		
 	</RelativeLayout>
 	
-	<RelativeLayout android:layout_below="@id/record_progress"	android:layout_marginTop="20px" 		
+	<RelativeLayout android:id="@+id/record_pad"
+		android:layout_below="@id/progress_pad"	android:layout_marginTop="20px" 		
 		android:layout_width="fill_parent"	android:layout_height="wrap_content"
 		android:gravity="center">
 		
-		<RelativeLayout android:background="@drawable/record_pad" 
+		<RelativeLayout android:background="@drawable/record_pad" android:gravity="center"
 			android:layout_width="wrap_content"	android:layout_height="wrap_content">
 			
 			
+			<Button android:id="@+id/listen_btn"  
+				android:text="试听" 
+				android:shadowRadius="0"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+				
+			<Button android:id="@+id/record_btn" 
+				android:text="录制"
+				android:shadowRadius="0"
+				android:layout_toRightOf="@id/listen_btn" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+				
+			<Button android:id="@+id/clear_btn" 
+				android:text="清除"
+				android:shadowRadius="0"
+				android:layout_toRightOf="@id/record_btn"
+				android:layout_width="wrap_content"  
+				android:layout_height="wrap_content"/>
 		</RelativeLayout>
-		
 	</RelativeLayout>
-		
-		
 	
+	<RelativeLayout android:layout_below="@id/record_pad"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" 
+		android:gravity="center" android:layout_marginTop="5px"
+	    android:layout_marginLeft="50px" android:layout_marginRight="50px">
 	
+		<Button android:id="@+id/upload_btn" 		 
+			android:text="上传" 
+			android:shadowRadius="0"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"/>
+	</RelativeLayout>
 		
 
 </RelativeLayout>

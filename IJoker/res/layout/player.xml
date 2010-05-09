@@ -60,36 +60,41 @@
 		
 	</RelativeLayout>
 	
-	<AbsoluteLayout android:layout_marginTop="300px"
+	<LinearLayout android:layout_marginTop="300px"
 		android:layout_marginLeft="30px" android:layout_marginRight="30px" 
 		android:background="@drawable/play_pad" android:gravity="center_horizontal"
 		android:layout_width="fill_parent"	android:layout_height="103px">
 		
-		<ImageButton 
-			android:id="@+id/pre_btn"
-			android:background="@drawable/pre"
-			android:layout_width="48px"	
-			android:layout_height="48px" 				
-			android:layout_y="28px"
-			android:layout_x="20px" />
+		<LinearLayout android:layout_height="fill_parent"
+			android:layout_width="70px" android:gravity="center">
 			
-		<ImageButton 
-			android:id="@+id/play_btn"
-			android:background="@drawable/play"
-			android:layout_width="wrap_content"	
-			android:layout_height="wrap_content" 
-			android:layout_y="5px"
-			android:layout_x="82px"/>
+			<ImageButton 
+				android:id="@+id/like_btn"
+				android:background="@xml/like"
+				android:layout_width="wrap_content"	
+				android:layout_height="wrap_content"/>
+		</LinearLayout>
+		
+		<LinearLayout android:layout_height="fill_parent"
+			android:layout_width="100px" android:gravity="center">	
 			
-		<ImageButton 
-			android:id="@+id/next_btn"
-			android:background="@drawable/next"
-			android:layout_width="48px"	
-			android:layout_height="48px"			 
-			android:layout_y="28px"
-			android:layout_x="190px"/>
+			<ImageButton 
+				android:id="@+id/play_btn"
+				android:background="@drawable/play"
+				android:layout_width="wrap_content"	
+				android:layout_height="wrap_content"/>
+		</LinearLayout>	
+		
+		<LinearLayout android:layout_height="fill_parent"
+			android:layout_width="70px" android:gravity="center">
+			<ImageButton 
+				android:id="@+id/dislike_btn"
+				android:background="@xml/dislike"
+				android:layout_width="wrap_content"	
+				android:layout_height="wrap_content"/>
+		</LinearLayout>
 	
-	</AbsoluteLayout>
+	</LinearLayout>
 		
 
 </RelativeLayout>
