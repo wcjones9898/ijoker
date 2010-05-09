@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.ProgressBar;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.service.LoginService;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -15,12 +16,18 @@ public class Loading extends Activity {
 	private String username;
 	private String password;
 	private LoginService loginService;
+	private ProgressBar progressBar;
+	private int intCounter = 0;
+	private boolean isLoading = true;
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case Consts.MSG_LOGIN_READY:
+				Message message = new Message();
+				message.what = Consts.GUI_STOP_NOTIFIER;
+				handler.sendMessage(message);
 				if (msg.arg1 == 0) {
 					Log.i(TAG, "login success! now step into functions UI");
 					callFunctionsUI();
@@ -31,6 +38,8 @@ public class Loading extends Activity {
 					callLoginUI();
 				}
 				break;
+			case Consts.GUI_STOP_NOTIFIER:
+				isLoading = false;
 			default:
 			}
 		}
@@ -41,6 +50,12 @@ public class Loading extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loading);
+		progressBar = (ProgressBar) findViewById(R.id.loadingprogress);
+		progressBar.setIndeterminate(false);
+		progressBar.setMax(100);
+		progressBar.setProgress(0);
+		// progressBar.setAnimation()
+		updateProgressBar();
 		Intent intent = getIntent();
 		Bundle bundle = intent.getBundleExtra("android.intent.extra.userInfo");
 		username = bundle.getString("username");
@@ -63,19 +78,18 @@ public class Loading extends Activity {
 		intent.setClass(Loading.this, Login.class);
 		startActivity(intent);
 	}
+
+	private void updateProgressBar() {
+		intCounter = (5 + intCounter) % 100;
+		progressBar.setProgress(intCounter);
+		Log.i(TAG, "set progress: " + intCounter);
+		if (isLoading) {
+			Runnable notification = new Runnable() {
+				public void run() {
+					updateProgressBar();
+				}
+			};
+			handler.postDelayed(notification, 200);
+		}
+	}
 }
-// class Loader extends Thread {
-//
-// @Override
-// public void run() {
-// // TODO Auto-generated method stub
-//		
-// try {
-// wait(3000);
-// } catch (InterruptedException e) {
-// // TODO Auto-generated catch block
-// e.printStackTrace();
-// }
-// }
-//	
-// }

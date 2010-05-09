@@ -9,8 +9,10 @@ public class Consts {
 	public static final String INTENT_PLAY_SERVICE = "cn.edu.xmu.software.ijoker.START_PLAY_SERVICE";
 	public static final String METHODNAME_GETJOKELIST = "getJokeList";
 	public static final String METHODNAME_AUTHENTICATE = "authenticate";
-	public static final int MSG_JOKELIST_UPDATE = 1;
-	public static final int MSG_JOKELIST_READY = 2;
-	public static final int MSG_LOGIN_REQEST = 3;
-	public static final int MSG_LOGIN_READY = 4;
+	public static final int MSG_JOKELIST_UPDATE = 0x1;
+	public static final int MSG_JOKELIST_READY = 0x2;
+	public static final int MSG_LOGIN_REQEST = 0x3;
+	public static final int MSG_LOGIN_READY = 0x4;
+	public static final int GUI_STOP_NOTIFIER = 0X5;
+	public static final int GUI_THREADING_NOTIFIER = 0x6;
 }

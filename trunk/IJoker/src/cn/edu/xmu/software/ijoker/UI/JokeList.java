@@ -49,6 +49,8 @@ public class JokeList extends Activity {
 		listView = (ListView) findViewById(R.id.JokeList);
 		registerReceiver(receiver, new IntentFilter(
 				Consts.ACTION_JOKELIST_READY));
+		this.startService(new Intent(
+				"cn.edu.xmu.software.ijoker.REMOTE_SERVICE"));
 		this.bindService(new Intent(JokeList.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 
