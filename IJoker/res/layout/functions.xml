@@ -28,7 +28,7 @@
 				android:layout_marginLeft="80px"/>	
 	
 			<ImageButton android:id="@+id/LeftFunc_button" 			
-				android:src="@drawable/button_left"
+				android:src="@xml/leftfunc"
 				android:background="@drawable/button_left"
 				android:layout_toLeftOf="@id/Funcs_button"
 				
@@ -37,7 +37,7 @@
 				android:layout_height="wrap_content"/>
 				
 			<ImageButton android:id="@+id/RightFunc_button" 			
-				android:src="@drawable/button_right"
+				android:src="@xml/rightfunc"
 				android:background="@drawable/button_right"
 				android:layout_toRightOf="@id/Funcs_button" 
 				
