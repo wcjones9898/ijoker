@@ -27,7 +27,7 @@ public class PlayerUI extends Activity {
 
 	private ImageView head_img, level_img;
 	private TextView author_txt, uploadTime_txt, title_txt;
-	private ImageButton pre_btn, play_btn, next_btn;
+	private ImageButton like_btn, play_btn, dislike_btn;
 	private ProgressBar progress_bar;
 	private Joke joke;
 	private IPlayService playService;
@@ -79,13 +79,13 @@ public class PlayerUI extends Activity {
 		author_txt = (TextView) findViewById(R.id.author_txt);
 		uploadTime_txt = (TextView) findViewById(R.id.uploadtime_txt);
 		title_txt = (TextView) findViewById(R.id.title_txt);
-		pre_btn = (ImageButton) findViewById(R.id.pre_btn);
+		like_btn = (ImageButton) findViewById(R.id.like_btn);
 		play_btn = (ImageButton) findViewById(R.id.play_btn);
-		next_btn = (ImageButton) findViewById(R.id.next_btn);
-		pre_btn.setOnClickListener(like);
+		dislike_btn = (ImageButton) findViewById(R.id.dislike_btn);
+		like_btn.setOnClickListener(like);
 		play_btn.setOnClickListener(play);
 		play_btn.setOnTouchListener(playTouched);
-		next_btn.setOnClickListener(dislike);
+		dislike_btn.setOnClickListener(dislike);
 
 		progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 	}
