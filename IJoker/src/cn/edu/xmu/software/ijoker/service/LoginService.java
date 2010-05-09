@@ -23,7 +23,7 @@ public class LoginService extends Thread {
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		parms.put("username", username);
 		parms.put("password", password);
-		wsEngine.doStart("authenticate", parms);
+		wsEngine.doStart("authorization", parms);
 		Log.i(TAG, "call webservice to authenticate username: " + username
 				+ " password: " + password);
 	}

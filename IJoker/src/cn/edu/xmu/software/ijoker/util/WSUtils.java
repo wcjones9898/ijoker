@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
@@ -13,8 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Log;
 
 public class WSUtils {
-	private static final String wsdl = "http://59.77.5.42:8080/axis/services/jokeListService?wsdl";
-	private static final String nameSpace = "http://59.77.5.42:8080/axis/services/jokeListService";
+	private static final String TAG = WSUtils.class.getName();
 
 	public WSUtils() {
 	}
@@ -27,9 +27,12 @@ public class WSUtils {
 	 * @return SoapObject
 	 */
 	public static SoapObject callWebService(String methodName,
-			Map<String, Object> params) {
-
-		final String SOAP_ACTION = nameSpace + methodName;
+			Map<String, Object> params) throws ClassCastException {
+		String wsdl = Consts.SERVICE_BASE_URL + methodName + "?wsdl";
+		String nameSpace = Consts.SERVICE_BASE_URL + methodName;
+		Log.i(TAG, "wsdl: " + wsdl + "\n namespace: " + nameSpace
+				+ " \n methodName: " + methodName);
+		// String SOAP_ACTION = nameSpace + methodName;
 		SoapObject request = new SoapObject(nameSpace, methodName);
 		SoapObject soapResult = null;
 
@@ -59,6 +62,8 @@ public class WSUtils {
 			Log.e("XmlPullParserException", e.getMessage());
 		}
 		soapResult = (SoapObject) envelope.bodyIn;
+		Log.i(TAG, soapResult.toString());
+
 		return soapResult;
 	}
 }
