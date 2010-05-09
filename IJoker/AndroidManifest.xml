@@ -12,22 +12,29 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".UI.Loading" android:screenOrientation="portrait" />
-		<activity android:name=".UI.Register" android:screenOrientation="portrait" />
-		<activity android:name=".UI.Functions" android:screenOrientation="portrait" />
-		<activity android:name=".UI.JokeList" android:screenOrientation="portrait" />
-		<activity android:name=".UI.PlayerUI" android:screenOrientation="portrait" />
-		<activity android:name=".UI.RecorderUI"	android:screenOrientation="portrait" />
-		<activity android:name=".UI.Search"	android:screenOrientation="portrait" />
+		<activity android:name=".UI.Loading"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.Register"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.Functions"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.JokeList"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.PlayerUI"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.RecorderUI"
+			android:screenOrientation="portrait" />
+		<activity android:name=".UI.Search"
+			android:screenOrientation="portrait" />
 		<activity android:name=".UI.About" android:screenOrientation="portrait" />
 		<service android:enabled="true" android:name=".service.PlayService"
 			android:process=":remote">
-	<!--
-		<intent-filter> <action
-		android:name="cn.edu.xmu.software.ijoker.START_PLAY_SERVICE" />
-		<category android:name="android.intent.category.default" />
-		</intent-filter>
-	--></service>
+
+			<intent-filter>
+				<action android:name="cn.edu.xmu.software.ijoker.REMOTE_SERVICE" />
+				<category android:name="android.intent.category.default" />
+			</intent-filter>
+		</service>
 		<!-- The application's publisher ID assigned by AdMob -->
 		<meta-data android:value="a14be0d9f170a4e" android:name="ADMOB_PUBLISHER_ID" />
 
