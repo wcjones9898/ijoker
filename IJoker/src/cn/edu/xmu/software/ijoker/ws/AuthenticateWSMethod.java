@@ -32,7 +32,18 @@ public class AuthenticateWSMethod extends AbstractWSMethod {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Message message = Message.obtain(handler, Consts.MSG_LOGIN_READY, 0, 0);
+		int result, error;
+		String username = (String) parms.get("username");
+		String password = (String) parms.get("password");
+		if (username.equals("ijoker") && password.equals("ijoker")) {
+			result = Consts.FLAG_LOGIN_SUCCESS;
+			error = Consts.ERROR_NOERROR;
+		} else {
+			result = Consts.FLAG_LOGIN_FAILURE;
+			error = Consts.ERROR_USERNAME_NOEXIST;
+		}
+		Message message = Message.obtain(handler, Consts.MSG_LOGIN_READY,
+				result, error);
 		handler.sendMessage(message);
 		Log.i(TAG, "send login ready message to loading!");
 	}

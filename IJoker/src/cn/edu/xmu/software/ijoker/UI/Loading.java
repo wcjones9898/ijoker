@@ -28,14 +28,14 @@ public class Loading extends Activity {
 				Message message = new Message();
 				message.what = Consts.GUI_STOP_NOTIFIER;
 				handler.sendMessage(message);
-				if (msg.arg1 == 0) {
+				if (msg.arg1 == Consts.FLAG_LOGIN_SUCCESS) {
 					Log.i(TAG, "login success! now step into functions UI");
 					callFunctionsUI();
 				} else {
 					Log
 							.i(TAG,
 									"can not login,check the imformation and login again!");
-					callLoginUI();
+					callLoginUI(msg.arg2);
 				}
 				break;
 			case Consts.GUI_STOP_NOTIFIER:
@@ -71,11 +71,13 @@ public class Loading extends Activity {
 		Intent intent = new Intent();
 		intent.setClass(Loading.this, Functions.class);
 		startActivity(intent);
+		finish();
 	}
 
-	private void callLoginUI() {
+	private void callLoginUI(int errorCode) {
 		Intent intent = new Intent();
 		intent.setClass(Loading.this, Login.class);
+		intent.putExtra("errorCode", errorCode);
 		startActivity(intent);
 	}
 
