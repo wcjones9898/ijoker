@@ -27,7 +27,7 @@ public class PlayerUI extends Activity {
 
 	private ImageView head_img, level_img;
 	private TextView author_txt, uploadTime_txt, title_txt;
-	private ImageButton like_btn, play_btn, dislike_btn;
+	private ImageButton like_btn, play_btn, share_btn;
 	private ProgressBar progress_bar;
 	private Joke joke;
 	private IPlayService playService;
@@ -81,11 +81,11 @@ public class PlayerUI extends Activity {
 		title_txt = (TextView) findViewById(R.id.title_txt);
 		like_btn = (ImageButton) findViewById(R.id.like_btn);
 		play_btn = (ImageButton) findViewById(R.id.play_btn);
-		dislike_btn = (ImageButton) findViewById(R.id.dislike_btn);
+		share_btn = (ImageButton) findViewById(R.id.share_btn);
 		like_btn.setOnClickListener(like);
 		play_btn.setOnClickListener(play);
 		play_btn.setOnTouchListener(playTouched);
-		dislike_btn.setOnClickListener(dislike);
+		share_btn.setOnClickListener(share);
 
 		progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 	}
@@ -135,7 +135,7 @@ public class PlayerUI extends Activity {
 		}
 	};
 
-	private ImageButton.OnClickListener dislike = new ImageButton.OnClickListener() {
+	private ImageButton.OnClickListener share = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			try {
