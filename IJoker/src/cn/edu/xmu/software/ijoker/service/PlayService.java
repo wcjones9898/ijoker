@@ -174,7 +174,7 @@ public class PlayService extends Service {
 		Log.i(TAG, "init the jokelist for playservice!");
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
-		 parms.put("classId", 1);
+		 parms.put("classId", "1");
 		wsEngine.doStart(Consts.METHODNAME_GETJOKELIST, parms);
 	}
 
