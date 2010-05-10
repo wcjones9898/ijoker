@@ -7,19 +7,52 @@
  
   	  
 	<TextView 
+		android:id="@+id/divisionLabel"
 		android:text="笑话列表" 
 		android:textSize="30px"
 		android:layout_width="fill_parent" 
 		android:layout_height="50px"
 		android:gravity="center"/>
 	
-	
-	<ListView android:id="@+id/JokeList"
-		android:paddingTop="60px"
+	<RelativeLayout android:id="@+id/listPad"
+		android:layout_below="@id/divisionLabel"
 		android:layout_width="fill_parent"
-		android:paddingLeft="20px" 
-		android:paddingRight="15px" 
-		android:layout_height="290px"/>	
+		android:layout_marginTop="10px" 		
+		android:layout_marginLeft="20px" 
+		android:layout_marginRight="20px" 
+		android:layout_height="280px">
+		
+		<ListView android:id="@+id/JokeList"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"/>	
+	
+	</RelativeLayout>
+	<RelativeLayout android:layout_below="@id/listPad"
+		android:layout_width="fill_parent"
+		android:layout_height="30px"
+		android:layout_marginLeft="30px" 
+		android:layout_marginRight="30px"
+		android:gravity="bottom">
+		
+		<ImageButton android:id="@+id/lastPage_btn"
+			android:background="@xml/lastpage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"/>
+			
+		<ImageButton android:id="@+id/nextPage_btn"
+			android:background="@xml/nextpage"
+			android:layout_alignParentRight="true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+			
+		
+		
+		
+	</RelativeLayout>
+	
+	
+	
 	
 	
 </RelativeLayout>

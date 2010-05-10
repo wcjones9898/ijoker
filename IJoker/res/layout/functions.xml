@@ -22,9 +22,10 @@
 			android:layout_width="fill_parent" 	android:layout_height="130px">
 			
 			<ImageButton android:id="@+id/Funcs_button"	
-			    android:background="@drawable/icon_listen"				    	    
-				android:layout_width="76px"
-				android:layout_height="77px"
+			    android:src="@drawable/icon_listen"
+			    android:background="@xml/icon"				    	    
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
 				android:layout_marginLeft="80px"/>	
 	
 			<ImageButton android:id="@+id/LeftFunc_button" 			
