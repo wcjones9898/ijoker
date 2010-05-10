@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.os.Handler;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class LoginService extends Thread {
 	private String username;
@@ -23,7 +24,7 @@ public class LoginService extends Thread {
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		parms.put("username", username);
 		parms.put("password", password);
-		wsEngine.doStart("authorization", parms);
+		wsEngine.doStart(Consts.METHODNAME_AUTHORIZATION, parms);
 		Log.i(TAG, "call webservice to authenticate username: " + username
 				+ " password: " + password);
 	}

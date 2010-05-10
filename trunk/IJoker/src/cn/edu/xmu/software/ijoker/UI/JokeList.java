@@ -26,6 +26,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
@@ -83,7 +84,8 @@ public class JokeList extends Activity {
 				// 动态数组与ImageItem对应的子项
 				new String[] { "likeNum", "jokeTitle", "joker", "uploadTime" },
 				// ImageItem的XML文件里面的一个ImageView,两个TextView ID
-				new int[] { R.id.likeNum, R.id.jokeTitle, R.id.joker, R.id.uploadTime });
+				new int[] { R.id.likeNum, R.id.jokeTitle, R.id.joker,
+						R.id.uploadTime });
 
 		// 添加并且显示
 		listView.setAdapter(listItemAdapter);
@@ -156,7 +158,7 @@ public class JokeList extends Activity {
 				map.put("likeNum", joke.getLike());// 图像资源的ID
 				map.put("jokeTitle", joke.getTitle());
 				map.put("joker", joke.getAuthor());
-				map.put("uploadTime", "（"+joke.getUploadTime()+"）");
+				map.put("uploadTime", "（" + joke.getUploadTime() + "）");
 				list.add(map);
 			}
 			return list;
@@ -171,7 +173,18 @@ public class JokeList extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equalsIgnoreCase(
 					Consts.ACTION_JOKELIST_READY)) {
-				updateJokeList();
+				switch (intent.getIntExtra("errorCode", -1)) {
+				case Consts.ERROR_NOERROR:
+					updateJokeList();
+					break;
+				case Consts.ERROR_CALLWEBSERVICE:
+					progressDialog.dismiss();
+					Log.i(TAG, "have error message: " + Consts.NETWORK_FAILED);
+					Toast.makeText(JokeList.this, Consts.NETWORK_FAILED,
+							Toast.LENGTH_SHORT).show();
+					break;
+				default:
+				}
 			}
 		}
 	};

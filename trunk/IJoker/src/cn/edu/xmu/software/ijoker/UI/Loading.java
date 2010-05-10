@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.service.LoginService;
 import cn.edu.xmu.software.ijoker.util.Consts;
-import cn.edu.xmu.software.ijoker.util.PreferencesUtil;
 
 public class Loading extends Activity {
 	private static final String TAG = Loading.class.getName();
@@ -26,15 +25,13 @@ public class Loading extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			isLoading = false;
 			switch (msg.what) {
 			case Consts.MSG_LOGIN_READY:
-				Message message = new Message();
-				message.what = Consts.GUI_STOP_NOTIFIER;
-				handler.sendMessage(message);
 				String session = "";
 				if (msg.arg1 == Consts.FLAG_LOGIN_SUCCESS) {
 					Log.i(TAG, "login success! now step into functions UI");
-					session = PreferencesUtil.session;
+					session = Consts.session;
 					callFunctionsUI();
 				} else {
 					Log
@@ -44,14 +41,14 @@ public class Loading extends Activity {
 					callLoginUI(msg.arg2);
 				}
 				SharedPreferences settings = getSharedPreferences(
-						PreferencesUtil.preferencesSetting, 0);
+						Consts.preferencesSetting, 0);
 				Editor editer = settings.edit();
-				editer.putString(PreferencesUtil.session, session);
+				editer.putString(Consts.session, session);
 				Log.i(TAG, "save data to preferences with session: " + session);
 				editer.commit();
 				break;
-			case Consts.GUI_STOP_NOTIFIER:
-				isLoading = false;
+			case Consts.ERROR_CALLWEBSERVICE:
+				callLoginUI(Consts.ERROR_CALLWEBSERVICE);
 			default:
 			}
 		}

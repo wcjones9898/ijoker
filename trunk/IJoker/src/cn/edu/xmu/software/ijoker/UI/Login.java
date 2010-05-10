@@ -12,13 +12,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.util.Consts;
-import cn.edu.xmu.software.ijoker.util.PreferencesUtil;
 
 public class Login extends Activity {
 	private Button login_btn, register_btn;
@@ -47,6 +45,11 @@ public class Login extends Activity {
 				Toast.makeText(Login.this, Consts.USER_NOTEXIST,
 						Toast.LENGTH_SHORT).show();
 				break;
+			case Consts.ERROR_CALLWEBSERVICE:
+				Log.i(TAG, "have error message: " + Consts.NETWORK_FAILED);
+				Toast.makeText(Login.this, Consts.NETWORK_FAILED,
+						Toast.LENGTH_SHORT).show();
+				break;
 			default:
 			}
 			this.getIntent().putExtra("errorCode", -1);
@@ -70,21 +73,21 @@ public class Login extends Activity {
 	private void restorePrefs() {
 		if (getSessionInPreference()) {
 			SharedPreferences settings = getSharedPreferences(
-					PreferencesUtil.preferencesSetting, 0);
+					Consts.preferencesSetting, 0);
 			boolean rememberPassword = settings.getBoolean(
-					PreferencesUtil.rememberPassword, false);
+					Consts.rememberPassword, false);
 			Log.i(TAG, "rememberPassword from sharedPreferences: "
 					+ rememberPassword);
 			if (rememberPassword) {
-				username = settings.getString(PreferencesUtil.username, "");
+				username = settings.getString(Consts.username, "");
 				Log.i(TAG, "username from sharedPreferences: " + username);
 				tv_username.setText(username);
-				password = settings.getString(PreferencesUtil.password, "");
+				password = settings.getString(Consts.password, "");
 				Log.i(TAG, "password from sharedPreferences: " + password);
 				tv_password.setText(password);
 				rempw_cbx.setChecked(rememberPassword);
 			}
-			boolean autoLogin = settings.getBoolean(PreferencesUtil.autoLogin,
+			boolean autoLogin = settings.getBoolean(Consts.autoLogin,
 					false);
 			Log.i(TAG, "autoLogin from sharedPreferences: " + autoLogin);
 			if (autoLogin) {
@@ -97,8 +100,8 @@ public class Login extends Activity {
 
 	private boolean getSessionInPreference() {
 		SharedPreferences settings = getSharedPreferences(
-				PreferencesUtil.preferencesSetting, 0);
-		String session = settings.getString(PreferencesUtil.session, "");
+				Consts.preferencesSetting, 0);
+		String session = settings.getString(Consts.session, "");
 		if (session.equals(""))
 			return false;
 		return true;
@@ -111,9 +114,9 @@ public class Login extends Activity {
 				boolean isChecked) {
 			if (!getSessionInPreference()) {
 				SharedPreferences settings = getSharedPreferences(
-						PreferencesUtil.preferencesSetting, 0);
+						Consts.preferencesSetting, 0);
 				Editor editer = settings.edit();
-				editer.putBoolean(PreferencesUtil.autoLogin, isChecked);
+				editer.putBoolean(Consts.autoLogin, isChecked);
 				editer.commit();
 				Log.i(TAG, "save data to preferences with autoLogin: "
 						+ isChecked);
@@ -127,13 +130,13 @@ public class Login extends Activity {
 				boolean isChecked) {
 			if (!getSessionInPreference()) {
 				SharedPreferences settings = getSharedPreferences(
-						PreferencesUtil.preferencesSetting, 0);
+						Consts.preferencesSetting, 0);
 				Editor editer = settings.edit();
-				editer.putBoolean(PreferencesUtil.rememberPassword, isChecked);
+				editer.putBoolean(Consts.rememberPassword, isChecked);
 				username = tv_username.getText().toString();
 				password = tv_password.getText().toString();
-				editer.putString(PreferencesUtil.username, username);
-				editer.putString(PreferencesUtil.password, password);
+				editer.putString(Consts.username, username);
+				editer.putString(Consts.password, password);
 				Log.i(TAG, "save data to preferences with rempw: " + isChecked
 						+ " username: " + username + " password: " + password);
 				editer.commit();
