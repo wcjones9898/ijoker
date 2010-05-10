@@ -3,9 +3,7 @@ package cn.edu.xmu.software.ijoker.ws;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
-import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Handler;
 import android.os.Message;
