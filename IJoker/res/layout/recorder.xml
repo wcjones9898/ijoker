@@ -22,7 +22,7 @@
 			<EditText android:id="@+id/jokeTitle_txt" 
 				android:text="" 				
 				android:maxLines="3"
-				android:lines="3"
+				android:lines="3"				
 				android:layout_below="@+id/jokeTitleLabel"
 				android:layout_width="fill_parent"  			
 				android:layout_height="wrap_content"/>
@@ -67,21 +67,29 @@
 			
 			<Button android:id="@+id/listen_btn"  
 				android:text="试听" 
+				android:textColor="#FFFFFF"
 				android:shadowRadius="0"
+				android:background="@xml/normalbutton"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
 				
 			<Button android:id="@+id/record_btn" 
 				android:text="录制"
+				android:textColor="#FFFFFF"
 				android:shadowRadius="0"
+				android:background="@xml/normalbutton"
 				android:layout_toRightOf="@id/listen_btn" 
+				android:layout_marginLeft="10px"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
 				
 			<Button android:id="@+id/clear_btn" 
 				android:text="清除"
+				android:textColor="#FFFFFF"
 				android:shadowRadius="0"
+				android:background="@xml/normalbutton"
 				android:layout_toRightOf="@id/record_btn"
+				android:layout_marginLeft="10px"
 				android:layout_width="wrap_content"  
 				android:layout_height="wrap_content"/>
 		</RelativeLayout>
@@ -92,10 +100,10 @@
 		android:gravity="center" android:layout_marginTop="5px"
 	    android:layout_marginLeft="50px" android:layout_marginRight="50px">
 	
-		<Button android:id="@+id/upload_btn" 		 
-			android:text="上传" 
+		<Button android:id="@+id/upload_btn"
 			android:shadowRadius="0"
-			android:layout_width="fill_parent" 
+			android:background="@xml/upload"
+			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"/>
 	</RelativeLayout>
 		

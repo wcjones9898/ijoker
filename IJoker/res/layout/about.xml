@@ -37,18 +37,18 @@
 			android:id="@+id/describePad"
 			android:layout_below="@id/labelPad"
 			android:layout_width="fill_parent"			
-			android:layout_height="fill_parent" 
+			android:layout_height="220px" 
 			android:layout_marginTop="22px"			
 			android:layout_marginLeft="57px" 
-			android:layout_marginRight="61px"
-			android:layout_marginBottom="50px"
-			android:gravity="center">
+			android:layout_marginRight="61px"			
+			android:gravity="center_horizontal">
 		
 			<TextView  		
-				android:id="@+id/describe_txt"
+				android:id="@+id/describe"
 			    android:layout_width="wrap_content" 
 			    android:layout_height="wrap_content" 	
-			    android:textColor="#ffffffff"	    
+			    android:textColor="#000000"
+			    android:shadowRadius="0"
 			    android:text="iJoker是个好软件！"
 			    android:textSize="22px"/>
 		</RelativeLayout>
@@ -56,7 +56,7 @@
 		<RelativeLayout 
 			android:layout_below="@id/describePad"
 			android:layout_height="fill_parent" 				
-			android:layout_width="fill_parent">
+			android:layout_width="fill_parent">			
 			
 			<com.admob.android.ads.AdView  
 	          android:id="@+id/ad"          
