@@ -22,7 +22,7 @@ public class JokeDivision extends Activity {
 		setContentView(R.layout.jokedivision);
 		
 		divisionList=(ListView)findViewById(R.id.divisionList);
-		divisionAdapter=new ArrayAdapter<String>(this, android.R.layout.preference_category, divisions);
+		divisionAdapter=new ArrayAdapter<String>(this, android.R.layout.browser_link_context_header, divisions);
 		divisionList.setAdapter(divisionAdapter);
 		
 		
