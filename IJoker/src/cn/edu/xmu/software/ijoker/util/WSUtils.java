@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
@@ -25,9 +24,12 @@ public class WSUtils {
 	 * @param params
 	 * @param wsdl
 	 * @return SoapObject
+	 * @throws XmlPullParserException
+	 * @throws IOException
 	 */
 	public static SoapObject callWebService(String methodName,
-			Map<String, Object> params) throws ClassCastException {
+			Map<String, Object> params) throws IOException,
+			XmlPullParserException {
 		String wsdl = Consts.SERVICE_BASE_URL + methodName + "?wsdl";
 		String nameSpace = Consts.SERVICE_BASE_URL + methodName;
 		Log.i(TAG, "wsdl: " + wsdl + "\n namespace: " + nameSpace
@@ -54,13 +56,7 @@ public class WSUtils {
 		envelope.setOutputSoapObject(request);
 
 		AndroidHttpTransport androidHT = new AndroidHttpTransport(wsdl);
-		try {
-			androidHT.call(null, envelope);
-		} catch (IOException e) {
-			Log.e("IOException:", e.getMessage());
-		} catch (XmlPullParserException e) {
-			Log.e("XmlPullParserException", e.getMessage());
-		}
+		androidHT.call(null, envelope);
 		soapResult = (SoapObject) envelope.bodyIn;
 		Log.i(TAG, soapResult.toString());
 

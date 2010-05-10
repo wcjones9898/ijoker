@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import org.ksoap2.serialization.SoapObject;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.util.Consts;
+import cn.edu.xmu.software.ijoker.util.WSUtils;
 
 public class GetJokeListWSMethod extends AbstractWSMethod {
 	public GetJokeListWSMethod(String methodName, Handler handler,
@@ -20,12 +23,17 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 	@Override
 	public void invokeWSMethod() {
 		ArrayList<Joke> list = null;
-		// SoapObject result = WSUtils.callWebService(this.methodName, parms);
-		// if (result != null && result.getPropertyCount() > 0) {
-		// list = (ArrayList<Joke>) result.getProperty("getJokeListReturn");
-		// Log.i(TAG, "get data from webservice with method: "
-		// + this.methodName + "\nget result: " + list.toString());
-		// }
+		SoapObject result=null;
+		try {
+			result = WSUtils.callWebService(this.methodName, parms);
+		} catch (Exception e) {
+			
+		}
+		if (result != null && result.getPropertyCount() > 0) {
+			list = (ArrayList<Joke>) result.getProperty(Consts.JOKELISTRETURN);
+			Log.i(TAG, "get data from webservice with method: "
+					+ this.methodName + "\nget result: " + list.toString());
+		}
 		// 生成动态数组，加入数据
 		list = new ArrayList<Joke>();
 		Calendar calendar = Calendar.getInstance();

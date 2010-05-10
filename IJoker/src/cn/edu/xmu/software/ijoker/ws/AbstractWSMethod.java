@@ -3,6 +3,7 @@ package cn.edu.xmu.software.ijoker.ws;
 import java.util.HashMap;
 
 import android.os.Handler;
+import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 
 public abstract class AbstractWSMethod {
 	protected String methodName;
@@ -17,5 +18,5 @@ public abstract class AbstractWSMethod {
 		this.parms = parms;
 	}
 
-	public abstract void invokeWSMethod();
+	public abstract void invokeWSMethod() throws CallWebServiceException;
 }

@@ -1,14 +1,17 @@
 package cn.edu.xmu.software.ijoker.ws;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.entity.User;
+import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 import cn.edu.xmu.software.ijoker.util.Consts;
 import cn.edu.xmu.software.ijoker.util.WSUtils;
 
@@ -20,19 +23,19 @@ public class AuthorizationWSMethod extends AbstractWSMethod {
 	}
 
 	@Override
-	public void invokeWSMethod() {
-		// ArrayList<Joke> list = null;
+	public void invokeWSMethod() throws CallWebServiceException {
 		User user = null;
 		SoapObject result = null;
 		try {
 			result = WSUtils.callWebService(this.methodName, parms);
-		} catch (ClassCastException e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage(), e);
+			throw new CallWebServiceException(e.getMessage(), e);
 		}
 		if (result != null && result.getPropertyCount() > 0) {
 			try {
 				SoapObject o = (SoapObject) result
-						.getProperty("authorizationReturn");
+						.getProperty(Consts.AUTHORIZATIONRETURN);
 				int id = Integer.parseInt(o.getProperty("id").toString());
 				String nickName = o.getProperty("nickName").toString();
 				String passWord = o.getProperty("passWord").toString();
@@ -42,11 +45,12 @@ public class AuthorizationWSMethod extends AbstractWSMethod {
 				Log.i(TAG, "get data from webservice with method: "
 						+ this.methodName + "\nget result: " + user.toString());
 			} catch (Exception e) {
+				// TODO send error message.
 				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 		// 生成动态数组，加入数据
-
+		// user = new User(1, "ijoker", "123", "1", "ijoker");
 		// construct the message;
 		int wsResult, error;
 		if (user != null) {

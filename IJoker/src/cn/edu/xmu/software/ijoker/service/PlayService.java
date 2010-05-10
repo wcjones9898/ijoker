@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -27,7 +28,7 @@ public class PlayService extends Service {
 	private int playingPosition = -1;
 	private int currentPosition;
 	private NotificationManager nm;
-
+	public static final int NOTIFY_ID = R.layout.player;
 	private Handler handler = new Handler() {
 
 		@Override
@@ -40,12 +41,18 @@ public class PlayService extends Service {
 			case Consts.MSG_JOKELIST_READY:
 				jokeList = msg.getData().getParcelableArrayList("data");
 				Intent intent = new Intent(Consts.ACTION_JOKELIST_READY);
+				intent.putExtra("errorCode", Consts.ERROR_NOERROR);
 				sendBroadcast(intent);
 				Log
 						.i(
 								TAG,
 								"playservice get the jokelist from webservice and pass the jokelist to jokelist UI!"
 										+ jokeList.size());
+				break;
+			case Consts.ERROR_CALLWEBSERVICE:
+				Intent i = new Intent(Consts.ACTION_JOKELIST_READY);
+				i.putExtra("errorCode", Consts.ERROR_CALLWEBSERVICE);
+				sendBroadcast(i);
 				break;
 			default:
 			}
@@ -63,7 +70,7 @@ public class PlayService extends Service {
 		try {
 
 			Notification notification = new Notification();
-			nm.notify(Consts.NOTIFY_ID, notification);
+			nm.notify(NOTIFY_ID, notification);
 			if (playingPosition == currentPosition) {
 				mp.start();
 				Log.i(TAG, "media player go on play the joke!");
@@ -99,7 +106,7 @@ public class PlayService extends Service {
 		@Override
 		public void pause() throws RemoteException {
 			Notification notification = new Notification();
-			nm.notify(Consts.NOTIFY_ID, notification);
+			nm.notify(NOTIFY_ID, notification);
 			mp.pause();
 		}
 
@@ -117,7 +124,7 @@ public class PlayService extends Service {
 
 		@Override
 		public void stop() throws RemoteException {
-			nm.cancel(Consts.NOTIFY_ID);
+			nm.cancel(NOTIFY_ID);
 			mp.stop();
 		}
 
@@ -167,8 +174,8 @@ public class PlayService extends Service {
 		Log.i(TAG, "init the jokelist for playservice!");
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
-		// parms.put("listStyle", 1);
-		wsEngine.doStart("getJokeList", parms);
+		 parms.put("classId", 1);
+		wsEngine.doStart(Consts.METHODNAME_GETJOKELIST, parms);
 	}
 
 	public void onCreate() {
@@ -181,7 +188,7 @@ public class PlayService extends Service {
 		super.onDestroy();
 		mp.stop();
 		mp.release();
-		nm.cancel(Consts.NOTIFY_ID);
+		nm.cancel(NOTIFY_ID);
 	}
 
 }
