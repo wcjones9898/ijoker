@@ -44,7 +44,7 @@ public class Functions extends Activity {
 			if (funcIndex < 0)
 				funcIndex = funcNum - 1;
 			funcs_text.setText(funcNames[funcIndex]);
-			funcs_btn.setBackgroundResource(funcImages[funcIndex]);			
+			funcs_btn.setImageResource(funcImages[funcIndex]);			
 		}
 	};	
 	
@@ -56,7 +56,7 @@ public class Functions extends Activity {
 			if (funcIndex == funcNum)
 				funcIndex = 0;
 			funcs_text.setText(funcNames[funcIndex]);
-			funcs_btn.setBackgroundResource(funcImages[funcIndex]);
+			funcs_btn.setImageResource(funcImages[funcIndex]);
 		}
 	};
 	
