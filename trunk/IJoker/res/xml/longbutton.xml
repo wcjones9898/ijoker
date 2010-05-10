@@ -4,11 +4,11 @@
   
 	<item    
 		android:state_pressed="false"    
-		android:drawable="@drawable/last_page" />   
+		android:drawable="@drawable/btn_long" />   
 	<item    
 		android:state_pressed="true"    
-		android:drawable="@drawable/last_page_touched" />   
+		android:drawable="@drawable/btn_long_touched" />   
 	<item    
-		android:drawable="@drawable/last_page" />  
+		android:drawable="@drawable/btn_long" />  
   
 </selector>
