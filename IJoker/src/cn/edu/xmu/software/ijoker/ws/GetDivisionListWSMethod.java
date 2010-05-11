@@ -50,6 +50,8 @@ public class GetDivisionListWSMethod extends AbstractWSMethod {
 				classItem.setClassName(o.getProperty("className").toString());
 				classItem.setId(Integer
 						.parseInt(o.getProperty("id").toString()));
+				classItem.setJokeNum(Integer.parseInt(o.getProperty("jokeNum")
+						.toString()));
 				list.add(classItem);
 			}
 			Log.i(TAG, "get data from webservice with method: "
