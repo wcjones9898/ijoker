@@ -1,6 +1,5 @@
 package cn.edu.xmu.software.ijoker.ws;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.ksoap2.serialization.SoapObject;

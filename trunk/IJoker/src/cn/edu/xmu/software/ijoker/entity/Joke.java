@@ -20,7 +20,6 @@ public class Joke implements Parcelable {
 	private String uploadTime;
 	private String location;
 	private int like;
-	private int dislike;
 
 	/**
 	 * * @return
@@ -76,14 +75,6 @@ public class Joke implements Parcelable {
 		this.like = like;
 	}
 
-	public int getDislike() {
-		return dislike;
-	}
-
-	public void setDislike(int dislike) {
-		this.dislike = dislike;
-	}
-
 	public static final Parcelable.Creator<Joke> CREATOR = new Parcelable.Creator<Joke>() {
 		public Joke createFromParcel(Parcel in) {
 			return new Joke(in);
@@ -108,7 +99,6 @@ public class Joke implements Parcelable {
 		this.uploadTime = in.readString();
 		this.location = in.readString();
 		this.like = in.readInt();
-		this.dislike = in.readInt();
 	}
 
 	@Override
@@ -125,7 +115,9 @@ public class Joke implements Parcelable {
 		dest.writeString(uploadTime);
 		dest.writeString(location);
 		dest.writeInt(like);
-		dest.writeInt(dislike);
 	}
 
+	public void like() {
+		like++;
+	}
 }

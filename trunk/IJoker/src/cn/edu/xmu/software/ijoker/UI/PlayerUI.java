@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
@@ -44,7 +45,10 @@ public class PlayerUI extends BaseActivity {
 		// loadValues();
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
-		registerReceiver(receiver, new IntentFilter(Consts.ACTION_STOP_PLAY));
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
+		intentFilter.addAction(Consts.ACTION_LIKE_READY);
+		registerReceiver(receiver, intentFilter);
 	}
 
 	// 接收传递进来的笑话信息
@@ -121,6 +125,15 @@ public class PlayerUI extends BaseActivity {
 				play_btn.setBackgroundResource(R.drawable.play);
 				play_btn.setOnClickListener(play);
 				play_btn.setOnTouchListener(playTouched);
+			} else if (intent.getAction().equalsIgnoreCase(
+					Consts.ACTION_LIKE_READY)) {
+				int i = intent.getIntExtra("errorCode", Consts.ERROR_NOERROR);
+				if (i == Consts.ERROR_NOERROR)
+					Toast.makeText(PlayerUI.this, Consts.SCORE_SUCCESS,
+							Toast.LENGTH_SHORT).show();
+				else if (i == Consts.ERROR_CALLWEBSERVICE)
+					Toast.makeText(PlayerUI.this, Consts.NETWORK_FAILED,
+							Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
@@ -128,7 +141,7 @@ public class PlayerUI extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			try {
-				playService.like(true);
+				playService.like();
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
@@ -139,7 +152,7 @@ public class PlayerUI extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			try {
-				playService.like(false);
+				playService.like();
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
@@ -174,7 +187,10 @@ public class PlayerUI extends BaseActivity {
 
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(receiver, new IntentFilter(Consts.ACTION_STOP_PLAY));
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
+		intentFilter.addAction(Consts.ACTION_LIKE_READY);
+		registerReceiver(receiver, intentFilter);
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 	}
