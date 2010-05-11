@@ -11,6 +11,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -38,9 +39,8 @@ public class PlayService extends Service {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case Consts.MSG_JOKELIST_UPDATE:
-				// if (jokeList == null) {
-				initJokeList();
-				// }
+				// if (jokeList == null)
+				initJokeList(msg.getData().getInt("page"));
 				break;
 			case Consts.MSG_DIVISIONLIST_UPDATE:
 				// if (divisionList == null)
@@ -137,30 +137,11 @@ public class PlayService extends Service {
 
 	private final IPlayService.Stub mBinder = new IPlayService.Stub() {
 
-		/*
-		 * @Override public void play(String location) throws RemoteException {
-		 * Log.i(TAG, "play file: " + location); try { // currentPosition =
-		 * position; playJoke(location); } catch (IndexOutOfBoundsException e) {
-		 * Log.e(TAG, e.getMessage()); } }
-		 */
-
 		@Override
 		public void pause() throws RemoteException {
 			Notification notification = new Notification();
 			nm.notify(NOTIFY_ID, notification);
 			mp.pause();
-		}
-
-		@Override
-		public void addJokeList(String location) throws RemoteException {
-			// jokeList.add(location);
-
-		}
-
-		@Override
-		public void clearJokeList() throws RemoteException {
-			jokeList.clear();
-
 		}
 
 		@Override
@@ -194,11 +175,12 @@ public class PlayService extends Service {
 			handler.sendMessage(message);
 		}
 
-		@Override
-		public void updateJokeList() throws RemoteException {
-			Message message = handler.obtainMessage(Consts.MSG_JOKELIST_UPDATE);
-			handler.sendMessage(message);
-		}
+		//
+		// @Override
+		// public void updateJokeList() throws RemoteException {
+		// Message message = handler.obtainMessage(Consts.MSG_JOKELIST_UPDATE);
+		// handler.sendMessage(message);
+		// }
 
 		@Override
 		public Joke getJokePlaying() throws RemoteException {
@@ -224,13 +206,25 @@ public class PlayService extends Service {
 			handler.sendMessage(message);
 
 		}
+
+		@Override
+		public void updateJokeList(int page) throws RemoteException {
+			Message message = handler.obtainMessage(Consts.MSG_JOKELIST_UPDATE);
+			Bundle bundle = new Bundle();
+			bundle.putInt("page", page);
+			message.setData(bundle);
+			handler.sendMessage(message);
+
+		}
 	};
 
-	public void initJokeList() {
+	public void initJokeList(int page) {
 		Log.i(TAG, "init the jokelist for playservice!");
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		parms.put("classId", "1");
+		parms.put("begin", page);
+		parms.put("limit", Consts.PAGESIZE);
 		wsEngine.doStart(Consts.METHODNAME_GETJOKELIST, parms);
 	}
 
@@ -258,7 +252,8 @@ public class PlayService extends Service {
 
 	public void onDestroy() {
 		super.onDestroy();
-		mp.stop();
+		if (mp.isPlaying())
+			mp.stop();
 		mp.release();
 		nm.cancel(NOTIFY_ID);
 	}

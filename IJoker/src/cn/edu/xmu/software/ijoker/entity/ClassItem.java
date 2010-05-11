@@ -22,6 +22,7 @@ public class ClassItem implements Parcelable {
 	private String className;
 	private Integer classLevel;
 	private String classId;
+	private Integer jokeNum;
 
 	// Constructors
 
@@ -38,11 +39,11 @@ public class ClassItem implements Parcelable {
 
 	/** full constructor */
 	public ClassItem(String className, Integer classLevel, String classId,
-			Set classAndJokeFiles) {
+			Integer jokeNum) {
 		this.className = className;
 		this.classLevel = classLevel;
 		this.classId = classId;
-
+		this.jokeNum = jokeNum;
 	}
 
 	// Property accessors
@@ -79,6 +80,14 @@ public class ClassItem implements Parcelable {
 		this.classId = classId;
 	}
 
+	public Integer getJokeNum() {
+		return jokeNum;
+	}
+
+	public void setJokeNum(Integer jokeNum) {
+		this.jokeNum = jokeNum;
+	}
+
 	public static final Parcelable.Creator<ClassItem> CREATOR = new Parcelable.Creator<ClassItem>() {
 
 		public ClassItem[] newArray(int size) {
@@ -99,6 +108,7 @@ public class ClassItem implements Parcelable {
 		this.classId = in.readString();
 		this.classLevel = in.readInt();
 		this.className = in.readString();
+		this.jokeNum = in.readInt();
 	}
 
 	@Override
@@ -113,5 +123,6 @@ public class ClassItem implements Parcelable {
 		dest.writeString(classId);
 		dest.writeInt(classLevel);
 		dest.writeString(className);
+		dest.writeInt(jokeNum);
 	}
 }
