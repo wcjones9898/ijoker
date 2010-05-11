@@ -3,7 +3,7 @@ import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.entity.ClassItem;
 interface IPlayService {
     void chose(int position);
-    void like(boolean isLike);
+    void like();
     void play();
     void pause();
     void stop();

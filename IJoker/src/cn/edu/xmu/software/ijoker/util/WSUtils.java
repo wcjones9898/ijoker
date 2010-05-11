@@ -1,6 +1,7 @@
 package cn.edu.xmu.software.ijoker.util;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class WSUtils {
 	 */
 	public static SoapObject callWebService(String methodName,
 			Map<String, Object> params) throws IOException,
-			XmlPullParserException, CallWebServiceException {
+			XmlPullParserException, CallWebServiceException, ConnectException {
 		String wsdl = Consts.SERVICE_BASE_URL + methodName + "?wsdl";
 		String nameSpace = Consts.SERVICE_BASE_URL + methodName;
 		Log.i(TAG, "wsdl: " + wsdl + "\n namespace: " + nameSpace

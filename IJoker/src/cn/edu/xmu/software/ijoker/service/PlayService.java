@@ -38,10 +38,27 @@ public class PlayService extends Service {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case Consts.MSG_JOKELIST_UPDATE:
+				// if (jokeList == null) {
 				initJokeList();
+				// }
 				break;
 			case Consts.MSG_DIVISIONLIST_UPDATE:
+				// if (divisionList == null)
 				initDivisionList();
+				break;
+			case Consts.MSG_LIKE_REQUST:
+				scoreIt();
+				break;
+			case Consts.MSG_LIKE_SUCCEED:
+				Joke joke = jokeList.get(currentPosition);
+				joke.like();
+				jokeList.set(currentPosition, joke);
+				Intent intent0 = new Intent(Consts.ACTION_LIKE_READY);
+				intent0.putExtra("errorCode", Consts.ERROR_NOERROR);
+				sendBroadcast(intent0);
+				Log
+						.i(TAG,
+								"playservice invoke webservice and make a score succeed!");
 				break;
 			case Consts.MSG_JOKELIST_READY:
 				jokeList = msg.getData().getParcelableArrayList("data");
@@ -73,6 +90,8 @@ public class PlayService extends Service {
 				else if (methodName
 						.equalsIgnoreCase(Consts.METHODNAME_GETDIVISIONLIST))
 					i.setAction(Consts.ACTION_DIVISIONLIST_READY);
+				else if (methodName.equalsIgnoreCase(Consts.METHODNAME_SCORE))
+					i.setAction(Consts.ACTION_LIKE_READY);
 				i.putExtra("errorCode", Consts.ERROR_CALLWEBSERVICE);
 				sendBroadcast(i);
 				break;
@@ -170,8 +189,9 @@ public class PlayService extends Service {
 		}
 
 		@Override
-		public void like(boolean isLike) throws RemoteException {
-			// invoke the webservice to add the like to joke;
+		public void like() throws RemoteException {
+			Message message = handler.obtainMessage(Consts.MSG_LIKE_REQUST);
+			handler.sendMessage(message);
 		}
 
 		@Override
@@ -219,6 +239,15 @@ public class PlayService extends Service {
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		wsEngine.doStart(Consts.METHODNAME_GETDIVISIONLIST, parms);
+	}
+
+	public void scoreIt() {
+		Log.i(TAG, "make a score on the joke!");
+		WSEngine wsEngine = new WSEngine(handler);
+		HashMap<String, Object> parms = new HashMap<String, Object>();
+		int id = jokeList.get(currentPosition).getId();
+		parms.put("jokeId", Integer.toString(id));
+		wsEngine.doStart(Consts.METHODNAME_SCORE, parms);
 	}
 
 	public void onCreate() {

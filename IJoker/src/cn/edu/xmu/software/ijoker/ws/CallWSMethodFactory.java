@@ -17,6 +17,8 @@ public class CallWSMethodFactory {
 			return new AuthorizationWSMethod(methodName, handler, parms);
 		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_GETDIVISIONLIST))
 			return new GetDivisionListWSMethod(methodName, handler, parms);
+		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_SCORE))
+			return new ScoreWSMethod(methodName, handler, parms);
 		else
 			throw new ClassNotFoundException("no class named as " + methodName);
 	}

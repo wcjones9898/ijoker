@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 import cn.edu.xmu.software.ijoker.util.Consts;
 import cn.edu.xmu.software.ijoker.ws.AbstractWSMethod;
@@ -36,9 +37,8 @@ public class WSEngine extends Thread {
 			abstractWSMethod = CallWSMethodFactory.CreateWSMethod(methodName,
 					handler, parms);
 			abstractWSMethod.invokeWSMethod();
-		} catch (ClassNotFoundException e) {
-			sendMessage(e.getMessage());
-		} catch (CallWebServiceException e) {
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage(), e);
 			sendMessage(e.getMessage());
 		}
 	}
