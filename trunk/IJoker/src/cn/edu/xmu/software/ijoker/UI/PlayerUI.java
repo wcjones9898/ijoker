@@ -23,7 +23,7 @@ import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class PlayerUI extends Activity {
+public class PlayerUI extends BaseActivity {
 
 	private ImageView head_img, level_img;
 	private TextView author_txt, uploadTime_txt, title_txt;

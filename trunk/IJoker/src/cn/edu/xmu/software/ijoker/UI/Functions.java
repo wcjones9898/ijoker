@@ -3,13 +3,15 @@ package cn.edu.xmu.software.ijoker.UI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import cn.edu.xmu.software.ijoker.R;
+import cn.edu.xmu.software.ijoker.util.MenuUtils;
 
-public class Functions extends Activity {
+public class Functions extends BaseActivity {
 
 	private String funcNames[] = { "听笑话", "讲笑话", "找笑话" , "关于'笑客'" };
 	private int funcImages[] = { R.drawable.icon_listen, R.drawable.icon_record, R.drawable.icon_search,R.drawable.icon_about };
@@ -34,7 +36,8 @@ public class Functions extends Activity {
 		leftfunc_btn.setOnClickListener(leftFunc);		
 		rightfunc_btn.setOnClickListener(rightFunc);
 
-	}
+	}	
+
 
 	private ImageButton.OnClickListener leftFunc = new ImageButton.OnClickListener() {
 		@Override

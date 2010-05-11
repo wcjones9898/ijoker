@@ -26,7 +26,7 @@ import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class JokeDivision extends Activity {
+public class JokeDivision extends BaseActivity {
 
 	private ListView listView;
 	// private String divisions[] = { "经典笑料", "网络流行", "笑客原创", "曲艺相声" };

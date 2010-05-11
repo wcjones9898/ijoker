@@ -34,7 +34,7 @@ import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class JokeList extends Activity {
+public class JokeList extends BaseActivity {
 	private ListView listView;
 	private List<Joke> jokeList;
 	private IPlayService playService;

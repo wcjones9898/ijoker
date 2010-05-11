@@ -37,7 +37,7 @@
 			android:id="@+id/describePad"
 			android:layout_below="@id/labelPad"
 			android:layout_width="fill_parent"			
-			android:layout_height="220px" 
+			android:layout_height="180px" 
 			android:layout_marginTop="22px"			
 			android:layout_marginLeft="57px" 
 			android:layout_marginRight="61px"			
@@ -53,10 +53,10 @@
 			    android:textSize="22px"/>
 		</RelativeLayout>
 		
-		<RelativeLayout 
-			android:layout_below="@id/describePad"
+		<RelativeLayout
+			android:layout_below="@id/describePad" 			
 			android:layout_height="fill_parent" 				
-			android:layout_width="fill_parent">			
+			android:layout_width="fill_parent">
 			
 			<com.admob.android.ads.AdView  
 	          android:id="@+id/ad"          
@@ -64,7 +64,8 @@
 	          android:layout_height="wrap_content"
 	          android:layout_alignParentBottom="true"
 	          ad:backgroundColor="#000000"          
-	          ad:keywords="Android game"	        
+	          ad:keywords="Android game"
+	          ad:testing="true"	        
 	        />
 		</RelativeLayout>
 	</RelativeLayout>

@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import cn.edu.xmu.software.ijoker.R;
 
-public class RecorderUI extends Activity {
+public class RecorderUI extends BaseActivity {
 	
 	private EditText jokeTitle_txt,keyword_txt;
 	private ProgressBar record_progress;
