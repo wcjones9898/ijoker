@@ -27,12 +27,8 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="40px"		    
 		    android:text=""		  
-		    android:textSize="14sp"
-		    android:typeface="normal"
-		    android:textStyle="normal"		    
-		    android:password="false"   		   
-		    android:autoText="false"
-		    android:capitalize="sentences"/>
+		    android:textSize="14sp"	    		    
+		    android:password="false"/>
 		    
 		<TextView  
 			android:id="@+id/passwordtxt"
@@ -45,11 +41,8 @@
 		<EditText android:id="@+id/password"
 			android:layout_below="@id/passwordtxt"
 		    android:layout_width="fill_parent"
-		    android:layout_height="40px"		    
-		    android:text=""	
-		    android:password="true" 
-		    android:autoText="false"
-		    android:capitalize="sentences"/>	 
+		    android:layout_height="40px"
+		    android:password="true"/>	 
 	
 	
 		<CheckBox android:id="@+id/rempw_cbx" 	
