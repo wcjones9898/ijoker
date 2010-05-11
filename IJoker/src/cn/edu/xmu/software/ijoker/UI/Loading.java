@@ -28,24 +28,15 @@ public class Loading extends BaseActivity {
 			isLoading = false;
 			switch (msg.what) {
 			case Consts.MSG_LOGIN_READY:
-				String session = "";
 				if (msg.arg1 == Consts.FLAG_LOGIN_SUCCESS) {
 					Log.i(TAG, "login success! now step into functions UI");
-					session = Consts.session;
 					callFunctionsUI();
 				} else {
 					Log
 							.i(TAG,
 									"can not login,check the imformation and login again!");
-					session = "";
 					callLoginUI(msg.arg2);
 				}
-				SharedPreferences settings = getSharedPreferences(
-						Consts.preferencesSetting, 0);
-				Editor editer = settings.edit();
-				editer.putString(Consts.session, session);
-				Log.i(TAG, "save data to preferences with session: " + session);
-				editer.commit();
 				break;
 			case Consts.ERROR_CALLWEBSERVICE:
 				callLoginUI(Consts.ERROR_CALLWEBSERVICE);
@@ -84,6 +75,12 @@ public class Loading extends BaseActivity {
 	}
 
 	private void callLoginUI(int errorCode) {
+		SharedPreferences settings = getSharedPreferences(
+				Consts.preferencesSetting, 0);
+		Editor editer = settings.edit();
+		editer.putString(Consts.session, "");
+		Log.i(TAG, "save data to preferences with session: " + "");
+		editer.commit();
 		Intent intent = new Intent();
 		intent.setClass(Loading.this, Login.class);
 		intent.putExtra("errorCode", errorCode);
