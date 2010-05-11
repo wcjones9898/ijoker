@@ -78,10 +78,10 @@ public class Login extends Activity {
 					Consts.rememberPassword, false);
 			Log.i(TAG, "rememberPassword from sharedPreferences: "
 					+ rememberPassword);
+			username = settings.getString(Consts.username, "");
+			Log.i(TAG, "username from sharedPreferences: " + username);
+			tv_username.setText(username);
 			if (rememberPassword) {
-				username = settings.getString(Consts.username, "");
-				Log.i(TAG, "username from sharedPreferences: " + username);
-				tv_username.setText(username);
 				password = settings.getString(Consts.password, "");
 				Log.i(TAG, "password from sharedPreferences: " + password);
 				tv_password.setText(password);
