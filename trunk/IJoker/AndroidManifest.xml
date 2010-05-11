@@ -32,7 +32,7 @@
 			android:process=":remote">
 
 			<intent-filter>
-				<action android:name="cn.edu.xmu.software.ijoker.REMOTE_SERVICE" />
+				<action android:name="cn.edu.xmu.software.ijoker.PLAY_SERVICE" />
 				<category android:name="android.intent.category.default" />
 			</intent-filter>
 		</service>
