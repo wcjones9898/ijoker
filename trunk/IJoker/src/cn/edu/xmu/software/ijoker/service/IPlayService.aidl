@@ -7,11 +7,9 @@ interface IPlayService {
     void play();
     void pause();
     void stop();
-    void addJokeList(String location);
-	void clearJokeList();
 	List<Joke> getJokeList();
 	List<ClassItem> getDivisionList();
-	void updateJokeList();
+	void updateJokeList(int page);
 	void updateDivisionList();
 	 boolean isPlaying();
 	 Joke getJokePlaying();
