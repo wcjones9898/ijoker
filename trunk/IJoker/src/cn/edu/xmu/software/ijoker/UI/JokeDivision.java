@@ -1,6 +1,10 @@
 package cn.edu.xmu.software.ijoker.UI;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,10 +22,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.ClassItem;
+import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -65,7 +71,7 @@ public class JokeDivision extends BaseActivity {
 		});
 	}
 
-	private String[] buildPlayListForSimpleAdapter() {
+	private List<Map<String, Object>> buildPlayListForSimpleAdapter() {
 		try {
 			divisionList = playService.getDivisionList();
 			Log.i(TAG, "divisionList: " + divisionList + "; size: "
@@ -74,22 +80,36 @@ public class JokeDivision extends BaseActivity {
 			Log.e(TAG, e.getMessage(), e);
 		}
 		if (divisionList != null) {
-			String list[] = new String[divisionList.size()];
-			for (int i = 0; i < divisionList.size(); i++) {
-				list[i] = divisionList.get(i).getClassName();
+			
+			ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>(
+					divisionList.size());
+			
+			Iterator<ClassItem> iterator = divisionList.iterator();
+			while (iterator.hasNext()) {
+				ClassItem classItem = (ClassItem) iterator.next();
+				
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("divisionTitle", classItem.getClassName());				
+				list.add(map);
 			}
-			return list;
+			return list;		
+			
 		}
 		return null;
 
 	}
 
 	public void updateDivisionList() {
-		String list[] = buildPlayListForSimpleAdapter();
+		List<Map<String, Object>> list = buildPlayListForSimpleAdapter();
 		// ArrayAdapter<String> divisionAdapter = new ArrayAdapter<String>(this,
 		// android.R.layout.preference_category, list);
-		ArrayAdapter<String> divisionAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.browser_link_context_header, list);
+		
+		SimpleAdapter divisionAdapter = new SimpleAdapter(this, list,
+				R.layout.divisionlist_style,
+				new String[] { "divisionTitle"},				
+				new int[] {R.id.divisionTitle});
+		/*ArrayAdapter<String> divisionAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.browser_link_context_header, list);*/
 		listView.setAdapter(divisionAdapter);
 		listView.setSelection(position);
 		progressDialog.dismiss();
