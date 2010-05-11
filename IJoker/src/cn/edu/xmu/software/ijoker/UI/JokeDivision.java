@@ -42,8 +42,9 @@ public class JokeDivision extends BaseActivity {
 		setContentView(R.layout.jokedivision);
 		registerReceiver(receiver, new IntentFilter(
 				Consts.ACTION_DIVISIONLIST_READY));
-		this.startService(new Intent(
-				"cn.edu.xmu.software.ijoker.REMOTE_SERVICE"));
+		// this
+		// .startService(new Intent(
+		// "cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
 		this.bindService(new Intent(JokeDivision.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 		listView = (ListView) findViewById(R.id.divisionList);
@@ -54,7 +55,10 @@ public class JokeDivision extends BaseActivity {
 					long arg3) {
 				position = arg2;
 				Intent intent = new Intent();
-				intent.putExtra("classId", divisionList.get(arg2).getClassId());
+				ClassItem classItem = divisionList.get(arg2);
+				intent.putExtra("classId", classItem.getClassId());
+				intent.putExtra("className", classItem.getClassName());
+				intent.putExtra("jokeNum", classItem.getJokeNum());
 				intent.setClass(JokeDivision.this, JokeList.class);
 				startActivity(intent);
 			}
@@ -132,6 +136,7 @@ public class JokeDivision extends BaseActivity {
 
 	protected void onResume() {
 		super.onResume();
+		// updateDivisionList();
 		this.bindService(new Intent(JokeDivision.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 		registerReceiver(receiver, new IntentFilter(

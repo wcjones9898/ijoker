@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -24,8 +23,10 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import cn.edu.xmu.software.ijoker.R;
@@ -39,8 +40,11 @@ public class JokeList extends BaseActivity {
 	private List<Joke> jokeList;
 	private IPlayService playService;
 	private int position = 0;
+	private int page = 1;
+	private int pages;
 	private final String TAG = JokeList.class.getName();
-
+	private Button prev_button;
+	private Button next_button;
 	private ProgressDialog progressDialog;
 
 	@Override
@@ -48,15 +52,50 @@ public class JokeList extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jokelist);
 		listView = (ListView) findViewById(R.id.JokeList);
+		prev_button = (Button) findViewById(R.id.lastPage_btn);
+		prev_button.setClickable(false);
+		next_button = (Button) findViewById(R.id.nextPage_btn);
+		prev_button.setOnClickListener(pageListener);
+		next_button.setOnClickListener(pageListener);
 		registerReceiver(receiver, new IntentFilter(
 				Consts.ACTION_JOKELIST_READY));
-		this.startService(new Intent(
-				"cn.edu.xmu.software.ijoker.REMOTE_SERVICE"));
+		TextView divisionTitile = (TextView) findViewById(R.id.divisionLabel);
+		divisionTitile.setText(this.getIntent().getStringExtra("className"));
+		int jokeNum = this.getIntent().getIntExtra("jokeNum", 0);
+		pages = jokeNum / Consts.PAGESIZE;
+		if (jokeNum % Consts.PAGESIZE != 0)
+			pages++;
 		this.bindService(new Intent(JokeList.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 
 	}
 
+	private Button.OnClickListener pageListener = new Button.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			if (v.equals(next_button)) {
+				try {
+					if (page + 1 == pages)
+						next_button.setClickable(false);
+					if (page == 1)
+						prev_button.setClickable(true);
+					playService.updateJokeList(++page);
+				} catch (RemoteException e) {
+					Log.e(TAG, e.getMessage(), e);
+				}
+			} else {
+				try {
+					if (page == 2)
+						prev_button.setClickable(false);
+					if (page == pages)
+						next_button.setClickable(true);
+					playService.updateJokeList(--page);
+				} catch (RemoteException e) {
+					Log.e(TAG, e.getMessage(), e);
+				}
+			}
+		}
+	};
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			playService = IPlayService.Stub.asInterface((IBinder) service);
@@ -64,7 +103,7 @@ public class JokeList extends BaseActivity {
 			try {
 				progressDialog = ProgressDialog.show(JokeList.this, "提示",
 						"正在获取列表，请稍候...", true);
-				playService.updateJokeList();
+				playService.updateJokeList(page);
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
@@ -198,6 +237,7 @@ public class JokeList extends BaseActivity {
 
 	protected void onResume() {
 		super.onResume();
+		// updateJokeList();
 		this.bindService(new Intent(JokeList.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 		registerReceiver(receiver, new IntentFilter(
