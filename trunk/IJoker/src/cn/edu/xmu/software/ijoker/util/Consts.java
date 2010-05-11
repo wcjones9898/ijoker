@@ -4,10 +4,13 @@ public class Consts {
 
 	public static final String ACTION_STOP_PLAY = "cn.edu.xmu.software.ijoker.action.STOP_PLAY";
 	public static final String ACTION_JOKELIST_READY = "cn.edu.xmu.software.ijoker.action.JOKELIST_READY";
+	public static final String ACTION_DIVISIONLIST_READY = "cn.edu.xmu.software.ijoker.action.DIVISIONLIST_READY";
 	public static final String INTENT_PLAY_SERVICE = "cn.edu.xmu.software.ijoker.START_PLAY_SERVICE";
 	public static final String METHODNAME_GETJOKELIST = "jokeListService";
+	public static final String METHODNAME_GETDIVISIONLIST = "topicListService";
 	public static final String METHODNAME_AUTHORIZATION = "loginService";
 	public static final String AUTHORIZATIONRETURN = "loginServiceReturn";
+	public static final String DIVISIONLISTRETURN = "topicListServiceReturn";
 	public static final String JOKELISTRETURN = "jokeListServiceReturn";
 	public static final String USER_NOTEXIST = "User not exist!";
 	public static final String NETWORK_FAILED = "Network connection failed!";
@@ -24,7 +27,10 @@ public class Consts {
 	public static final int ERROR_USERNAME_NOEXIST = 0x9;
 	public static final int ERROR_NOERROR = 0x10;
 	public static final int ERROR_CALLWEBSERVICE = 0x11;
-
+	public static final int MSG_DIVISIONLIST_UPDATE = 0x12;
+	public static final int MSG_DIVISIONLIST_READY = 0x13;
+	public static final int FLAG_CALLER_ID_JOKELIST = 0x14;
+	public static final int FLAG_CALLER_ID_DIVISIONLIST = 0x15;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";
