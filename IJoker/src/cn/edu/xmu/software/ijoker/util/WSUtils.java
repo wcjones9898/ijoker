@@ -11,6 +11,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
+import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
+
 import android.util.Log;
 
 public class WSUtils {
@@ -27,17 +29,18 @@ public class WSUtils {
 	 * @return SoapObject
 	 * @throws XmlPullParserException
 	 * @throws IOException
+	 * @throws CallWebServiceException
 	 */
 	public static SoapObject callWebService(String methodName,
 			Map<String, Object> params) throws IOException,
-			XmlPullParserException {
+			XmlPullParserException, CallWebServiceException {
 		String wsdl = Consts.SERVICE_BASE_URL + methodName + "?wsdl";
 		String nameSpace = Consts.SERVICE_BASE_URL + methodName;
 		Log.i(TAG, "wsdl: " + wsdl + "\n namespace: " + nameSpace
 				+ " \n methodName: " + methodName);
 		// String SOAP_ACTION = nameSpace + methodName;
 		SoapObject request = new SoapObject(nameSpace, methodName);
-		SoapObject soapResult = null;
+		SoapObject result = null;
 
 		if (params != null && !params.isEmpty()) {
 			for (Iterator it = params.entrySet().iterator(); it.hasNext();) {// 遍历MAP
@@ -58,9 +61,14 @@ public class WSUtils {
 
 		AndroidHttpTransport androidHT = new AndroidHttpTransport(wsdl);
 		androidHT.call(null, envelope);
-		soapResult = (SoapObject) envelope.bodyIn;
-		Log.i(TAG, soapResult.toString());
+		Object o = envelope.bodyIn;
+		if (o instanceof SoapFault) {
+			SoapFault soapFault = (SoapFault) o;
+			throw new CallWebServiceException(soapFault.getMessage(), soapFault);
+		}
+		result = (SoapObject) o;
+		Log.i(TAG, result.toString());
 
-		return soapResult;
+		return result;
 	}
 }

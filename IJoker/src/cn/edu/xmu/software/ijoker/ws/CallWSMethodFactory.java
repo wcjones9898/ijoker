@@ -15,6 +15,8 @@ public class CallWSMethodFactory {
 			return new GetJokeListWSMethod(methodName, handler, parms);
 		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_AUTHORIZATION))
 			return new AuthorizationWSMethod(methodName, handler, parms);
+		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_GETDIVISIONLIST))
+			return new GetDivisionListWSMethod(methodName, handler, parms);
 		else
 			throw new ClassNotFoundException("no class named as " + methodName);
 	}

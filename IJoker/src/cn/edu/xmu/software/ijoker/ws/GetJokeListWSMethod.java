@@ -44,17 +44,12 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 			while (iterator.hasNext()) {
 				SoapObject o = iterator.next();
 				Joke joke = new Joke();
-				try {
-					joke.setAuthor(new String(o.getProperty("author").toString().getBytes(),  
-					        "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				joke.setAuthor(o.getProperty("author").toString());
 				joke.setDislike(Integer.parseInt(o.getProperty("dislike")
 						.toString()));
 				joke.setId(Integer.parseInt(o.getProperty("id").toString()));
-				joke.setLocation(Consts.MEDIA_CENTER_BASE_URL + o.getProperty("location"));
+				joke.setLocation(Consts.MEDIA_CENTER_BASE_URL
+						+ o.getProperty("location"));
 				joke.setTitle(o.getProperty("title").toString());
 				joke.setUploadTime(o.getProperty("uploadTime").toString());
 				list.add(joke);

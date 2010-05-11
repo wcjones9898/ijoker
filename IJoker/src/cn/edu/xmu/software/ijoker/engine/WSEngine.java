@@ -47,6 +47,7 @@ public class WSEngine extends Thread {
 		Message message = handler.obtainMessage(Consts.ERROR_CALLWEBSERVICE);
 		Bundle b = new Bundle();
 		b.putString("errorMessage", detailMessage);
+		b.putString("methodName", methodName);
 		message.setData(b);
 		handler.sendMessage(message);
 	}

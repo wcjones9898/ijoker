@@ -18,6 +18,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
+import cn.edu.xmu.software.ijoker.entity.ClassItem;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
@@ -25,6 +26,7 @@ public class PlayService extends Service {
 	public final String TAG = PlayService.class.getName();
 	private MediaPlayer mp = new MediaPlayer();
 	private ArrayList<Joke> jokeList;
+	private ArrayList<ClassItem> divisionList;
 	private int playingPosition = -1;
 	private int currentPosition;
 	private NotificationManager nm;
@@ -38,19 +40,39 @@ public class PlayService extends Service {
 			case Consts.MSG_JOKELIST_UPDATE:
 				initJokeList();
 				break;
+			case Consts.MSG_DIVISIONLIST_UPDATE:
+				initDivisionList();
+				break;
 			case Consts.MSG_JOKELIST_READY:
 				jokeList = msg.getData().getParcelableArrayList("data");
-				Intent intent = new Intent(Consts.ACTION_JOKELIST_READY);
-				intent.putExtra("errorCode", Consts.ERROR_NOERROR);
-				sendBroadcast(intent);
+				Intent intent1 = new Intent(Consts.ACTION_JOKELIST_READY);
+				intent1.putExtra("errorCode", Consts.ERROR_NOERROR);
+				sendBroadcast(intent1);
 				Log
 						.i(
 								TAG,
 								"playservice get the jokelist from webservice and pass the jokelist to jokelist UI!"
 										+ jokeList.size());
 				break;
+			case Consts.MSG_DIVISIONLIST_READY:
+				divisionList = msg.getData().getParcelableArrayList("data");
+				Intent intent2 = new Intent(Consts.ACTION_DIVISIONLIST_READY);
+				intent2.putExtra("errorCode", Consts.ERROR_NOERROR);
+				sendBroadcast(intent2);
+				Log
+						.i(
+								TAG,
+								"playservice get the divisionlist from webservice and pass the divisionlist to divisionlist UI!"
+										+ divisionList.size());
+				break;
 			case Consts.ERROR_CALLWEBSERVICE:
-				Intent i = new Intent(Consts.ACTION_JOKELIST_READY);
+				Intent i = new Intent();
+				String methodName = msg.getData().getString("methodName");
+				if (methodName.equalsIgnoreCase(Consts.METHODNAME_GETJOKELIST))
+					i.setAction(Consts.ACTION_JOKELIST_READY);
+				else if (methodName
+						.equalsIgnoreCase(Consts.METHODNAME_GETDIVISIONLIST))
+					i.setAction(Consts.ACTION_DIVISIONLIST_READY);
 				i.putExtra("errorCode", Consts.ERROR_CALLWEBSERVICE);
 				sendBroadcast(i);
 				break;
@@ -168,14 +190,35 @@ public class PlayService extends Service {
 			Log.i(TAG, "the mediaplayer playing status: " + mp.isPlaying());
 			return mp.isPlaying();
 		}
+
+		@Override
+		public List<ClassItem> getDivisionList() throws RemoteException {
+			// TODO Auto-generated method stub
+			return divisionList;
+		}
+
+		@Override
+		public void updateDivisionList() throws RemoteException {
+			Message message = handler
+					.obtainMessage(Consts.MSG_DIVISIONLIST_UPDATE);
+			handler.sendMessage(message);
+
+		}
 	};
 
 	public void initJokeList() {
 		Log.i(TAG, "init the jokelist for playservice!");
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
-		 parms.put("classId", "1");
+		parms.put("classId", "1");
 		wsEngine.doStart(Consts.METHODNAME_GETJOKELIST, parms);
+	}
+
+	public void initDivisionList() {
+		Log.i(TAG, "init the divisionlist for playservice!");
+		WSEngine wsEngine = new WSEngine(handler);
+		HashMap<String, Object> parms = new HashMap<String, Object>();
+		wsEngine.doStart(Consts.METHODNAME_GETDIVISIONLIST, parms);
 	}
 
 	public void onCreate() {
