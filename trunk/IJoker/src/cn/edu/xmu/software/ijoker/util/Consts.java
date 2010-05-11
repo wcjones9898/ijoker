@@ -19,7 +19,8 @@ public class Consts {
 	public static final String NETWORK_FAILED = "Network connection failed!";
 	public static final String SCORE_SUCCESS = "Score succeed!";
 	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
-	public static final String SERVICE_BASE_URL = "http://59.77.5.181:8080/ijoker-server/services/";
+	public static final String SERVICE_BASE_URL = "http://59.77.5.42:8080/ijoker-server/services/";
+	public static final int PAGESIZE = 5;
 	public static final int MSG_JOKELIST_UPDATE = 0x1;
 	public static final int MSG_JOKELIST_READY = 0x2;
 	public static final int MSG_LOGIN_REQEST = 0x3;
@@ -38,6 +39,12 @@ public class Consts {
 	public static final int MSG_LIKE_REQUST = 0x16;
 	public static final int MSG_LIKE_SUCCEED = 0x17;
 	public static final int FLAG_CALLER_ID_LIKE = 0x18;
+	public static final int ERROR_UPLOAD = 0x19;
+	public static final int STATUS_PLAYING = 0x20;
+	public static final int STATUS_PAUSED = 0x21;
+	public static final int STATUS_STOPPED = 0x22;
+	public static final int STATUS_INIT = 0x23;
+	public static final int CMD_UPLOAD = 0x24;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";
