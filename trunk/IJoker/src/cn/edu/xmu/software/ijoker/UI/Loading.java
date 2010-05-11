@@ -13,7 +13,7 @@ import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.service.LoginService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class Loading extends Activity {
+public class Loading extends BaseActivity {
 	private static final String TAG = Loading.class.getName();
 	private String username;
 	private String password;
