@@ -140,8 +140,9 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton.OnClickListener like = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {
+			try {				
 				playService.like();
+				like_btn.setEnabled(false);
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
