@@ -12,6 +12,7 @@
 				android:text="听笑话"
 				android:textSize="32px"
 				android:textColor="#FFFFFF"
+				style="@style/ShadowLabel"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"/>
 		</RelativeLayout>
