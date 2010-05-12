@@ -1,11 +1,9 @@
 package cn.edu.xmu.software.ijoker.engine;
 
-import java.io.File; //
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -24,15 +22,15 @@ import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class Uploader extends Thread {
 	private Handler handler;
-	private String filePath;
+	private File currentRecord;
 	private static final String TAG = Uploader.class.getName();
 
 	public Uploader(Handler handler) {
 		this.handler = handler;
 	}
 
-	public void doStart() {
-		this.filePath = filePath;
+	public void doStart(File currentRecord) {
+		this.currentRecord = currentRecord;
 		this.start();
 	}
 
@@ -56,21 +54,11 @@ public class Uploader extends Thread {
 	}
 
 	private void upLoad() throws UploadException {
-		File targetFile = new File("hello.amr");
-		try {
-			FileOutputStream fos = new FileOutputStream(targetFile);
-			fos.write((new String("hello word")).getBytes());
-			fos.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Log.i(TAG, targetFile.getAbsolutePath());
 		PostMethod filePost = new PostMethod(Consts.SERVER_UPLOAD_URL);
 		try {
 
-			Part[] parts = { new FilePart(targetFile.getAbsolutePath(),
-					targetFile) };
+			Part[] parts = { new FilePart(currentRecord.getName(),
+					currentRecord) };
 			filePost.setRequestEntity(new MultipartRequestEntity(parts,
 					filePost.getParams()));
 			HttpClient client = new HttpClient();

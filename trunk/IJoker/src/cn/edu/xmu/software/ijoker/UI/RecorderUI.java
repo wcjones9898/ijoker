@@ -1,10 +1,5 @@
 package cn.edu.xmu.software.ijoker.UI;
 
-import java.io.File;
-import java.io.InputStream;
-
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +34,8 @@ public class RecorderUI extends BaseActivity {
 				break;
 			case Consts.STATUS_RECORD_STOPPED:
 				recorderService.stopRecord();
+			case Consts.STATUS_LISTEN_START:
+				recorderService.listenRecord();
 			default:
 			}
 
@@ -51,6 +48,7 @@ public class RecorderUI extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recorder);
 		recorderService = new RecorderService(handler);
+		recorderService.setCurrentRecord(this.getCacheDir());
 		find();
 	}
 
@@ -82,6 +80,15 @@ public class RecorderUI extends BaseActivity {
 			}
 		});
 		upload_btn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Message message = handler
+						.obtainMessage(Consts.STATUS_LISTEN_START);
+				handler.sendMessage(message);
+			}
+		});
+		listen_btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
