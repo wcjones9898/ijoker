@@ -1,5 +1,10 @@
 package cn.edu.xmu.software.ijoker.UI;
 
+import java.io.File;
+import java.io.InputStream;
+
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,12 +33,12 @@ public class RecorderUI extends BaseActivity {
 			case Consts.CMD_UPLOAD:
 				recorderService.uploadFile();
 				break;
-			case Consts.STATUS_PLAYING:
+			case Consts.STATUS_RECORD_PLAYING:
 				Log.i(TAG, "uploadService");
-				recorderService.onRestartRecorder();
+				recorderService.startRecord();
 				break;
-			case Consts.STATUS_STOPPED:
-				recorderService.onStopRecorder();
+			case Consts.STATUS_RECORD_STOPPED:
+				recorderService.stopRecord();
 			default:
 			}
 
@@ -62,7 +67,8 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Message message = handler.obtainMessage(Consts.STATUS_PLAYING);
+				Message message = handler
+						.obtainMessage(Consts.STATUS_RECORD_PLAYING);
 				handler.sendMessage(message);
 			}
 		});
@@ -70,7 +76,8 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Message message = handler.obtainMessage(Consts.STATUS_STOPPED);
+				Message message = handler
+						.obtainMessage(Consts.STATUS_RECORD_STOPPED);
 				handler.sendMessage(message);
 			}
 		});
