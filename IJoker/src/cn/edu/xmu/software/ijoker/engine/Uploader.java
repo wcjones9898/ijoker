@@ -1,33 +1,37 @@
 package cn.edu.xmu.software.ijoker.engine;
 
-import java.io.BufferedInputStream;
-import java.io.File;
+import java.io.File; //
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.InputStream;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.exception.UploadException;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class Uploader extends Thread {
 	private Handler handler;
-	private String serverUrl;
 	private String filePath;
-	private final int BUFFERSIZE = 100;
-	private Socket socket = null;
 	private static final String TAG = Uploader.class.getName();
 
 	public Uploader(Handler handler) {
 		this.handler = handler;
 	}
 
-	public void doStart(String serverUrl, String filePath) {
-		this.serverUrl = serverUrl;
+	public void doStart() {
 		this.filePath = filePath;
 		this.start();
 	}
@@ -36,39 +40,10 @@ public class Uploader extends Thread {
 	public void run() {
 		super.run();
 		try {
-			connectToServer(serverUrl);
-			fileTransfer(filePath);
-		} catch (Exception e) {
+			upLoad();
+		} catch (UploadException e) {
 			Log.e(TAG, e.getMessage(), e);
 			sendMessage(e.getMessage());
-		}
-	}
-
-	private void connectToServer(String serverUrl) throws UnknownHostException,
-			IOException {
-		// long start = System.currentTimeMillis();
-		//
-		// int current;
-		socket = new Socket(serverUrl, 1001);
-	}
-
-	private void fileTransfer(String filePath) throws IOException {
-		int bytesRead = 0;
-		if (socket != null) {
-			byte[] bytesArray = new byte[BUFFERSIZE];
-			File myFile = new File(filePath);
-			FileInputStream fis = new FileInputStream(myFile);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			OutputStream os = socket.getOutputStream();
-			while ((bytesRead = bis.read(bytesArray)) > 0) {
-				os.write(bytesArray, 0, bytesRead);
-			}
-			os.flush();
-			socket.close();
-			// PrintWriter out = new PrintWriter(
-			// new BufferedWriter(
-			// new OutputStreamWriter(socket.getOutputStream())),true);
-			// out.println("Bill White");
 		}
 	}
 
@@ -78,5 +53,48 @@ public class Uploader extends Thread {
 		b.putString("errorMessage", detailMessage);
 		message.setData(b);
 		handler.sendMessage(message);
+	}
+
+	private void upLoad() throws UploadException {
+		File targetFile = new File("hello.amr");
+		try {
+			FileOutputStream fos = new FileOutputStream(targetFile);
+			fos.write((new String("hello word")).getBytes());
+			fos.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Log.i(TAG, targetFile.getAbsolutePath());
+		PostMethod filePost = new PostMethod(Consts.SERVER_UPLOAD_URL);
+		try {
+
+			Part[] parts = { new FilePart(targetFile.getAbsolutePath(),
+					targetFile) };
+			filePost.setRequestEntity(new MultipartRequestEntity(parts,
+					filePost.getParams()));
+			HttpClient client = new HttpClient();
+			client.getHttpConnectionManager().getParams().setConnectionTimeout(
+					5000);
+			int status = client.executeMethod(filePost);
+			if (status == HttpStatus.SC_OK) {
+				System.out.println("上传成功");
+				// 上传成功
+			} else {
+				System.out.println("上传失败");
+				// 上传失败
+			}
+
+		} catch (FileNotFoundException e) {
+			throw new UploadException(e.getMessage(), e);
+		} catch (HttpException e) {
+			throw new UploadException(e.getMessage(), e);
+		} catch (IOException e) {
+			throw new UploadException(e.getMessage(), e);
+		} catch (Exception e) {
+			throw new UploadException(e.getMessage(), e);
+		} finally {
+			filePost.releaseConnection();
+		}
 	}
 }
