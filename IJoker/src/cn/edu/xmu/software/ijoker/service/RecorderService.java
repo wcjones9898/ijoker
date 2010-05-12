@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.engine.Uploader;
-import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class RecorderService {
 	public final String TAG = RecorderService.class.getName();
@@ -44,7 +43,7 @@ public class RecorderService {
 		}
 	}
 
-	public void onStopRecorder() {
+	public void stopRecord() {
 		if (mRecorder != null) {
 			mRecorder.stop();
 			mRecorder.release();
@@ -54,33 +53,15 @@ public class RecorderService {
 
 	public void uploadFile() {
 		uploader = new Uploader(handler);
-		uploader.doStart("59.77.5.181", currentRecord.getAbsolutePath());
+		uploader.doStart();
 	}
 
-	public void onRestartRecorder() {
-		onStopRecorder();
+	public void startRecord() {
+		stopRecord();
 		Log.i("Start Rec", "MessageManager");
 		mRecorder = new MediaRecorder();
 		initRecorder();
 		mRecorder.start();
-	}
-
-	public void notifyRecorder(int cmd) {
-		if (cmd == Consts.STATUS_PLAYING) {
-			Log.i("test", "uploadService");
-			this.onRestartRecorder();
-		}
-
-		else if (cmd == Consts.CMD_UPLOAD) {
-			Log.i("test", "uploadService");
-			uploader = new Uploader(handler);
-			uploader.doStart("59.77.5.181", currentRecord.getAbsolutePath());
-			// uploadService.onReceive(mSampleFile.getAbsolutePath());
-		}
-
-		else if (cmd == Consts.STATUS_STOPPED) {
-			this.onStopRecorder();
-		}
 	}
 
 }
