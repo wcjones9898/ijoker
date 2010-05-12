@@ -19,8 +19,8 @@ public class Consts {
 	public static final String NETWORK_FAILED = "Network connection failed!";
 	public static final String SCORE_SUCCESS = "Score succeed!";
 	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
-	public static final String SERVICE_BASE_URL = "http://59.77.5.181:8080/ijoker-server/services/";
-	public static final String SERVER_UPLOAD_URL = "http://59.77.5.181:8080/ijoker-server/servlet/UploadService";
+	public static final String SERVICE_BASE_URL = "http://192.168.0.101:8080/ijoker-server/services/";
+	public static final String SERVER_UPLOAD_URL = "http://192.168.0.101:8080/ijoker-server/servlet/UploadService";
 	public static final int PAGESIZE = 5;
 	public static final int MSG_JOKELIST_UPDATE = 0x1;
 	public static final int MSG_JOKELIST_READY = 0x2;
