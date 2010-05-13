@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="jl_jokefile" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.JokeFile">
+	</table>
+	<table name="jl_classandfile" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+	<table name="jl_class" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.ClassItem">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+<table name="jl_joke" catalog="ijokerdata"
+	class="cn.edu.xmu.software.ijoke.entity.Joke">
+	<primary-key>
+		<generator class="increment"></generator>
+	</primary-key>
+</table>
+</hibernate-reverse-engineering>

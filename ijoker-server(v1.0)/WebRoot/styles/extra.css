@@ -1,0 +1,186 @@
+body {
+	MARGIN: 0px
+	COLOR: #320404;
+	BACKGROUND-COLOR: #FFFEFE;
+	FONT-SIZE: 12px;
+	LINE-HEIGHT: 150%;
+	font-family: "Microsoft YaHei";
+}
+
+TABLE {
+	FONT-SIZE: 12px;
+	LINE-HEIGHT: 150%;
+}
+
+INPUT {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft YaHei";
+}
+
+SELECT {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft YaHei";
+}
+
+TEXTAREA {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft YaHei";
+}
+
+A:link {
+	TEXT-DECORATION: none
+}
+
+A:visited {
+	TEXT-DECORATION: none
+}
+
+A:hover {
+	TEXT-DECORATION: underline
+}
+
+A.menuChild:link {
+	COLOR: #772D2D;
+	TEXT-DECORATION: none
+}
+
+A.menuChild:visited {
+	COLOR: #564141;
+	TEXT-DECORATION: none
+}
+
+A.menuChild:hover {
+	COLOR: #f60;
+	TEXT-DECORATION: underline
+}
+
+A.menuParent:link {
+	COLOR: #772D2D;
+	TEXT-DECORATION: none
+}
+
+A.menuParent:visited {
+	COLOR: #564141;
+	TEXT-DECORATION: none
+}
+
+A.menuParent:hover {
+	COLOR: #f60;
+	TEXT-DECORATION: none
+}
+
+table.eTable {
+	width: 520px;
+	margin: 0px auto;
+	font: Georgia 11px;
+	font-size: 12px;
+	color: #333333;
+	text-align: center;
+	border-collapse: collapse; /*细线表格*/
+}
+.eTable a{
+	COLOR: #772D2D;
+}
+.eTable td{
+	border: 1px solid #999; /*细线条颜色*/
+	color: #333333;
+	height: 22px;
+}
+.eTable caption {
+	border: 1px solid #999;
+	height:20px;
+	background-color:#87b3f0;
+	border-collapse: collapse; 
+	text-align: center;
+	COLOR: #4f4448;
+	font-size: 15px;	
+	
+	margin: 0 auto; 
+}
+tr.t1 td {
+	background-color: #eeeeee;
+}  /* 交替行第一行的背景色 */
+tr.t2 td {
+	background-color: #ECF3FD;
+}  /* 交替行第二行的背景色 */
+tr.t3 td {
+	background-color: #bce774;
+}  /* 鼠标经过时的背景色 */
+.eTable th,tfoot tr td {
+	font-weight: bold;
+	text-align: center;
+	background: #c5c5c5;
+}
+.eTable th {
+	border: 1px solid #999;
+	background:#f5e2cf;
+	line-height: 30px;
+	height: 30px;
+}
+.eTable tfoot tr td {
+	background: #fff;
+	line-height: 26px;
+	height: 26px;
+}
+.eTable thead {
+	border: 1px solid #999;
+}
+.eTable thead tr td {
+	text-align: center;
+}
+
+#page {
+	text-align: center;
+	float: right;
+}
+#page a,#page a:visited {
+	width: 60px;
+	height: 22px;
+	line-height: 22px;
+	border: 1px black solid;
+	display: block;
+	float: left;
+	margin: 0 3px;
+	background: #c9c9c9;
+	text-decoration: none;
+}
+#page a:hover {
+	background: #c1c1c1;
+	text-decoration: none;
+}
+.grayr {
+	padding: 2px;
+	font-size: 11px;
+	background: #fff;
+	float: right;
+}
+.grayr a {
+	padding: 2px 5px;
+	margin: 2px;
+	color: #000;
+	text-decoration: none;;
+	border: 1px #c0c0c0 solid;
+}
+.grayr a:hover {
+	color: #000;
+	border: 1px orange solid;
+}
+.grayr a:active {
+	color: #000;
+	background: #99ffff
+}
+.grayr span.current {
+	padding: 2px 5px;
+	font-weight: bold;
+	margin: 2px;
+	color: #303030;
+	background: #fff;
+	border: 1px orange solid;
+}
+.grayr span.disabled {
+	padding: 2px 5px;
+	margin: 2px;
+	color: #797979;
+	background: #c1c1c1;
+	border: 1px #c1c1c1 solid;
+}

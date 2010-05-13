@@ -1,0 +1,149 @@
+BODY {
+	MARGIN: 0px
+}
+P {
+	MARGIN: 0px
+}
+BODY {
+	COLOR: #320404;
+	BACKGROUND-COLOR: #FFFEFE;
+	FONT-SIZE: 12px;
+	LINE-HEIGHT: 150%;
+}
+
+TABLE {
+	FONT-SIZE: 12px;
+	LINE-HEIGHT: 150%;
+}
+
+INPUT {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+
+SELECT {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+
+TEXTAREA {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+
+A:link {
+	TEXT-DECORATION: none
+}
+
+A:visited {
+	TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+A.menuChild:link {
+	COLOR: #772D2D;
+	TEXT-DECORATION: none
+}
+A.menuChild:visited {
+	COLOR: #564141;
+	TEXT-DECORATION: none
+}
+A.menuChild:hover {
+	COLOR: #f60;
+	TEXT-DECORATION: underline
+}
+A.menuParent:link {
+	COLOR: #772D2D;
+	TEXT-DECORATION: none
+}
+A.menuParent:visited {
+	COLOR: #564141;
+	TEXT-DECORATION: none
+}
+A.menuParent:hover {
+	COLOR: #f60;
+	TEXT-DECORATION: none
+}
+
+TABLE.position {
+	WIDTH: 100%
+}
+TR.position {
+	BACKGROUND-COLOR: #FFFAFA
+}
+
+TD.position {
+	BORDER-RIGHT: #9D9595 1px solid;
+	PADDING-LEFT: 20px;
+	BORDER-BOTTOM: #9D9595 1px solid
+}
+
+.listTable TABLE{
+	WIDTH: 98%;
+	BACKGROUND-COLOR: #DA8585
+}
+.listTable TR{
+	FONT-WEIGHT: bold;
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #FFFAFA;
+	TEXT-ALIGN: center
+}
+
+TR.listTr {
+	BACKGROUND-COLOR: #FFFFFF;
+	TEXT-ALIGN: center
+}
+
+TR.listAlternatingTr {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #FFFAFA;
+	TEXT-ALIGN: center
+}
+
+TR.listFooterTr {
+	HEIGHT: 30px;
+	BACKGROUND-COLOR: #FFFAFA;
+	TEXT-ALIGN: center
+}
+
+.editTable TABLE{
+	WIDTH: 98%;
+	BACKGROUND-COLOR: #9D9595;
+	cellSpacing: 1;
+	cellPadding: 0;
+	width:500;
+	align: center;
+	border:0	
+}
+.editTable TH {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #FFFDF0;
+}
+.editHeader TD {
+	BORDER-RIGHT: #9D9595 1px solid;
+	PADDING-LEFT: 20px;
+	BORDER-BOTTOM: #9D9595 1px solid;
+	PADDING-LEFT: 50px;
+	FONT-WEIGHT: bold;
+	BACKGROUND-COLOR: #ECF3FD;
+}
+.editHeader TR {
+	HEIGHT: 30px
+}
+.editHeader LeftTD {
+	WIDTH: 150px;
+	BACKGROUND-COLOR: #FFFAFA;
+	TEXT-ALIGN: center
+}
+.editHeader RightTD {
+	PADDING-LEFT: 10px;
+	BACKGROUND-COLOR: #FBFDF7
+}
+.editHeader FooterTR {
+	HEIGHT: 40px;
+	BACKGROUND-COLOR: #FFFAFA
+}
+.editHeader FooterTD {
+	PADDING-LEFT: 150px
+}

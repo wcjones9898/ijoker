@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" 
+xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+
+
+                             
+<handler type="java:org.apache.axis.handlers.http.URLMapper" name="URLMapper"/>
+    
+                       <!--JokeList Service-->
+    
+    <service name="jokeListService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.JokeListServiceImpl"/>
+        <parameter name="allowedMethods" value="jokeListService"/> 
+        <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
+         qname="ns:Joke" languageSpecificType="java:cn.edu.xmu.software.ijoke.view.Joke"/>
+           
+           
+           
+                                       <!--Login Service (登录服务)-->
+    </service>
+        <service name="loginService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl"/>
+        <parameter name="allowedMethods" value="loginService"/> 
+        <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
+         qname="ns:User" languageSpecificType="java:cn.edu.xmu.software.ijoke.entity.User"/>   
+    </service>
+    
+                       <!--TopicList Service (目录服务)-->
+   <service name="topicListService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.TopicListServiceImpl"/>
+        <parameter name="allowedMethods" value="topicListService"/> 
+        <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
+         qname="ns:ClassItem" languageSpecificType="java:cn.edu.xmu.software.ijoke.entity.ClassItem"/>   
+    </service>
+    
+                           <!--Upload Service (目录服务)-->
+   <service name="uploadService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.UploadReceiveServiceImpl"/>
+        <parameter name="allowedMethods" value="uploadService"/> 
+        <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
+         qname="ns:ClassItem" languageSpecificType="java:cn.edu.xmu.software.ijoke.entity.ClassItem"/>   
+    </service>
+    
+                             <!--Score Service(评价服务)-->
+   <service name="scoreService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.ScoreServiceImpl"/>
+        <parameter name="allowedMethods" value="scoreService"/> 
+    </service>                         
+                                     <!--Register Service(注册服务)-->
+   <service name="registerService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.RegisterServiceImpl"/>
+        <parameter name="allowedMethods" value="registerService"/> 
+    </service>         
+<transport name="http">
+<requestFlow>
+    <handler type="URLMapper"/>
+</requestFlow>
+</transport>
+</deployment> 
