@@ -33,16 +33,12 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="197" height="638">
+					<td width="197" height="608">
 						<table border="0" cellspacing="0" cellpadding="0" width="197"
-							height="638" background="../images/sidebar.gif">
+							height="608" background="../images/sidebar.gif">
 							<tr>
-								<td width="75%" height="100">
-									&nbsp;
-								</td>
-								<td width="25%">
-									&nbsp;
-								</td>
+								<td width="75%" height="100">&nbsp;</td>
+								<td width="25%">&nbsp;</td>
 							</tr>							
 							<tr>
 								<td height="100" class="bod">
@@ -50,23 +46,13 @@
 										笑话管理
 									</h6>
 									<ol>
-										<li>
-											<a href="">审核笑话</a>
-										</li>
-										<li>
-											<a href="">银行用户</a>
-										</li>
-										<li>
-											<a href="">添加用户</a>
-										</li>
+										<li><a href="">审核笑话</a></li>
+										<li><a href="">银行用户</a></li>
+										<li><a href="">添加用户</a></li>
 									</ol>
 								</td>
-								<td>
-									&nbsp;
-								</td>
+								<td>&nbsp;</td>
 							</tr>
-							
-
 							
 							<tr>
 								<td height="100" class="bod">
@@ -74,17 +60,11 @@
 										用户管理
 									</h6>
 									<ol>
-										<li>
-											<a href="">未处理申请</a>
-										</li>
-										<li>
-											<a href="">已处理申请</a>
-										</li>
+										<li><a href="">未处理申请</a></li>
+										<li><a href="">已处理申请</a></li>
 									</ol>
 								</td>
-								<td>
-									&nbsp;
-								</td>
+								<td>&nbsp;</td>
 							</tr>
 							<tr>
 								<td height="100" class="bod">
@@ -92,15 +72,11 @@
 										初审管理
 									</h6>
 									<ol>
-										<li>
-											<a href="">日程安排</a>
-										</li>
+										<li><a href="">日程安排</a></li>
 									</ol>
 
 								</td>
-								<td>
-									&nbsp;
-								</td>
+								<td>&nbsp;</td>
 							</tr>
 							<tr>
 								<td height="100" class="bod">
@@ -120,7 +96,7 @@
 							</tr>
 						
 							<tr>
-								<td width="75%" height="178">
+								<td width="75%" height="138">
 									&nbsp;
 								</td>
 								<td width="25%">
@@ -131,15 +107,18 @@
 						</table>
 					</td>
 					<td width="553" height="638" background="../images/content.gif">
-						<table height="100%">
-							<tr valign="middle">
-								<td width="553" height="70" align="left">
-									<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您所在的位置：</strong>
+						<table width="551" height="638" >
+							<tr>
+								<td height="20">&nbsp;</td>
+							</tr>
+							<tr valign="top">
+								<td width="553" height="90" align="left">
+									<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您所在的位置：</strong>
 									<decorator:title />
 								</td>
 							</tr>
 							<tr>
-								<td width="553" height="550" valign="top">
+								<td width="553" height="500" valign="top">
 									<decorator:body />
 								</td>
 							</tr>
