@@ -18,6 +18,8 @@ public class CallWSMethodFactory {
 			return new GetDivisionListWSMethod(methodName, handler, parms);
 		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_SCORE))
 			return new ScoreWSMethod(methodName, handler, parms);
+		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_REGISTER))
+			return new RegisterWSMethod(methodName, handler, parms);
 		else
 			throw new ClassNotFoundException("no class named as " + methodName);
 	}
