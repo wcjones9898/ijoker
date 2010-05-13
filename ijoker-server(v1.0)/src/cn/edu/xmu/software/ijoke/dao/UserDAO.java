@@ -44,7 +44,13 @@ public class UserDAO extends HibernateDaoSupport  {
     public User findByUserName(String userName)
     {
     	session =  HibernateSessionFactory.getSession();
-    	User user = (User)session.createQuery("from User as user where user.userName ='"+ userName+"'").list().get(0);
+    	User user = null;
+    	try{
+    	  user = (User)session.createQuery("from User as user where user.userName ='"+ userName+"'").list().get(0);
+    	}catch(Exception e)
+    	{
+    		System.out.println("该用户不存在");
+    	}
     	session.close();
     	return  user;
     }

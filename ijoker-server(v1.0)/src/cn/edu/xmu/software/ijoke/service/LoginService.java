@@ -4,5 +4,5 @@ import cn.edu.xmu.software.ijoke.entity.User;
 
 public interface LoginService {
 
-	public User loginService(String userName,String passWord);
+	public String loginService(String userName,String passWord);
 }

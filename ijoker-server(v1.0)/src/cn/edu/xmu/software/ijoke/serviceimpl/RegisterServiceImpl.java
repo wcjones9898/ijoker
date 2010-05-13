@@ -8,11 +8,17 @@ import cn.edu.xmu.software.ijoke.factory.UserFactory;
 public class RegisterServiceImpl {
 
 	
-	public void registerService(String userName, String passWord, String nickName)
+	public String registerService(String userName, String passWord, String nickName)
 	{
 		User user = UserFactory.createUser(userName, passWord, nickName);
+		try{
 		UserDAO userDAO = new UserDAO();
 		userDAO.insertUser(user);
+		return user.getUserId();
+		}catch(Exception e)
+		{
+			return "-1";
+		}
 	}
 	@Test
 	public void testRegister()
