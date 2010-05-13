@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
@@ -21,14 +22,6 @@ public class RecorderService {
 
 	public RecorderService(Handler handler) {
 		this.handler = handler;
-	}
-
-	public File getCurrentRecord() {
-		return currentRecord;
-	}
-
-	public void setCurrentRecord(File currentRecord) {
-		this.currentRecord = currentRecord;
 	}
 
 	public void initRecorder() {
@@ -62,13 +55,23 @@ public class RecorderService {
 		}
 	}
 
-	public void uploadFile() {
+	public void uploadFile(String userId,String jokeTitle,String keyword) {
 		uploader = new Uploader(handler);
-		uploader.doStart(currentRecord);
+		uploader.doStart(currentRecord, jokeTitle, keyword, userId);
+		if (currentRecord != null)
+			currentRecord.deleteOnExit();
 	}
 
 	public void listenRecord() {
 		MediaPlayer mediaPlayer = new MediaPlayer();
+		mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				mp.stop();
+				mp.release();
+			}
+		});
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(currentRecord);
@@ -88,6 +91,8 @@ public class RecorderService {
 
 	public void startRecord() {
 		stopRecord();
+		if (currentRecord != null)
+			currentRecord.deleteOnExit();
 		Log.i("Start Rec", "MessageManager");
 		mRecorder = new MediaRecorder();
 		initRecorder();

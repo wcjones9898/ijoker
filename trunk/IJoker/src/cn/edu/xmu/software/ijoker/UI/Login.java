@@ -71,29 +71,30 @@ public class Login extends Activity {
 	}
 
 	private void restorePrefs() {
+		SharedPreferences settings = getSharedPreferences(
+				Consts.preferencesSetting, 0);
+		username = settings.getString(Consts.username, "");
+		Log.i(TAG, "username from sharedPreferences: " + username);
+		if (!username.equals(""))
+			tv_username.setText(username);
 		if (getSessionInPreference()) {
-			SharedPreferences settings = getSharedPreferences(
-					Consts.preferencesSetting, 0);
 			boolean rememberPassword = settings.getBoolean(
 					Consts.rememberPassword, false);
 			Log.i(TAG, "rememberPassword from sharedPreferences: "
 					+ rememberPassword);
-			username = settings.getString(Consts.username, "");
-			Log.i(TAG, "username from sharedPreferences: " + username);
-			tv_username.setText(username);
 			if (rememberPassword) {
 				password = settings.getString(Consts.password, "");
 				Log.i(TAG, "password from sharedPreferences: " + password);
 				tv_password.setText(password);
 				rempw_cbx.setChecked(rememberPassword);
-			}
-			boolean autoLogin = settings.getBoolean(Consts.autoLogin,
-					false);
-			Log.i(TAG, "autoLogin from sharedPreferences: " + autoLogin);
-			if (autoLogin) {
-				autoLogin_cbx.setChecked(autoLogin);
-				if (validate())
-					check();
+				boolean autoLogin = settings
+						.getBoolean(Consts.autoLogin, false);
+				Log.i(TAG, "autoLogin from sharedPreferences: " + autoLogin);
+				if (autoLogin) {
+					autoLogin_cbx.setChecked(autoLogin);
+					if (validate())
+						check();
+				}
 			}
 		}
 	}
@@ -112,15 +113,12 @@ public class Login extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (!getSessionInPreference()) {
-				SharedPreferences settings = getSharedPreferences(
-						Consts.preferencesSetting, 0);
-				Editor editer = settings.edit();
-				editer.putBoolean(Consts.autoLogin, isChecked);
-				editer.commit();
-				Log.i(TAG, "save data to preferences with autoLogin: "
-						+ isChecked);
-			}
+			SharedPreferences settings = getSharedPreferences(
+					Consts.preferencesSetting, 0);
+			Editor editer = settings.edit();
+			editer.putBoolean(Consts.autoLogin, isChecked);
+			editer.commit();
+			Log.i(TAG, "save data to preferences with autoLogin: " + isChecked);
 		}
 	};
 	private CheckBox.OnCheckedChangeListener remPwListener = new OnCheckedChangeListener() {
@@ -128,19 +126,17 @@ public class Login extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (!getSessionInPreference()) {
-				SharedPreferences settings = getSharedPreferences(
-						Consts.preferencesSetting, 0);
-				Editor editer = settings.edit();
-				editer.putBoolean(Consts.rememberPassword, isChecked);
-				username = tv_username.getText().toString();
-				password = tv_password.getText().toString();
-				editer.putString(Consts.username, username);
-				editer.putString(Consts.password, password);
-				Log.i(TAG, "save data to preferences with rempw: " + isChecked
-						+ " username: " + username + " password: " + password);
-				editer.commit();
-			}
+			SharedPreferences settings = getSharedPreferences(
+					Consts.preferencesSetting, 0);
+			Editor editer = settings.edit();
+			editer.putBoolean(Consts.rememberPassword, isChecked);
+			username = tv_username.getText().toString();
+			password = tv_password.getText().toString();
+			editer.putString(Consts.username, username);
+			editer.putString(Consts.password, password);
+			Log.i(TAG, "save data to preferences with rempw: " + isChecked
+					+ " username: " + username + " password: " + password);
+			editer.commit();
 		}
 	};
 

@@ -87,7 +87,7 @@ public class Functions extends BaseActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		this.stopService(new Intent("cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
+//		this.stopService(new Intent("cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
 	}
 
 }

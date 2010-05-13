@@ -2,9 +2,8 @@ package cn.edu.xmu.software.ijoker.ws;
 
 import java.util.HashMap;
 
-import cn.edu.xmu.software.ijoker.util.Consts;
-
 import android.os.Handler;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class CallWSMethodFactory {
 	public static AbstractWSMethod CreateWSMethod(String methodName,

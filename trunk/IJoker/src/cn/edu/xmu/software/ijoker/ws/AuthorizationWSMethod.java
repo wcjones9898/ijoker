@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.ksoap2.serialization.SoapObject;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -49,16 +50,20 @@ public class AuthorizationWSMethod extends AbstractWSMethod {
 		// 生成动态数组，加入数据
 		// user = new User(1, "ijoker", "123", "1", "ijoker");
 		// construct the message;
+		Message message = Message.obtain(handler, Consts.MSG_LOGIN_READY);
 		int wsResult, error;
 		if (user != null) {
 			wsResult = Consts.FLAG_LOGIN_SUCCESS;
 			error = Consts.ERROR_NOERROR;
+			Bundle b = new Bundle();
+			b.putString("userId", user.getUserId());
+			message.setData(b);
 		} else {
 			wsResult = Consts.FLAG_LOGIN_FAILURE;
 			error = Consts.ERROR_USERNAME_NOEXIST;
 		}
-		Message message = Message.obtain(handler, Consts.MSG_LOGIN_READY,
-				wsResult, error);
+		message.arg1 = wsResult;
+		message.arg2 = error;
 		handler.sendMessage(message);
 		Log.i(TAG, "send login ready message to loading!");
 	}

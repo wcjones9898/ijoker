@@ -129,6 +129,7 @@ public class PlayService extends Service {
 						sendBroadcast(intent);
 					}
 				});
+//				mp.setOnErrorListene(new );
 			}
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage(), e);
