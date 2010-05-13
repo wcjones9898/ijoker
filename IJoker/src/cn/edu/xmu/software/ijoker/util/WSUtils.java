@@ -12,9 +12,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
-import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
-
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 
 public class WSUtils {
 	private static final String TAG = WSUtils.class.getName();

@@ -2,12 +2,13 @@ package cn.edu.xmu.software.ijoker.engine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
@@ -23,13 +24,19 @@ import cn.edu.xmu.software.ijoker.util.Consts;
 public class Uploader extends Thread {
 	private Handler handler;
 	private File currentRecord;
+	private String jokeTitle;
+	private String keyword;
+	private String userId;
 	private static final String TAG = Uploader.class.getName();
 
 	public Uploader(Handler handler) {
 		this.handler = handler;
 	}
 
-	public void doStart(File currentRecord) {
+	public void doStart(File currentRecord, String jokeTitle, String keyword, String userId) {
+		this.jokeTitle = jokeTitle;
+		this.keyword = keyword;
+		this.userId = userId;
 		this.currentRecord = currentRecord;
 		this.start();
 	}
@@ -55,6 +62,7 @@ public class Uploader extends Thread {
 
 	private void upLoad() throws UploadException {
 		PostMethod filePost = new PostMethod(Consts.SERVER_UPLOAD_URL);
+		PostMethod fileGet = new PostMethod(Consts.SERVER_UPLOAD_URL);
 		try {
 
 			Part[] parts = { new FilePart(currentRecord.getName(),
@@ -66,10 +74,41 @@ public class Uploader extends Thread {
 					5000);
 			int status = client.executeMethod(filePost);
 			if (status == HttpStatus.SC_OK) {
-				System.out.println("上传成功");
+				Log.i(TAG, "upload file: " + currentRecord.getAbsolutePath()
+						+ " successful!");
 				// 上传成功
+				// filePost.releaseConnection();
+				String a = filePost.getResponseBody().toString();
+				Log.i(TAG, "get synchronizationTicket: " + a);
+				NameValuePair[] data = { new NameValuePair("title", jokeTitle),
+
+				new NameValuePair("userId", userId),
+						new NameValuePair("keyWord", keyword),
+						new NameValuePair("synchronizationTicket", a) };
+				fileGet.getParams().setContentCharset("gbk");
+
+				// 填入各个表单域的值
+
+				// 将表单的值放入postMethod中
+				fileGet.setRequestBody(data);
+				status = client.executeMethod(fileGet);
+				if (status == HttpStatus.SC_MOVED_PERMANENTLY
+						|| status == HttpStatus.SC_MOVED_TEMPORARILY) {
+					// 从头中取出转向的地址
+					Header locationHeader = filePost
+							.getResponseHeader("location");
+					String location = null;
+					if (locationHeader != null) {
+						location = locationHeader.getValue();
+						Log.i(TAG, "The page was redirected to:" + location);
+					} else {
+						Log.i(TAG, "Location field value is null.");
+					}
+				}
+
 			} else {
-				System.out.println("上传失败");
+				Log.i(TAG, "upload file: " + currentRecord.getAbsolutePath()
+						+ " failed!");
 				// 上传失败
 			}
 
@@ -83,6 +122,7 @@ public class Uploader extends Thread {
 			throw new UploadException(e.getMessage(), e);
 		} finally {
 			filePost.releaseConnection();
+			fileGet.releaseConnection();
 		}
 	}
 }

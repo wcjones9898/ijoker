@@ -1,12 +1,12 @@
 package cn.edu.xmu.software.ijoker.UI;
 
-import cn.edu.xmu.software.ijoker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import cn.edu.xmu.software.ijoker.R;
 
 public class Register extends Activity {
 	

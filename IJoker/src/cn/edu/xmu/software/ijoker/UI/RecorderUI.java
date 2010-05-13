@@ -1,10 +1,14 @@
 package cn.edu.xmu.software.ijoker.UI;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -15,6 +19,9 @@ import cn.edu.xmu.software.ijoker.util.Consts;
 public class RecorderUI extends BaseActivity {
 
 	private EditText jokeTitle_txt, keyword_txt;
+	private String jokeTitle;
+	private String keyword;
+	private String userId;
 	private ProgressBar record_progress;
 	private Button listen_btn, record_btn, clear_btn, upload_btn;
 	private RecorderService recorderService;
@@ -26,7 +33,16 @@ public class RecorderUI extends BaseActivity {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case Consts.CMD_UPLOAD:
-				recorderService.uploadFile();
+				jokeTitle = jokeTitle_txt.getText().toString();
+				keyword = keyword_txt.getText().toString();
+				if (validate()) {
+					SharedPreferences settings = getSharedPreferences(
+							Consts.preferencesSetting, 0);
+					userId = settings.getString(Consts.userId, "");
+					Log.i(TAG, "save data to preferences with userId: "
+							+ userId);
+					recorderService.uploadFile(userId, jokeTitle, keyword);
+				}
 				break;
 			case Consts.STATUS_RECORD_PLAYING:
 				Log.i(TAG, "uploadService");
@@ -48,7 +64,6 @@ public class RecorderUI extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recorder);
 		recorderService = new RecorderService(handler);
-		recorderService.setCurrentRecord(this.getCacheDir());
 		find();
 	}
 
@@ -83,8 +98,7 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Message message = handler
-						.obtainMessage(Consts.STATUS_LISTEN_START);
+				Message message = handler.obtainMessage(Consts.CMD_UPLOAD);
 				handler.sendMessage(message);
 			}
 		});
@@ -92,10 +106,27 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Message message = handler.obtainMessage(Consts.CMD_UPLOAD);
+				Message message = handler
+						.obtainMessage(Consts.STATUS_LISTEN_START);
 				handler.sendMessage(message);
 			}
 		});
 	}
 
+	private boolean validate() {
+		boolean flag = true;
+		if (jokeTitle.equals("")) {
+			Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+			jokeTitle_txt.startAnimation(shake);
+			flag = flag && false;
+			Log.i(TAG, "jokeTitle validate: " + flag);
+		}
+		if (keyword.equals("")) {
+			Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+			keyword_txt.startAnimation(shake);
+			flag = flag && false;
+			Log.i(TAG, "keyword validate: " + flag);
+		}
+		return flag;
+	}
 }

@@ -1,7 +1,5 @@
 package cn.edu.xmu.software.ijoker.UI;
 
-import cn.edu.xmu.software.ijoker.util.Consts;
-import cn.edu.xmu.software.ijoker.util.MenuUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +7,8 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import cn.edu.xmu.software.ijoker.util.Consts;
+import cn.edu.xmu.software.ijoker.util.MenuUtils;
 
 public class BaseActivity extends Activity {
 	private static final String TAG = BaseActivity.class.getName();
@@ -37,7 +37,7 @@ public class BaseActivity extends Activity {
 			startActivity(redirectIntent);
 			return true;
 		case MenuUtils.LOGOUT:
-			callLoginUI();
+			callLoginUI(Consts.ERROR_NOERROR);
 			return true;
 		default:
 			return true;
@@ -45,16 +45,15 @@ public class BaseActivity extends Activity {
 
 	}
 
-	private void callLoginUI() {
+	protected void callLoginUI(int errorCode) {
 		SharedPreferences settings = getSharedPreferences(
 				Consts.preferencesSetting, 0);
 		Editor editer = settings.edit();
-		editer.putString(Consts.session, "");
-		Log.i(TAG, "save data to preferences with session: " + "");
+		editer.putBoolean(Consts.autoLogin, false);
 		editer.commit();
 		Intent intent = new Intent();
 		intent.setClass(BaseActivity.this, Login.class);
-		intent.putExtra("errorCode", Consts.ERROR_NOERROR);
+		intent.putExtra("errorCode", errorCode);
 		startActivity(intent);
 		finish();
 	}

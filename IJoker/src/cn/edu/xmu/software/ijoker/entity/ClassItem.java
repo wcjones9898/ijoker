@@ -1,7 +1,5 @@
 package cn.edu.xmu.software.ijoker.entity;
 
-import java.util.Set;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
