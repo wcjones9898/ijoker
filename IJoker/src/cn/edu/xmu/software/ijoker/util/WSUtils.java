@@ -8,6 +8,7 @@ import java.util.Map;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
@@ -31,7 +32,7 @@ public class WSUtils {
 	 * @throws IOException
 	 * @throws CallWebServiceException
 	 */
-	public static SoapObject callWebService(String methodName,
+	public static Object callWebService(String methodName,
 			Map<String, Object> params) throws IOException,
 			XmlPullParserException, CallWebServiceException, ConnectException {
 		String wsdl = Consts.SERVICE_BASE_URL + methodName + "?wsdl";
@@ -40,7 +41,7 @@ public class WSUtils {
 				+ " \n methodName: " + methodName);
 		// String SOAP_ACTION = nameSpace + methodName;
 		SoapObject request = new SoapObject(nameSpace, methodName);
-		SoapObject result = null;
+		Object result = null;
 
 		if (params != null && !params.isEmpty()) {
 			for (Iterator it = params.entrySet().iterator(); it.hasNext();) {// 遍历MAP
@@ -65,8 +66,10 @@ public class WSUtils {
 		if (o instanceof SoapFault) {
 			SoapFault soapFault = (SoapFault) o;
 			throw new CallWebServiceException(soapFault.getMessage(), soapFault);
-		}
-		result = (SoapObject) o;
+		} else if (o instanceof SoapPrimitive) {
+			result = envelope.getResponse();
+		} else
+			result = (SoapObject) o;
 		Log.i(TAG, result.toString());
 
 		return result;

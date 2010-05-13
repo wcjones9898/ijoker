@@ -4,37 +4,26 @@
 	android:background="@drawable/bg_main">
 
 	<RelativeLayout android:id="@+id/loading_info"
-		android:gravity="center_horizontal" 
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" 
-		android:background="@drawable/content_pad">
-		
-		<RelativeLayout 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" 
-			android:layout_marginTop="30px"
-			android:layout_marginLeft="65px" 
-			android:layout_marginRight="65px"
+		android:gravity="center_horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:background="@drawable/content_pad">
+
+		<RelativeLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:layout_marginTop="30px"
+			android:layout_marginLeft="65px" android:layout_marginRight="65px"
 			android:gravity="center">
-			
+
 			<RelativeLayout android:id="@+id/loging"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:gravity="center">
-				
-				<ImageView android:id="@+id/star" 
-					android:src="@drawable/star"
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content" />
-				
+
+				<ImageView android:id="@+id/star" android:src="@drawable/star"
+					android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
 				<TextView android:layout_toRightOf="@id/star"
-					android:layout_marginTop="10px" 
-					android:text="正在登录中..."
-					style="@style/ShadowLabel"
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content" />
+					android:layout_marginTop="10px" android:text="正在登录中..." style="@style/ShadowLabel"
+					android:layout_width="wrap_content" android:layout_height="wrap_content" />
 			</RelativeLayout>
-			
+
 			<ProgressBar android:id="@+id/loadingprogress"
 				android:layout_below="@id/loging" style="?android:attr/progressBarStyleHorizontal"
 				android:layout_width="fill_parent" android:layout_height="15px" />
@@ -42,12 +31,10 @@
 			<RelativeLayout android:layout_width="fill_parent"
 				android:layout_height="wrap_content" android:gravity="center"
 				android:layout_below="@id/loadingprogress">
-				
-				<TextView android:layout_marginTop="20px" 
-					android:text="找寻每一天的精彩"
-					style="@style/ShadowLabel"
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content" />
+
+				<TextView android:layout_marginTop="20px" android:id="@+id/progressText"
+					android:text="找寻每一天的精彩" style="@style/ShadowLabel"
+					android:layout_width="wrap_content" android:layout_height="wrap_content" />
 			</RelativeLayout>
 
 		</RelativeLayout>

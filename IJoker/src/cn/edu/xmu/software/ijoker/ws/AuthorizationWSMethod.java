@@ -22,26 +22,28 @@ public class AuthorizationWSMethod extends AbstractWSMethod {
 
 	@Override
 	public void invokeWSMethod() throws CallWebServiceException {
-		User user = null;
+		// User user = null;
+		String userId = null;
 		SoapObject result = null;
 		try {
-			result = WSUtils.callWebService(this.methodName, parms);
+			result = (SoapObject) WSUtils
+					.callWebService(this.methodName, parms);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage(), e);
 			throw new CallWebServiceException(e.getMessage(), e);
 		}
 		if (result != null && result.getPropertyCount() > 0) {
 			try {
-				SoapObject o = (SoapObject) result
-						.getProperty(Consts.AUTHORIZATIONRETURN);
-				int id = Integer.parseInt(o.getProperty("id").toString());
-				String nickName = o.getProperty("nickName").toString();
-				String passWord = o.getProperty("passWord").toString();
-				String userId = o.getProperty("userId").toString();
-				String userName = o.getProperty("userName").toString();
-				user = new User(id, userName, passWord, userId, nickName);
+				userId = result.getProperty(Consts.AUTHORIZATIONRETURN)
+						.toString();
+				// int id = Integer.parseInt(o.getProperty("id").toString());
+				// String nickName = o.getProperty("nickName").toString();
+				// String passWord = o.getProperty("passWord").toString();
+				// userId = o.toString();
+				// String userName = o.getProperty("userName").toString();
+				// user = new User(id, userName, passWord, userId, nickName);
 				Log.i(TAG, "get data from webservice with method: "
-						+ this.methodName + "\nget result: " + user.toString());
+						+ this.methodName + "\nget result: " + userId);
 			} catch (Exception e) {
 				// TODO send error message.
 				Log.e(TAG, e.getMessage(), e);
@@ -52,11 +54,11 @@ public class AuthorizationWSMethod extends AbstractWSMethod {
 		// construct the message;
 		Message message = Message.obtain(handler, Consts.MSG_LOGIN_READY);
 		int wsResult, error;
-		if (user != null) {
+		if (userId != null) {
 			wsResult = Consts.FLAG_LOGIN_SUCCESS;
 			error = Consts.ERROR_NOERROR;
 			Bundle b = new Bundle();
-			b.putString("userId", user.getUserId());
+			b.putString("userId", userId);
 			message.setData(b);
 		} else {
 			wsResult = Consts.FLAG_LOGIN_FAILURE;
