@@ -18,7 +18,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class Login extends Activity {
+public class Login extends BaseActivity {
 	private Button login_btn, register_btn;
 	private TextView tv_username, tv_password;
 	private CheckBox rempw_cbx, autoLogin_cbx;
