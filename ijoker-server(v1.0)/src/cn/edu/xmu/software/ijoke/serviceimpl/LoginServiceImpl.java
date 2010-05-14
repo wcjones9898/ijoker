@@ -3,6 +3,7 @@ package cn.edu.xmu.software.ijoke.serviceimpl;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.UserFactory;
 import cn.edu.xmu.software.ijoke.service.LoginService;
+import cn.edu.xmu.software.ijoke.utils.Consts;
 
 public class LoginServiceImpl implements LoginService {
 	
@@ -13,8 +14,8 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("In LoginServiceImpl Test authorization userName="+userName+" passWord="+passWord);
 		User user = UserFactory.createUser(userName, passWord);
 		if (user==null||!(passWord.equals(user.getPassWord())))
-			return null;
+			return Consts.LOGIN_FAIL;
 		else
-			return user.getUserId();
+			return Consts.LOGIN_SUCCESS;
 	}
 }

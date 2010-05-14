@@ -10,7 +10,7 @@
 	<head>
 		<link href="../styles/style.css" type="text/css" rel="stylesheet" >
 		<LINK href="../styles/extra.css" type="text/css" rel="stylesheet">
-		<title>笑客——后台管理系统</title>
+		<title>iJoker——后台管理系统</title>
 		<decorator:head />
 	</head>
 
@@ -46,7 +46,7 @@
 										笑话管理
 									</h6>
 									<ol>
-										<li><a href="">上传笑话</a></li>
+										<li><a href="uploadAudio.jsp">上传笑话</a></li>
 										<li><a href="">审核笑话</a></li>
 										
 									</ol>

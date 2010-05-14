@@ -12,14 +12,15 @@
 		alink="#666666" leftmargin="1" topmargin="1" marginwidth="1"
 		marginheight="1">
 		<script type="text/javascript">
-	function changeValidateCode(obj) {
-		//获取当前的时间作为参数，无具体意义   
-		var timenow = new Date().getTime();
-		//每次请求需要一个不同的参数，否则可能会返回同样的验证码   
-		//这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
-		obj.src = "RandomAction.action?d=" + timenow;
-	}
-</script>
+			function changeValidateCode(obj) {
+				//获取当前的时间作为参数，无具体意义   
+				var timenow = new Date().getTime();
+				//每次请求需要一个不同的参数，否则可能会返回同样的验证码   
+				//这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
+				obj.src = "RandomAction.action?d=" + timenow;
+			}
+		</script>
+		
 		<div align="center">
 			<table width="750" height="798" border="0" cellpadding="0"
 				cellspacing="0">
@@ -47,32 +48,31 @@
 						<table border="0" background="images/login.jpg" width="750"
 							height="476">
 							<tr>
-								<td colspan="3" height="36" />
+								<td colspan="3" height="76" />
 							</td>
 							<tr>
 								<td width="2">
 									&nbsp;
 								</td>
 								<td valign="top">
-									<div align="center">								
-									
-										<form action="j_acegi_security_check" method="POST"
-											name="login" onsubmit="return loginsubmit();">
+									<div align="center">							
+										
+										<s:form theme="simple" action="LoginAction" method="POST" name="login" onsubmit="return loginsubmit();">
 										<table width="30%" height="30%">
 											<tr>
 												<td>
 													<s:label value="用户名" cssClass="gray"></s:label>
 												</td>
 												<td>
-													<input type="text" name="j_username" class="field">
+													<s:textfield name="username" label="用户名" size="14"/>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<s:label value="密         码" cssClass="gray"></s:label>
+													<s:label value="密码" cssClass="gray"></s:label>
 												</td>
 												<td>
-													<input type="password" name="j_password" class="field">
+													<s:password name="password"   label="密码" size="14"/>
 												</td>
 											</tr>
 											<tr>
@@ -80,7 +80,7 @@
 													<s:label value="验证码" cssClass="gray"></s:label>
 												</td>
 												<td>
-													<s:textfield name="rand" label="验证码" size="9" cssClass="field"></s:textfield>
+													<s:textfield name="verifyStr" label="验证码" size="9" cssClass="field"></s:textfield>
 													<img src="RandomAction.action"
 														onclick="changeValidateCode(this)" title="点击图片刷新验证码" />
 													<br>
@@ -88,14 +88,14 @@
 											</tr>
 											<tr>
 												<td colspan="2">
-													<s:submit value="登  录" cssClass="bt_register"/>												
-													<s:reset value="重  置" cssClass="bt_login"/><br>												
-													<font color="#ff0000">用户名或者密码错误，请重新登录</font>
+													<s:submit value="登录" cssClass="bt_register"/>												
+													<s:reset value="重置" cssClass="bt_login"/><br>													
+													<font color="#ff0000">登陆失败，请检查登陆信息</font>
 												</td>
 											</tr>
 											
 										</table>
-										</form>
+										</s:form>
 
 									</div>
 								</td>
@@ -155,12 +155,12 @@
 		</div>
 		<script type="text/javascript">
 	function loginsubmit() {
-		if (document.login.j_username.value.length < 1) {
+		if (document.login.username.value.length < 1) {
 			alert("请输入用户名！");
 			login.username.focus();
 			return false;
 		}
-		if (document.login.j_password.value.length < 1) {
+		if (document.login.password.value.length < 1) {
 			alert("请输入密码！");
 			login.password.focus();
 			return false;
@@ -175,8 +175,5 @@
 </script>
 	</body>
 </html>
-
-
-
 
 

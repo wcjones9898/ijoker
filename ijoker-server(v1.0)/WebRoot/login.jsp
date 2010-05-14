@@ -48,7 +48,7 @@
 						<table border="0" background="images/login.jpg" width="750"
 							height="476">
 							<tr>
-								<td colspan="3" height="76" />
+								<td colspan="3" height="86" />
 							</td>
 							<tr>
 								<td width="2">
@@ -80,7 +80,7 @@
 													<s:label value="验证码" cssClass="gray"></s:label>
 												</td>
 												<td>
-													<s:textfield name="rand" label="验证码" size="9" cssClass="field"></s:textfield>
+													<s:textfield name="verifyStr" label="验证码" size="9" cssClass="field"></s:textfield>
 													<img src="RandomAction.action"
 														onclick="changeValidateCode(this)" title="点击图片刷新验证码" />
 													<br>
@@ -89,12 +89,7 @@
 											<tr>
 												<td colspan="2">
 													<s:submit value="登录" cssClass="bt_register"/>												
-													<s:reset value="重置" cssClass="bt_login"/><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													 <s:a href="TurnToRegister.action" cssClass="lost-pwd">注册新用户</s:a>
+													<s:reset value="重置" cssClass="bt_login"/><br>																										
 												</td>
 											</tr>
 											
