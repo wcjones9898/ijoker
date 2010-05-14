@@ -12,32 +12,49 @@ import org.junit.Test;
 
 public class ConfigFactory {
 
-	  public static String getJokePath()
-	  {
-		 
-		    
-	        Properties   properties   =   new   Properties();  
-	        InputStream iFile = null;
-			try {
-				//iFile = new   FileInputStream(ConfigFactory.class.getResource("").toString()+"config.ini");
-				iFile = new   FileInputStream("D:/config.ini");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-	        try {
-				properties.load(iFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-	        String   filePath   =   properties.getProperty("jokepath")   ;   
-	        return filePath;
-	  }
-	 @Test
-	 public void testGetJokePath()
-	 {
-		 getJokePath();
-	 }
-	  
+	public static Properties getConfigProperties() throws IOException {
+		Properties properties = new Properties();
+		InputStream iFile = null;
+		try {
+			// iFile = new
+			// FileInputStream(ConfigFactory.class.getResource("").toString()+"config.ini");
+			iFile = new FileInputStream(ConfigFactory.class.getResource("")
+					.toString()
+					+ "/config.properties");
+			properties.load(iFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return properties;
+
+	}
+
+	public static String getJokePath() {
+		String filePath = null;
+		try {
+			filePath = getConfigProperties().getProperty("jokeRootPath");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filePath;
+	}
+
+	public static String getJokeTempPath()
+	{
+		String filePath = null;
+		try {
+			filePath = getConfigProperties().getProperty("jokeTempPath");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filePath;
+	}
+	@Test
+	public void testGetJokePath() {
+		System.out.print(getJokePath());
+	}
+
 }

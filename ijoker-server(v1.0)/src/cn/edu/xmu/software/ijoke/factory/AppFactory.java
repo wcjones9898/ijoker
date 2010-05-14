@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.edu.xmu.software.ijoke.service.CatalogService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 
 public class AppFactory {
@@ -12,7 +13,10 @@ public class AppFactory {
 	{
 		return (UploadJokeFileService)app.getBean("UploadJokeFileService");
 	}
-	
+	public static CatalogService getCatalogService()
+	{
+		return (CatalogService)app.getBean("CatalogService");
+	}
 	@Test
 	public void testUploadJokeFileService()
 	{

@@ -41,6 +41,9 @@
 				</value>
 				<value>
 					cn/edu/xmu/software/ijoke/entity/Joke.hbm.xml
+				</value>
+				<value>
+					cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml
 				</value></list>
 		</property>
 	</bean>
@@ -76,10 +79,15 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	
+	<bean id="CatalogDAO"
+		class="cn.edu.xmu.software.ijoke.dao.CatalogDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<!-- Service -->
 	<bean id="LoginService" class="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl">	
-		
+	
 	</bean>
 	
 	<bean id="UploadJokeFileService"
@@ -87,6 +95,14 @@
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="jokeFileDAO">
 			<ref bean="JokeFileDAO" />
+		</property>
+	</bean>
+	
+	<bean id="CatalogService"
+	    class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogServiceImpl"
+	    lazy-init="default" autowire="default" dependency-check="default">
+			<property name="catalogDAO">
+			<ref bean="CatalogDAO" />
 		</property>
 	</bean>
 </beans>

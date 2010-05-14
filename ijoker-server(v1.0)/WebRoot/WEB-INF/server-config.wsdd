@@ -33,14 +33,7 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
         <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
          qname="ns:ClassItem" languageSpecificType="java:cn.edu.xmu.software.ijoke.entity.ClassItem"/>   
     </service>
-    
-                           <!--Upload Service (目录服务)-->
-   <service name="uploadService" provider="java:RPC">
-        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.UploadReceiveServiceImpl"/>
-        <parameter name="allowedMethods" value="uploadService"/> 
-        <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
-         qname="ns:ClassItem" languageSpecificType="java:cn.edu.xmu.software.ijoke.entity.ClassItem"/>   
-    </service>
+
     
                              <!--Score Service(评价服务)-->
    <service name="scoreService" provider="java:RPC">

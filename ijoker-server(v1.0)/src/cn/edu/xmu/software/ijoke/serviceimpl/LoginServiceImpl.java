@@ -13,7 +13,7 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("In LoginServiceImpl Test authorization userName="+userName+" passWord="+passWord);
 		User user = UserFactory.createUser(userName, passWord);
 		if (user==null||!(passWord.equals(user.getPassWord())))
-			return "-1";
+			return null;
 		else
 			return user.getUserId();
 	}

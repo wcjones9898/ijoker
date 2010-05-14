@@ -16,7 +16,14 @@ public class JokeFileServiceImpl implements UploadJokeFileService{
 	{
 		JokeFile jokeFile = new JokeFile();
 		jokeFile.setFileExtension(fileExtension);
-		jokeFile.setFilePath(ConfigFactory.getJokePath());
+		String filePathTemp = null;
+		try{
+			filePathTemp=ConfigFactory.getJokePath()+filePath;
+		}catch(Exception e)
+		{
+			System.out.println(" 无法获得系统路径");
+		}
+		jokeFile.setFilePath(filePath);
 		jokeFile.setFileName(fileId);
 		jokeFile.setFileId(fileId);
         jokeFileDAO.insertJokeFile(jokeFile);
