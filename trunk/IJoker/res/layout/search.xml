@@ -46,11 +46,29 @@
 				android:layout_below="@id/searchLabel"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"/>
+			
+			<RadioGroup
+				android:id="@+id/searchType"
+				android:layout_below="@id/searchKeyword_txt"		        
+		        android:orientation="horizontal"
+		        android:checkedButton="@+id/byJoke_radio"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center">
+				
+				<RadioButton android:id="@+id/byJoke_radio"
+					android:text="搜笑话"
+					style="@style/ShadowLabel"/>
+				<RadioButton android:id="@+id/byJoker_radio"
+					android:text="搜笑客"
+					style="@style/ShadowLabel"/>
+				
+			</RadioGroup>
 
 			<RelativeLayout android:layout_width="fill_parent"
 				android:layout_marginTop="10px"
 				android:layout_height="wrap_content" android:gravity="center"
-				android:layout_below="@id/searchKeyword_txt">
+				android:layout_below="@id/searchType">
 				
 				<Button android:id="@+id/search_btn"
 					android:text="查找"
