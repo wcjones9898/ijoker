@@ -10,7 +10,7 @@
 
 			<s:form theme="simple" action="UploadJokeFileAction" method="POST"
 				name="uploadJokeFileForm" enctype="multipart/form-data">
-				<table>
+				<table class="eTable">
 					<tr>
 						<td>
 							<s:label value="文件位置" cssClass="gray"></s:label>

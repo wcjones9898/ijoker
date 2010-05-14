@@ -119,7 +119,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit-4.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit-dep-4.9-SNAPSHOT-20100512-0041.jar"/>
-	<classpathentry kind="lib" path="/Helic/WebRoot/WEB-INF/lib/struts-core-1.3.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-core-2.0.11.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
