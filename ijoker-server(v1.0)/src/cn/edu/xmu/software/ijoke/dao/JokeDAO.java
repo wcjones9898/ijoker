@@ -1,5 +1,8 @@
 package cn.edu.xmu.software.ijoke.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
@@ -39,6 +42,37 @@ public class JokeDAO extends HibernateDaoSupport {
 		return joke;
 		
 	}
+	
+	public List findByTitle(String title)
+	{
+		session =  HibernateSessionFactory.getSession();
+		List jokes =session.createQuery("from Joke as joke where joke.title like '%"
+				+ title +"%' order by joke.likeNum desc").list();
+		session.close();
+		return jokes;
+		
+	}
+	
+	public List findByAuthor(String author)
+	{
+		session =  HibernateSessionFactory.getSession();
+		List jokes =session.createQuery("from Joke as joke where joke.authorName like '%"
+				+ author +"%' order by joke.likeNum desc").list();
+		session.close();
+		return jokes;
+		
+	}
+	public List findByAllInfo(String info)
+	{
+		session =  HibernateSessionFactory.getSession();
+		List jokes =session.createQuery("from Joke as joke where joke.title like '%"
+				+ info +"%'  OR joke.description like '%"
+				+ info +"%'  order by joke.likeNum desc").list();
+		session.close();
+		return jokes;
+		
+	}
+	
 	public void updateJokeByJokeId(String jokeId)
 	{
 		Joke joke = this.findByJokeId(jokeId);
@@ -68,6 +102,7 @@ public class JokeDAO extends HibernateDaoSupport {
 		return user;
 	}
 	
+	
 	public void updateJoke(Joke joke)
 	{
 		session =  HibernateSessionFactory.getSession();
@@ -84,10 +119,25 @@ public class JokeDAO extends HibernateDaoSupport {
 		getHibernateTemplate().delete(joke);
 		session.close();
 	}
+	
+	public ArrayList<Joke> findAllByLimit10(int begin)
+	{
+		session =  HibernateSessionFactory.getSession();
+		ArrayList<Joke> jokeList = (ArrayList<Joke>) session.createQuery("from Joke")
+		.setFirstResult(begin).setMaxResults(begin+10).list();
+		session.close();
+		return jokeList;
+	}
+    public int getJokesNum()
+    {
+		session =  HibernateSessionFactory.getSession();
+		Long i = (Long)session.createQuery("select count(*) from Joke as joke").list().get(0);
+		session.close();
+		return i.intValue();
+    }
 	public static JokeDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (JokeDAO) ctx.getBean("JokeDAO");
 	}
-	
 	
 	
 	@Test
@@ -101,10 +151,27 @@ public class JokeDAO extends HibernateDaoSupport {
 	@Test
 	public void testDelete()
 	{
-		ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
-	    JokeDAO jokeDAO = (JokeDAO)app.getBean("JokeDAO");
-	    jokeDAO.deleteJoke("20100513095238256");
+//		ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+//	    JokeDAO jokeDAO = (JokeDAO)app.getBean("JokeDAO");
+//	    jokeDAO.deleteJoke("20100513095238256");
 	    
 	}
+	@Test
+	public void testFindAll()
+	{
+		ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+	    JokeDAO jokeDAO = (JokeDAO)app.getBean("JokeDAO");
+	    ArrayList<Joke> jokeList = jokeDAO.findAllByLimit10(0);
+	    for(int i=0;i<jokeList.size();i++)
+	    	System.out.println(jokeList.get(i).getAuthorName());
+	}
+	@Test
+	public void testGetJokeNum()
+	{
+		ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+	    JokeDAO jokeDAO = (JokeDAO)app.getBean("JokeDAO");
+	    System.out.println(jokeDAO.getJokesNum());
+	}
+	
 
 }

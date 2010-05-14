@@ -52,6 +52,18 @@ public class ConfigFactory {
 		}
 		return filePath;
 	}
+	
+	public static String getSearchIndexPath()
+	{
+		String filePath = null;
+		try {
+			filePath = getConfigProperties().getProperty("searchIndexPath");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filePath;
+	}
 	@Test
 	public void testGetJokePath() {
 		System.out.print(getJokePath());

@@ -9,7 +9,7 @@
 <session-factory>
 	<property name="connection.username">root</property>
 	<property name="connection.url">
-		jdbc:mysql://localhost:3306/ijokerdata?useUnicode=true&amp;characterEncoding=utf-8
+		jdbc:mysql://59.77.5.42:3306/ijokerdata?useUnicode=true&amp;characterEncoding=utf-8
 	</property>
 	<property name="dialect">
 		org.hibernate.dialect.MySQLDialect

@@ -10,8 +10,8 @@
 			value="com.mysql.jdbc.Driver">
 		</property>
 		<property name="url"
-              value="jdbc:mysql://localhost:3306/ijokerdata?useUnicode=true&amp;characterEncoding=utf-8">
-         </property>
+			value="jdbc:mysql://59.77.5.42:3306/ijokerdata?useUnicode=true&amp;characterEncoding=utf-8">
+		</property>
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property>
 	</bean>
@@ -19,7 +19,7 @@
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
 			<ref bean="dataSource" />
-			
+
 		</property>
 		<property name="hibernateProperties">
 			<props>
@@ -44,16 +44,18 @@
 				</value>
 				<value>
 					cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml
-				</value></list>
+				</value>
+			</list>
 		</property>
 	</bean>
-<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-  <property name="sessionFactory">
-  <ref bean="sessionFactory" /> 
-  </property>
-</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
-<!-- DAO -->
+	<!-- DAO -->
 	<bean id="JokeFileDAO"
 		class="cn.edu.xmu.software.ijoke.dao.JokeFileDAO">
 		<property name="sessionFactory">
@@ -66,15 +68,14 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	
+
 	<bean id="ClassItemDAO"
 		class="cn.edu.xmu.software.ijoke.dao.ClassItemDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory"></ref>
 		</property>
 	</bean>
-	<bean id="JokeDAO"
-		class="cn.edu.xmu.software.ijoke.dao.JokeDAO">
+	<bean id="JokeDAO" class="cn.edu.xmu.software.ijoke.dao.JokeDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -86,23 +87,42 @@
 		</property>
 	</bean>
 	<!-- Service -->
-	<bean id="LoginService" class="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl">	
-	
+	<bean id="LoginService"
+		class="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl">
+
 	</bean>
-	
+
 	<bean id="UploadJokeFileService"
-		class="cn.edu.xmu.software.ijoke.serviceimpl.UploadJokeFileServiceImpl" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		class="cn.edu.xmu.software.ijoke.serviceimpl.UploadJokeFileServiceImpl"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
 		<property name="jokeFileDAO">
 			<ref bean="JokeFileDAO" />
 		</property>
 	</bean>
-	
+
 	<bean id="CatalogService"
-	    class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogServiceImpl"
-	    lazy-init="default" autowire="default" dependency-check="default">
-			<property name="catalogDAO">
+		class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="catalogDAO">
 			<ref bean="CatalogDAO" />
 		</property>
 	</bean>
+	
+	<bean id="SearchService"
+		class="cn.edu.xmu.software.ijoke.serviceimpl.SearchServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="jokeDAO">
+			<ref bean="JokeDAO" />
+		</property>
+	</bean>
+	
+	<bean id="JokeInfoService"
+		class="cn.edu.xmu.software.ijoke.serviceimpl.JokeInfoServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="jokeDAO">
+			<ref bean="JokeDAO" />
+		</property>
+	</bean>
+	
 </beans>

@@ -18,7 +18,8 @@ public class Joke implements java.io.Serializable {
 	private String uploaderId;
     private String uploadTime;
     private int likeNum;
-    private String status;  //用来标注Joke是否经过审核
+    private String status;  
+    private String description;//用来标注Joke是否经过审核
  
 	// Constructors
 
@@ -111,6 +112,14 @@ public class Joke implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 
