@@ -48,7 +48,7 @@
 						<table border="0" background="images/login.jpg" width="750"
 							height="476">
 							<tr>
-								<td colspan="3" height="36" />
+								<td colspan="3" height="76" />
 							</td>
 							<tr>
 								<td width="2">

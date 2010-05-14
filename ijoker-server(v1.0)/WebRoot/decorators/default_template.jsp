@@ -46,9 +46,9 @@
 										笑话管理
 									</h6>
 									<ol>
+										<li><a href="">上传笑话</a></li>
 										<li><a href="">审核笑话</a></li>
-										<li><a href="">银行用户</a></li>
-										<li><a href="">添加用户</a></li>
+										
 									</ol>
 								</td>
 								<td>&nbsp;</td>
@@ -106,7 +106,7 @@
 
 						</table>
 					</td>
-					<td width="553" height="638" background="../images/content.gif">
+					<td width="553" height="638" background="../images/content.jpg">
 						<table width="551" height="638" >
 							<tr>
 								<td height="20">&nbsp;</td>
