@@ -2,10 +2,13 @@ package cn.edu.xmu.software.ijoke.serviceimpl;
 
 import java.util.List;
 
+import org.junit.Test;
+
 import cn.edu.xmu.software.ijoke.dao.IjokerAdminDAO;
 import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
 import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
+import cn.edu.xmu.software.ijoke.factory.AppFactory;
 public class AdminLoginServiceImpl implements AdminLoginService{
 
 	private IjokerAdminDAO ijokerAdminDAO;
@@ -32,5 +35,14 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 			return Consts.LOGIN_FAIL;
 		else
 			return Consts.LOGIN_SUCCESS;
+	}
+	@Test
+	public void testAdminLoginService()
+	{
+		
+		System.out.println(AppFactory.getAdminLoginService().login("admin","123"));
+		System.out.println(AppFactory.getAdminLoginService().login("admin0","123"));
+		System.out.println(AppFactory.getAdminLoginService().login("admin",""));
+		
 	}
 }

@@ -21,17 +21,6 @@ public class LoginServiceImpl implements LoginService {
 			return user.getUserId();
 	}
 
-	public String adminLoginService(String userName, String passWord) {
-		// TODO Auto-generated method stub
-		return AppFactory.getAdminLoginService().login(userName, passWord);
-		
-	}
-	@Test
-	public void testAdminLoginService()
-	{
-		System.out.println(adminLoginService("admin","123"));
-		System.out.println(adminLoginService("admin0","123"));
-		System.out.println(adminLoginService("admin",""));
-		
-	}
+
+
 }
