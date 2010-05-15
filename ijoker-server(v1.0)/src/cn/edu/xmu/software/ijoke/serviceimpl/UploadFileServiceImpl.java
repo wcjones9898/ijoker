@@ -24,8 +24,8 @@ import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 public class UploadFileServiceImpl extends HttpServlet {
 
-	private String uploadPath = ConfigFactory.getJokePath(); // 上传文件的目录
-	private String tempPath = ConfigFactory.getJokeTempPath(); // 临时文件目录
+	private String uploadPath = "D:/jokes/";//ConfigFactory.getJokePath(); // 上传文件的目录
+	private String tempPath = "D:/jokes/";//ConfigFactory.getJokeTempPath(); // 临时文件目录
 	File tempPathFile;
 	int i = 1;
 	String title = null;

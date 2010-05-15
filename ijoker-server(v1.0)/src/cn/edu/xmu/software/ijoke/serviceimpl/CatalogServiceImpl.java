@@ -1,6 +1,9 @@
 package cn.edu.xmu.software.ijoke.serviceimpl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +19,35 @@ import cn.edu.xmu.software.ijoke.service.CatalogService;
 public class CatalogServiceImpl implements CatalogService{
 
 	private CatalogDAO catalogDAO;
-	
+
+	public String createTree(Catalog catalog)
+	{
+		Catalog catalogTemp = catalog;
+		catalogTemp.setChildCatalogs(this.findChildCatalog(catalogTemp.getCatalogId()));
+		ArrayList<Catalog> childlogList = catalogTemp.getChildCatalogs();
+		
+		
+		for(int i=0; i<childlogList.size(); i++)
+	    {
+			createTree(childlogList.get(i));	
+		}
+		String result = catalogTemp.printTree();
+		return result;
+		
+	}
+    public void makeXMLFile() throws IOException
+    {
+    	File file = new File("d:/ijokerTree.xml");
+    	FileOutputStream fos = new FileOutputStream(file);
+    	
+    	String result = "<?xml version='1.0' encoding='UTF-8'?><xml-body>\n";
+    	result += createTree(AppFactory.getCatalogService().findCatalogById("1"));
+    	result +="</xml-body>";
+    	
+    	fos.write(result.getBytes());
+    	fos.close();
+    }
+    
 	public String makeDir(String path)
 	{
 		File file = new File(path);
@@ -150,7 +181,7 @@ public class CatalogServiceImpl implements CatalogService{
 	@Test
 	public void testCreateCatalog()
 	{
-		System.out.println(AppFactory.getCatalogService().createCatalog("1", "Bill"));
+		System.out.println(AppFactory.getCatalogService().createCatalog("1", "jokes"));
 	}
 	@Test
 	public void testDeleteCatalog()
@@ -167,5 +198,21 @@ public class CatalogServiceImpl implements CatalogService{
 			System.out.println(jokeFileList.get(i).getFilePath());
 		}
 	}
-
+	@Test 
+	public void testCreateTree()
+	{
+		Catalog catalog = AppFactory.getCatalogService().findCatalogById("1");
+		String s = "";
+		System.out.println(AppFactory.getCatalogService().createTree(catalog));
+	}
+	@Test
+	public void testMakeXMLFile()
+	{
+		 try {
+			AppFactory.getCatalogService().makeXMLFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

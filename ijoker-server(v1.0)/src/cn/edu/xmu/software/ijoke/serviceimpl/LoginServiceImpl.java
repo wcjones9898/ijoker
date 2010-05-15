@@ -18,4 +18,13 @@ public class LoginServiceImpl implements LoginService {
 		else
 			return user.getUserId();
 	}
+
+	public String adminLoginService(String userName, String passWord) {
+		// TODO Auto-generated method stub
+		User user = UserFactory.createUser(userName, passWord);
+		if (user==null||!(passWord.equals(user.getPassWord())))
+			return null;
+		else
+			return user.getUserId();
+	}
 }

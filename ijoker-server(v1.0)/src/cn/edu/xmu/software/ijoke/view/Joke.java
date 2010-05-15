@@ -14,8 +14,12 @@ public class Joke implements Serializable {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
-	private int Id;
+	private String Id;
 	private String title;
 	private String author;
 	private String uploadTime;
@@ -26,13 +30,7 @@ public class Joke implements Serializable {
 	/**
 	 * * @return
 	 */
-	public int getId() {
-		return Id;
-	}
 
-	public void setId(int id) {
-		Id = id;
-	}
 
 	public String getTitle() {
 		return title;
@@ -82,6 +80,18 @@ public class Joke implements Serializable {
 	
 	public Joke() {
 	}
+
+	public String getId() {
+		return Id;
+	}
+
+	public void setId(String id) {
+		Id = id;
+	}
+
+
+
+
 
 
 }

@@ -16,6 +16,7 @@ public class UserFactory {
 		
 		return user;
 	}
+	
 	public static User createUser(String userName, String passWord,String nickName)
 	{
 		User user = new User();

@@ -17,8 +17,14 @@
 			<generator class="increment"></generator>
 		</primary-key>
 	</table>
-<table name="jl_joke" catalog="ijokerdata"
-	class="cn.edu.xmu.software.ijoke.entity.Joke">
+	<table name="jl_joke" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.Joke">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+<table name="jl_admin" catalog="ijokerdata"
+	class="cn.edu.xmu.software.ijoke.entity.IjokerAdmin">
 	<primary-key>
 		<generator class="increment"></generator>
 	</primary-key>

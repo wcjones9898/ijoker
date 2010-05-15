@@ -70,10 +70,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jxl.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-analyzers-2.4.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-core-2.4.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-highlighter-2.4.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-snowball-2.4.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/morfologik-stemming-1.1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/nni.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ognl-2.6.11.jar"/>

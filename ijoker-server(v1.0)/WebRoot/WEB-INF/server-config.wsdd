@@ -44,7 +44,26 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
    <service name="registerService" provider="java:RPC">
         <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.RegisterServiceImpl"/>
         <parameter name="allowedMethods" value="registerService"/> 
-    </service>         
+    </service>        
+    
+                                        <!--Search Service(搜索服务)-->
+                                        
+    <service name="searchService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.SearchServiceImpl"/>
+        <parameter name="allowedMethods" value="searchService"/> 
+     <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
+         qname="ns:Joke" languageSpecificType="java:cn.edu.xmu.software.ijoke.view.Joke"/>
+    </service>
+    <!--  
+     <service name="searchService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.SearchServiceImpl"/>
+        <parameter name="allowedMethods" value="searchServiceToId"/> 
+    </service>
+    -->
+      <service name="searchByJokeIdService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.SearchByJokeIdServiceImpl"/>
+        <parameter name="allowedMethods" value="searchByJokeIdService"/> 
+    </service>       
 <transport name="http">
 <requestFlow>
     <handler type="URLMapper"/>

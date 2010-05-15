@@ -18,7 +18,11 @@ public class ConfigFactory {
 		try {
 			// iFile = new
 			// FileInputStream(ConfigFactory.class.getResource("").toString()+"config.ini");
+			
 			iFile = new FileInputStream(ConfigFactory.class.getResource("")
+					.toString()
+					+ "/Config.properties");
+			System.out.println(ConfigFactory.class.getResource("")
 					.toString()
 					+ "/config.properties");
 			properties.load(iFile);

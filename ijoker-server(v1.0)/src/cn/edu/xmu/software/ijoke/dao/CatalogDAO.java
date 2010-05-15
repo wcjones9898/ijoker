@@ -105,6 +105,7 @@ public class CatalogDAO extends HibernateDaoSupport {
 		return findByProperty(CATALOG_ID, catalogId);
 	}
 
+
 	public List findByCatalogLevel(Object catalogLevel) {
 		return findByProperty(CATALOG_LEVEL, catalogLevel);
 	}

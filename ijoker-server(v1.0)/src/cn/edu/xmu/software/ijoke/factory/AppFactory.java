@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.edu.xmu.software.ijoke.service.CatalogService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
+import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
 import cn.edu.xmu.software.ijoke.service.SearchService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 
@@ -26,6 +27,10 @@ public class AppFactory {
 	public static JokeInfoService getJokeInfoService() {
 
 		return (JokeInfoService) app.getBean("JokeInfoService");
+	}
+	public static SearchByJokeIdService getSearchByJokeIdService()
+	{
+		return (SearchByJokeIdService) app.getBean("SearchByJokeIdService");
 	}
 	@Test
 	public void testUploadJokeFileService()

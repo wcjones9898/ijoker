@@ -39,7 +39,7 @@ public class JokeListServiceImpl  implements JokeListService{
 			 cn.edu.xmu.software.ijoke.entity.Joke  serverJoke = jokeDAO.findByJokeId(classAndJokeFileTemp.getJokeId());
 			 Joke joke = new Joke();
 			 joke.setLocation(jokeFile.getFilePath()+jokeFile.getFileName()+jokeFile.getFileExtension());
-			 joke.setId(Integer.valueOf(serverJoke.getJokeId()));
+			 joke.setId(serverJoke.getJokeId());
 			 joke.setTitle(serverJoke.getTitle());
              joke.setAuthor(serverJoke.getAuthorName());
 			 joke.setUploadTime(serverJoke.getUploadTime());
