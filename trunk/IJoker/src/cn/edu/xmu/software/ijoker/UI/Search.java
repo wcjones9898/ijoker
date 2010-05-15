@@ -34,7 +34,6 @@ public class Search extends BaseActivity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			progressDialog.dismiss();
 			switch (msg.what) {
 			case Consts.MSG_SEARCHJOKE_READY:
 				jokeList = msg.getData().getParcelableArrayList("data");
@@ -43,12 +42,12 @@ public class Search extends BaseActivity {
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Intent intent = new Intent();
+					intent.setAction("cn.edu.xmu.software.ijoker.search");
 					Bundle jokes = new Bundle();
 					jokes.putParcelableArrayList("data", jokeList);
 					intent.putExtra("android.intent.extra.jokes", jokes);
 					intent.setClass(Search.this, JokeList.class);
 					startActivity(intent);
-					finish();
 				}
 				break;
 			case Consts.ERROR_CALLWEBSERVICE:
@@ -56,6 +55,7 @@ public class Search extends BaseActivity {
 						Toast.LENGTH_SHORT).show();
 			default:
 			}
+			progressDialog.dismiss();
 
 		}
 
@@ -80,7 +80,10 @@ public class Search extends BaseActivity {
 
 		@Override
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
-			searchType = checkedId + 1;
+			if (checkedId == R.id.byJoke_radio)
+				searchType = 1;
+			else if (checkedId == R.id.byJoker_radio)
+				searchType = 2;
 		}
 	};
 

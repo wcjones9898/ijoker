@@ -33,7 +33,8 @@ public class Uploader extends Thread {
 		this.handler = handler;
 	}
 
-	public void doStart(File currentRecord, String jokeTitle, String keyword, String userId) {
+	public void doStart(File currentRecord, String jokeTitle, String keyword,
+			String userId) {
 		this.jokeTitle = jokeTitle;
 		this.keyword = keyword;
 		this.userId = userId;
@@ -55,7 +56,6 @@ public class Uploader extends Thread {
 	private void sendMessage(String detailMessage) {
 		Message message = handler.obtainMessage(Consts.ERROR_UPLOAD);
 		Bundle b = new Bundle();
-		b.putString("errorMessage", detailMessage);
 		message.setData(b);
 		handler.sendMessage(message);
 	}
@@ -124,5 +124,9 @@ public class Uploader extends Thread {
 			filePost.releaseConnection();
 			fileGet.releaseConnection();
 		}
+		Message message = handler.obtainMessage(Consts.UPLOAD_SUCCESS);
+		Bundle b = new Bundle();
+		message.setData(b);
+		handler.sendMessage(message);
 	}
 }
