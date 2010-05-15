@@ -54,9 +54,9 @@ input.bt_register {
 	color: white;
 	background: transparent url(../images/bt_register.png) no-repeat 0 0;
 }
-.lost-pwd {	
+.error_message {	
 	margin: 2px 0;
-	text-align: right;
-	font-size: 0.95em;
-	text-decoration: underline;
+	text-align: center;
+	Color: #FF0000;	
+	text-decoration: none;
 }

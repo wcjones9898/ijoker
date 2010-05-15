@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 
 import cn.edu.xmu.software.ijoke.service.LoginService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
+import cn.edu.xmu.software.ijoke.utils.Messages;
 import cn.edu.xmu.software.ijoke.utils.RandomNumUtil;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -23,13 +24,20 @@ public class LoginAction extends BaseAction{
 	
 	public String execute(){
 		System.out.println("loging:"+username+" "+password+" "+verifyStr+" "+RandomNumUtil.Instance().getString()+(verifyStr.equals(RandomNumUtil.Instance().getString())));
-		if (!verifyStr.equals(RandomNumUtil.Instance().getString()))
+		if (!verifyStr.equals(RandomNumUtil.Instance().getString())){
+			this.clearErrorsAndMessages();
+			this.addActionMessage(Messages.VERIFY_CODE_ERROR); 
+			
 			return INPUT;
+		}
 		String loginResult=loginService.loginService(username, password);
 		if (loginResult==Consts.LOGIN_SUCCESS){
 			getSession().put("username", username);			
-			getSession().put("islogined", LOGINED);
-		}		
+			getSession().put("islogined", LOGINED);			
+		} else {
+			this.clearErrorsAndMessages();
+			this.addActionMessage(Messages.LOGIN_FAIL);			
+		}
 		
 		return loginResult;
 	}

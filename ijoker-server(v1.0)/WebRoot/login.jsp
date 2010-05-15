@@ -48,17 +48,18 @@
 						<table border="0" background="images/login.jpg" width="750"
 							height="476">
 							<tr>
-								<td colspan="3" height="86" />
+								<td colspan="3" height="80" />
 							</td>
 							<tr>
 								<td width="2">
 									&nbsp;
 								</td>
+								
 								<td valign="top">
 									<div align="center">							
 										
 										<s:form theme="simple" action="LoginAction" method="POST" name="login" onsubmit="return loginsubmit();">
-										<table width="30%" height="30%">
+										<table width="30%" height="30%" >
 											<tr>
 												<td>
 													<s:label value="用户名" cssClass="gray"></s:label>
@@ -89,10 +90,10 @@
 											<tr>
 												<td colspan="2">
 													<s:submit value="登录" cssClass="bt_register"/>												
-													<s:reset value="重置" cssClass="bt_login"/><br>																										
+													<s:reset value="重置" cssClass="bt_login"/><br>
+													<s:actionmessage cssClass="error_message"/>													
 												</td>
-											</tr>
-											
+											</tr>											
 										</table>
 										</s:form>
 
