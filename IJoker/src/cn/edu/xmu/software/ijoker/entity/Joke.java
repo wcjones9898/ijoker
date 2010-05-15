@@ -14,7 +14,7 @@ public class Joke implements Parcelable {
 	 * 
 	 */
 
-	private int Id;
+	private String Id;
 	private String title;
 	private String author;
 	private String uploadTime;
@@ -24,16 +24,17 @@ public class Joke implements Parcelable {
 	/**
 	 * * @return
 	 */
-	public int getId() {
-		return Id;
-	}
-
-	public void setId(int id) {
-		Id = id;
-	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getId() {
+		return Id;
+	}
+
+	public void setId(String id) {
+		Id = id;
 	}
 
 	/**
@@ -93,7 +94,7 @@ public class Joke implements Parcelable {
 	}
 
 	public void readFromParcel(Parcel in) {
-		this.Id = in.readInt();
+		this.Id = in.readString();
 		this.title = in.readString();
 		this.author = in.readString();
 		this.uploadTime = in.readString();
@@ -109,7 +110,7 @@ public class Joke implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(Id);
+		dest.writeString(Id);
 		dest.writeString(title);
 		dest.writeString(author);
 		dest.writeString(uploadTime);

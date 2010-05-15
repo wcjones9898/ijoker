@@ -13,18 +13,21 @@ public class Consts {
 	public static final String METHODNAME_AUTHORIZATION = "loginService";
 	public static final String METHODNAME_SCORE = "scoreService";
 	public static final String METHODNAME_REGISTER = "registerService";
+	public static final String METHODNAME_SEARCH = "searchService";
 	public static final String AUTHORIZATIONRETURN = "loginServiceReturn";
 	public static final String DIVISIONLISTRETURN = "topicListServiceReturn";
 	public static final String JOKELISTRETURN = "jokeListServiceReturn";
 	public static final String REGISTERSERVICERETURN = "registerServiceReturn";
+	public static final String SEARCHSERVICERETURN = "searchServiceReturn";
 	public static final String USER_NOTEXIST = "User not exist or password wrong!";
 	public static final String USER_EXIST = "User exist or something wrong,try again!";
 	public static final String NETWORK_FAILED = "Network connection failed!";
-	public static final String PASSOWORD_ERROR ="confirm password not equal with password!";
+	public static final String SEARCH_NOJOKES= "No result,please try other words!";
+	public static final String PASSOWORD_ERROR = "confirm password not equal with password!";
 	public static final String SCORE_SUCCESS = "Score succeed!";
-	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.181:80";
-	public static final String SERVICE_BASE_URL = "http://59.77.5.181:8080/ijoker-server/services/";
-	public static final String SERVER_UPLOAD_URL = "http://59.77.5.181:8080/ijoker-server/servlet/UploadService";
+	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
+	public static final String SERVICE_BASE_URL = "http://192.168.0.101:8080/ijoker-server/services/";
+	public static final String SERVER_UPLOAD_URL = "http://192.168.0.101:8080/ijoker-server/servlet/UploadService";
 	public static final int PAGESIZE = 5;
 	public static final int MSG_JOKELIST_UPDATE = 0x1;
 	public static final int MSG_JOKELIST_READY = 0x2;
@@ -57,6 +60,10 @@ public class Consts {
 	public static final int ERROR_USERNAME_EXIST = 0x29;
 	public static final int FLAG_REGISTER_FAILURE = 0x30;
 	public static final int FLAG_REGISTER_SUCCESS = 0x31;
+	public static final int MSG_SEARCHJOKE_UPDATE = 0x32;
+	public static final int MSG_SEARCHJOKE_READY = 0x33;
+	public final static int SEARCHTYPE_SEARCH_JOKE= 0;
+	public final static int SEARCHTYPE_SEARCH_JOKER= 1;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";

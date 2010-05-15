@@ -16,10 +16,12 @@ import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 import cn.edu.xmu.software.ijoker.util.Consts;
 import cn.edu.xmu.software.ijoker.util.WSUtils;
 
-public class GetJokeListWSMethod extends AbstractWSMethod {
-	public GetJokeListWSMethod(String methodName, Handler handler,
+public class SearchJokeWSMethod extends AbstractWSMethod {
+
+	public SearchJokeWSMethod(String methodName, Handler handler,
 			HashMap<String, Object> parms) {
 		super(methodName, handler, parms);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -27,7 +29,8 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 		ArrayList<Joke> list = null;
 		SoapObject result = null;
 		try {
-			result = (SoapObject) WSUtils.callWebService(this.methodName, parms);
+			result = (SoapObject) WSUtils
+					.callWebService(this.methodName, parms);
 			Log.i(TAG, "get data from webservice with method: "
 					+ this.methodName + "\nget result: " + result.toString());
 		} catch (Exception e) {
@@ -36,7 +39,7 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 		}
 		if (result != null && result.getPropertyCount() > 0) {
 			Vector<SoapObject> vector = (Vector<SoapObject>) result
-					.getProperty(Consts.JOKELISTRETURN);
+					.getProperty(Consts.SEARCHSERVICERETURN);
 			list = new ArrayList<Joke>();
 			Iterator<SoapObject> iterator = vector.iterator();
 			while (iterator.hasNext()) {
@@ -57,11 +60,12 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 					+ this.methodName + "\nget result: " + list.toString());
 		}
 		// 生成动态数组，加入数据
-		Message message = handler.obtainMessage(Consts.MSG_JOKELIST_READY);
+		Message message = handler.obtainMessage(Consts.MSG_SEARCHJOKE_READY);
 		Bundle b = new Bundle();
 		b.putParcelableArrayList("data", list);
 		message.setData(b);
 		handler.sendMessage(message);
 
 	}
+
 }

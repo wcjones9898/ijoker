@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -23,12 +25,15 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
@@ -46,6 +51,8 @@ public class JokeList extends BaseActivity {
 	private Button prev_button;
 	private Button next_button;
 	private ProgressDialog progressDialog;
+	private Spinner searchMode;
+	private String searchType;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -111,6 +118,8 @@ public class JokeList extends BaseActivity {
 
 		public void onServiceDisconnected(ComponentName className) {
 			playService = null;
+			if (progressDialog.isShowing())
+				progressDialog.dismiss();
 		}
 	};
 
@@ -246,7 +255,8 @@ public class JokeList extends BaseActivity {
 
 	protected void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
+		unregisterReceiver(receiver);
 	}
+
 }
