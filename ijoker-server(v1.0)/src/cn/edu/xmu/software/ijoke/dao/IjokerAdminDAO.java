@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.criterion.Example;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.edu.xmu.software.ijoke.entity.BaseHibernateDAO;
 import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
@@ -22,7 +23,7 @@ import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
  * @author MyEclipse Persistence Tools
  */
 
-public class IjokerAdminDAO extends BaseHibernateDAO {
+public class IjokerAdminDAO extends HibernateDaoSupport{
 	private static final Log log = LogFactory.getLog(IjokerAdminDAO.class);
 	// property constants
 	public static final String ADMIN_NAME = "adminName";

@@ -2,6 +2,7 @@ package cn.edu.xmu.software.ijoke.entity;
 
 public class IjokerAdmin {
 
+	private Integer Id;
 	private String adminName;
 	private String passWord;
 	private String authority;
@@ -22,6 +23,12 @@ public class IjokerAdmin {
 	}
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
 	}
 	
 }

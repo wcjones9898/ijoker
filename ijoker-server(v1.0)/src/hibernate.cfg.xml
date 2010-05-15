@@ -31,6 +31,8 @@
 	<mapping resource="cn/edu/xmu/software/ijoke/entity/Joke.hbm.xml" />
 	<mapping
 		resource="cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml" />
+	<mapping
+		resource="cn/edu/xmu/software/ijoke/entity/IjokerAdmin.hbm.xml" />
 
 </session-factory>
 

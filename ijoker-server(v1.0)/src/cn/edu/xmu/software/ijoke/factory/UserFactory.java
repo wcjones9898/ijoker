@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import cn.edu.xmu.software.ijoke.dao.UserDAO;
+import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.exception.NoUserException;
 
@@ -26,6 +27,8 @@ public class UserFactory {
         user.setUserId(createUserId());
 		return user;
 	}
+	
+
 	private static String createUserId()
 	{
 		String userId = null;

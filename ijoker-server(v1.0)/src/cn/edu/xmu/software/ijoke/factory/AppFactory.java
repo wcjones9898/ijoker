@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.service.CatalogService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
@@ -31,6 +32,10 @@ public class AppFactory {
 	public static SearchByJokeIdService getSearchByJokeIdService()
 	{
 		return (SearchByJokeIdService) app.getBean("SearchByJokeIdService");
+	}
+	public static AdminLoginService  getAdminLoginService()
+	{
+		return (AdminLoginService) app.getBean("AdminLoginService");
 	}
 	@Test
 	public void testUploadJokeFileService()

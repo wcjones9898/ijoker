@@ -43,6 +43,9 @@
 				<value>
 					cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml
 				</value>
+				<value>
+					cn/edu/xmu/software/ijoke/entity/IjokerAdmin.hbm.xml
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -71,6 +74,11 @@
 		</property>
 	</bean>
 	<bean id="JokeDAO" class="cn.edu.xmu.software.ijoke.dao.JokeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+		<bean id="IjokerAdminDAO" class="cn.edu.xmu.software.ijoke.dao.IjokerAdminDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -129,4 +137,11 @@
 		</property>
 	</bean>
 
+
+	<bean id="AdminLoginService" class="cn.edu.xmu.software.ijoke.serviceimpl.AdminLoginServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="ijokerAdminDAO">
+			<ref bean="IjokerAdminDAO" />
+		</property>
+	</bean>
 </beans>
