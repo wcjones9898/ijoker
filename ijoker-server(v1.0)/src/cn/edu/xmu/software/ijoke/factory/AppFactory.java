@@ -6,10 +6,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.service.CatalogService;
+import cn.edu.xmu.software.ijoke.service.ClassManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
 import cn.edu.xmu.software.ijoke.service.SearchService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
+import cn.edu.xmu.software.ijoke.service.UserService;
 
 public class AppFactory {
 	public static ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -37,6 +39,15 @@ public class AppFactory {
 	{
 		return (AdminLoginService) app.getBean("AdminLoginService");
 	}
+	public static ClassManageService  getClassManageService()
+	{
+		return (ClassManageService) app.getBean("ClassManageService");
+	}
+	public static UserService getUserService()
+	{
+		return (UserService) app.getBean("UserService");
+	}
+
 	@Test
 	public void testUploadJokeFileService()
 	{

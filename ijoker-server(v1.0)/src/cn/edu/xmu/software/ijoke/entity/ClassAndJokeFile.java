@@ -16,7 +16,7 @@ public class ClassAndJokeFile implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String classId;
-	private String fileId;
+
     private String jokeId;
 	// Constructors
 
@@ -38,13 +38,7 @@ public class ClassAndJokeFile implements java.io.Serializable {
 		this.classId = classId;
 	}
 
-	public String getFileId() {
-		return fileId;
-	}
 
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
-	}
 
 	public String getJokeId() {
 		return jokeId;

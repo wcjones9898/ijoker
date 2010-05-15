@@ -44,9 +44,10 @@ public class SearchServiceImpl implements SearchService {
 			jokeView.setAuthor(j.getAuthorName());
 			jokeView.setUploadTime(j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
-			String location = jokeFileDAO.findJokeFileByJokeId(j.getFileId())
+			String location = jokeFileDAO.findJokeFileByFileId(j.getFileId())
 					.getFilePath();
 			jokeView.setLocation(location);
+			jokeView.setKeyWord(j.getDescription());
 			jokesView.add(jokeView);
 
 		}

@@ -25,6 +25,7 @@ public class Joke implements Serializable {
 	private String uploadTime;
 	private String location;
 	private int like;
+	private String keyWord;
 	//private int dislike;
 
 	/**
@@ -74,10 +75,15 @@ public class Joke implements Serializable {
 	public void setLike(int like) {
 		this.like = like;
 	}
-
-
-
 	
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
 	public Joke() {
 	}
 

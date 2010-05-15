@@ -13,9 +13,7 @@
         <property name="classId" type="java.lang.String">
             <column name="classId" not-null="false" />
         </property>
-        <property name="fileId" type="java.lang.String">
-            <column name="fileId" not-null="true" />
-        </property>
+ 
                 <property name="jokeId" type="java.lang.String">
             <column name="jokeId" not-null="true" />
         </property>

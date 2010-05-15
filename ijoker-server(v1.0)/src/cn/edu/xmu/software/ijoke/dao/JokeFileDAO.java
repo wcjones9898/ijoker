@@ -15,7 +15,7 @@ public class JokeFileDAO extends HibernateDaoSupport{
 	{
 		
 	}
-	public JokeFile findJokeFileByJokeId(String fileId)
+	public JokeFile findJokeFileByFileId(String fileId)
 	{
 		session =  HibernateSessionFactory.getSession();
 		JokeFile jokeFile = (JokeFile)session.createQuery("from JokeFile as jokeFile where jokeFile.fileId='"+ fileId+"'").list().get(0);

@@ -13,6 +13,7 @@ public class User implements Serializable{
 	private String userName;
 	private String nickName;
 	private String passWord;
+	private int status;
 
 	
 	//private SqlMapUserDao userDao = new SqlMapUserDao();
@@ -72,6 +73,14 @@ public class User implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

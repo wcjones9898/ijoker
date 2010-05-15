@@ -27,7 +27,7 @@ public class SearchByJokeIdServiceImpl implements SearchByJokeIdService{
 			jokeView.setAuthor(j.getAuthorName());
 			jokeView.setUploadTime(j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
-			String location = jokeFileDAO.findJokeFileByJokeId(j.getFileId())
+			String location = jokeFileDAO.findJokeFileByFileId(j.getFileId())
 					.getFilePath();
 			jokeView.setLocation(location);
 			jokesView.add(jokeView);

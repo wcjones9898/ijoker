@@ -2,6 +2,7 @@ package cn.edu.xmu.software.ijoke.dao;
 // default package
 
 
+import cn.edu.xmu.software.ijoke.entity.Joke;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
 
@@ -72,6 +73,28 @@ public class UserDAO extends HibernateDaoSupport  {
 		session.close();
     	
     }
+    
+    public List<User> findByStatus(int status, int begin,int pageSize)
+    {
+		session =  HibernateSessionFactory.getSession();
+		List users =session.createQuery("from User as user where user.status ="
+				+ status ).setFirstResult(begin).setMaxResults(begin+pageSize).list();
+		
+		session.close();
+		return users;
+	
+    }
+    
+	public void updateUserByUserId(String userId, int status)
+	{
+		User user = this.findByUserId(userId);
+		user.setStatus(status);
+		session =  HibernateSessionFactory.getSession();
+		Transaction tx=session.beginTransaction();
+		session.merge(user);
+		tx.commit();  
+		session.close();
+	}
     @Test 
     public void testInsertUser()
     {

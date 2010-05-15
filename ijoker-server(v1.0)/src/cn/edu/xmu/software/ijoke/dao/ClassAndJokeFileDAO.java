@@ -1,5 +1,6 @@
 package cn.edu.xmu.software.ijoke.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -46,5 +47,61 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 		session.save(classAndJokeFile);
 		tx.commit(); 
 		session.close();
+	}
+	
+	public void updateClassAndJoke(ClassAndJokeFile classAndJokeFile)
+	{
+		session =  HibernateSessionFactory.getSession();
+		Transaction tx=session.beginTransaction();
+		//session.merge(joke);
+		session.merge(classAndJokeFile);
+		tx.commit(); 
+		session.close();
+	}
+	
+	public ClassAndJokeFile findClassAndJoke(String classId, String jokeId)
+	{
+		session =  HibernateSessionFactory.getSession();
+		ClassAndJokeFile classAndJokeFile = null;
+		List classAndJokeList = session.createQuery(
+				"from ClassAndJokeFile as classAndJokeFile where " +
+				"classAndJokeFile.classId='"+classId+"'"
+				+"and classAndJokeFile.jokeId='"+jokeId+"'").list();
+		if(classAndJokeList.size()!=0)
+			classAndJokeFile = (ClassAndJokeFile) classAndJokeList.get(0);
+		
+		session.close();
+		return classAndJokeFile;
+	}
+	
+	public void deleteClassAndJoke(String classId, String jokeId)
+	{
+		ClassAndJokeFile classAndJoke =this.findClassAndJoke(classId, jokeId);
+		session =  HibernateSessionFactory.getSession();
+		Transaction tx=session.beginTransaction();
+
+		session.delete(classAndJoke);
+		tx.commit();
+		session.close();
+		
+	
+	}
+	
+	public void addClassAndJoke(String classId, String jokeId)
+	{
+		ClassAndJokeFile classAndJoke =this.findClassAndJoke(classId, jokeId);
+		if(classAndJoke==null)
+		{
+			classAndJoke = new ClassAndJokeFile();
+			classAndJoke.setClassId(classId);
+			classAndJoke.setJokeId(jokeId);
+		    session =  HibernateSessionFactory.getSession();
+		    Transaction tx=session.beginTransaction();
+		    session.save(classAndJoke);
+		    tx.commit();
+		    session.close();
+		}
+		
+	
 	}
 }

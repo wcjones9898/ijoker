@@ -1,9 +1,9 @@
 package cn.edu.xmu.software.ijoke.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface JokeListService {
 
-	ArrayList jokeListService(String classId,int begin, int limit);
+	List jokeListService(String classId,int begin, int limit);
 
  }

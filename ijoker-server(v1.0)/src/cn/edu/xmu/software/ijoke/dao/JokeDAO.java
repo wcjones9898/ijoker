@@ -36,8 +36,11 @@ public class JokeDAO extends HibernateDaoSupport {
 	public Joke findByJokeId(String jokeId)
 	{
 		session =  HibernateSessionFactory.getSession();
-		Joke joke =(Joke)session.createQuery("from Joke as joke where joke.jokeId ='"
-				+ jokeId +"'").list().get(0);
+		Joke joke = null;
+		List<Joke> jokeList = session.createQuery("from Joke as joke where joke.jokeId ='"
+				+ jokeId +"'").list();
+		if(jokeList.size()>0)
+			joke = jokeList.get(0);
 		session.close();
 		return joke;
 		
@@ -164,6 +167,16 @@ public class JokeDAO extends HibernateDaoSupport {
 		return i.intValue();
     }
 
+    public ArrayList<Joke> findByStatus(String status, int begin,int pageSize)
+    {
+		session =  HibernateSessionFactory.getSession();
+		List jokes =session.createQuery("from Joke as joke where joke.status ='"
+				+ status +"'").setFirstResult(begin).setMaxResults(begin+pageSize).list();
+		
+		session.close();
+		return (ArrayList<Joke>) jokes;
+	
+    }
 	public static JokeDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (JokeDAO) ctx.getBean("JokeDAO");
 	}

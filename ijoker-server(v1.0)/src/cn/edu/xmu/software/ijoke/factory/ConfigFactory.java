@@ -19,9 +19,10 @@ public class ConfigFactory {
 			// iFile = new
 			// FileInputStream(ConfigFactory.class.getResource("").toString()+"config.ini");
 			
-			iFile = new FileInputStream(ConfigFactory.class.getResource("")
-					.toString()
-					+ "/Config.properties");
+//			iFile = new FileInputStream(ConfigFactory.class.getResource("")
+//					.toString()
+//					+ "/Config.properties");
+			iFile = new FileInputStream("D:/Config.properties");
 			System.out.println(ConfigFactory.class.getResource("")
 					.toString()
 					+ "/config.properties");

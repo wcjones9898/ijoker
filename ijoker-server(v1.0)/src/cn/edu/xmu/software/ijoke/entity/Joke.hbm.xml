@@ -26,7 +26,7 @@
             <column name="status" />
         </property>
         <property name="fileId" type="java.lang.String" >
-            <column name="fileId" />
+            <column name="fileId"  not-null="true"/>
         </property>
         <property name="title" type="java.lang.String">
             <column name="title" not-null="true" />

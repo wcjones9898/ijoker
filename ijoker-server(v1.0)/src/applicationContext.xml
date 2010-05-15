@@ -88,11 +88,22 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
+	<bean id="UserDAO" class="cn.edu.xmu.software.ijoke.dao.UserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<!-- Service -->
 	<bean id="LoginService" class="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl">
 
 	</bean>
 
+    <bean id="JokeListService" class="cn.edu.xmu.software.ijoke.serviceimpl.JokeListServiceImpl"
+         abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		</bean>
+	
 	<bean id="UploadJokeFileService"
 		class="cn.edu.xmu.software.ijoke.serviceimpl.UploadJokeFileServiceImpl"
 		abstract="false" lazy-init="default" autowire="default"
@@ -135,13 +146,36 @@
 		<property name="jokeDAO">
 			<ref bean="JokeDAO" />
 		</property>
+		<property name="classAndJokeFileDAO">
+			<ref bean="ClassAndJokeFileDAO" />
+		</property>
+			<property name="jokeFileDAO">
+			<ref bean="JokeFileDAO" />
+		</property>
+
 	</bean>
 
-
+	<bean id="ClassManageService" class="cn.edu.xmu.software.ijoke.serviceimpl.ClassManageServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="classItemDAO">
+			<ref bean="ClassItemDAO" />
+		</property>
+	</bean>
+	<bean id="UserService" class="cn.edu.xmu.software.ijoke.serviceimpl.UserServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+	</bean>
 	<bean id="AdminLoginService" class="cn.edu.xmu.software.ijoke.serviceimpl.AdminLoginServiceImpl"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="ijokerAdminDAO">
 			<ref bean="IjokerAdminDAO" />
 		</property>
+	</bean>
+	
+	<bean id="JokeInfoUploadService" class="cn.edu.xmu.software.ijoke.serviceimpl.JokeInfoUploadServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+
 	</bean>
 </beans>
