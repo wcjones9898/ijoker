@@ -20,6 +20,8 @@ public class CallWSMethodFactory {
 			return new ScoreWSMethod(methodName, handler, parms);
 		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_REGISTER))
 			return new RegisterWSMethod(methodName, handler, parms);
+		else if (methodName.equalsIgnoreCase(Consts.METHODNAME_SEARCH))
+			return new SearchJokeWSMethod(methodName, handler, parms);
 		else
 			throw new ClassNotFoundException("no class named as " + methodName);
 	}

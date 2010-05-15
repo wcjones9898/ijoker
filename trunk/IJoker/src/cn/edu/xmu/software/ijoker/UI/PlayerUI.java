@@ -197,8 +197,8 @@ public class PlayerUI extends BaseActivity {
 
 	protected void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
+		unregisterReceiver(receiver);
 	}
 
 	// 点击效果

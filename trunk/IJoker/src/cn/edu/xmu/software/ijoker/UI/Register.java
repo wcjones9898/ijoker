@@ -32,6 +32,7 @@ public class Register extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			progressDialog.dismiss();
 			switch (msg.what) {
 			case Consts.MSG_REGISTER_READY:
 				if (msg.arg1 == Consts.FLAG_REGISTER_SUCCESS) {
@@ -66,7 +67,6 @@ public class Register extends Activity {
 						Toast.LENGTH_SHORT).show();
 			default:
 			}
-			progressDialog.dismiss();
 		}
 	};
 

@@ -149,6 +149,8 @@ public class JokeDivision extends BaseActivity {
 
 		public void onServiceDisconnected(ComponentName className) {
 			playService = null;
+			if (progressDialog.isShowing())
+				progressDialog.dismiss();
 		}
 	};
 
@@ -163,7 +165,7 @@ public class JokeDivision extends BaseActivity {
 
 	protected void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(receiver);
 		unbindService(serviceConnection);
+		unregisterReceiver(receiver);
 	}
 }

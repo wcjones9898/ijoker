@@ -240,8 +240,8 @@ public class PlayService extends Service {
 		Log.i(TAG, "make a score on the joke!");
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
-		int id = jokeList.get(currentPosition).getId();
-		parms.put("jokeId", Integer.toString(id));
+		String id = jokeList.get(currentPosition).getId();
+		parms.put("jokeId", id);
 		wsEngine.doStart(Consts.METHODNAME_SCORE, parms);
 	}
 
@@ -253,10 +253,10 @@ public class PlayService extends Service {
 
 	public void onDestroy() {
 		super.onDestroy();
+		nm.cancel(NOTIFY_ID);
 		if (mp.isPlaying())
 			mp.stop();
 		mp.release();
-		nm.cancel(NOTIFY_ID);
 	}
 
 }
