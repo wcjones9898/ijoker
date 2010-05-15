@@ -8,10 +8,13 @@ import java.io.IOException;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import cn.edu.xmu.software.ijoker.engine.Uploader;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class RecorderService {
 	public final String TAG = RecorderService.class.getName();
@@ -19,6 +22,7 @@ public class RecorderService {
 	private File currentRecord;
 	private Handler handler;
 	private Uploader uploader;
+	private MediaPlayer mediaPlayer = null;
 
 	public RecorderService(Handler handler) {
 		this.handler = handler;
@@ -34,16 +38,29 @@ public class RecorderService {
 						Environment.getExternalStorageDirectory());
 				Log.i("currentRecord path:", currentRecord.getPath());
 			} catch (IOException e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			}
 			mRecorder.setOutputFile(currentRecord.getAbsolutePath());
 			try {
 				mRecorder.prepare();
 			} catch (IllegalStateException e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			}
+		}
+	}
+
+	public void clearRecord() {
+		if (currentRecord != null)
+			currentRecord.deleteOnExit();
+	}
+
+	public void stopListen() {
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayer = null;
 		}
 	}
 
@@ -55,7 +72,7 @@ public class RecorderService {
 		}
 	}
 
-	public void uploadFile(String userId,String jokeTitle,String keyword) {
+	public void uploadFile(String userId, String jokeTitle, String keyword) {
 		uploader = new Uploader(handler);
 		uploader.doStart(currentRecord, jokeTitle, keyword, userId);
 		if (currentRecord != null)
@@ -63,13 +80,19 @@ public class RecorderService {
 	}
 
 	public void listenRecord() {
-		MediaPlayer mediaPlayer = new MediaPlayer();
+		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
 			public void onCompletion(MediaPlayer mp) {
 				mp.stop();
 				mp.release();
+				mp = null;
+				Message message = handler
+						.obtainMessage(Consts.STATUS_LISTEN_STOP);
+				Bundle b = new Bundle();
+				message.setData(b);
+				handler.sendMessage(message);
 			}
 		});
 		FileInputStream fis;

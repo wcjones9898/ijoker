@@ -31,8 +31,7 @@
 			android:screenOrientation="portrait">
 		</activity>
 		<activity android:name=".UI.About" android:screenOrientation="portrait" />
-		<service android:enabled="true" android:name=".service.PlayService"
-			android:process=":remote">
+		<service android:name=".service.PlayService" android:process=":remote">
 
 			<intent-filter>
 				<action android:name="cn.edu.xmu.software.ijoker.PLAY_SERVICE" />

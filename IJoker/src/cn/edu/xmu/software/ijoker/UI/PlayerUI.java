@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,6 +23,7 @@ import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
+import cn.edu.xmu.software.ijoker.service.ScoreService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class PlayerUI extends BaseActivity {
@@ -31,9 +34,34 @@ public class PlayerUI extends BaseActivity {
 	private ProgressBar progress_bar;
 	private Joke joke;
 	private IPlayService playService;
+	private ScoreService scoreService;
 	// private int player_position = 0;
 	public boolean is_valid = false;
 	private static final String TAG = PlayerUI.class.getName();
+	private Handler handler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case Consts.MSG_LIKE_SUCCEED:
+				Toast.makeText(PlayerUI.this, Consts.SCORE_SUCCESS,
+						Toast.LENGTH_SHORT).show();
+				Log
+						.i(TAG,
+								"playservice invoke webservice and make a score succeed!");
+
+				break;
+			case Consts.ERROR_CALLWEBSERVICE:
+				Toast.makeText(PlayerUI.this, Consts.NETWORK_FAILED,
+						Toast.LENGTH_SHORT).show();
+				break;
+			default:
+			}
+
+		}
+
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -102,10 +130,11 @@ public class PlayerUI extends BaseActivity {
 		try {
 			if (playService.isPlaying()) {
 				Joke playingJoke = playService.getJokePlaying();
-				if (playingJoke.getId() == joke.getId())
+				if (playingJoke.getId() == joke.getId()) {
 					play_btn.setBackgroundResource(R.drawable.pause);
-				play_btn.setOnClickListener(pause);
-				play_btn.setOnTouchListener(pauseTouched);
+					play_btn.setOnClickListener(pause);
+					play_btn.setOnTouchListener(pauseTouched);
+				}
 			}
 		} catch (RemoteException e) {
 			Log.i(TAG, e.getMessage(), e);
@@ -120,42 +149,28 @@ public class PlayerUI extends BaseActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equalsIgnoreCase(Consts.ACTION_STOP_PLAY)) {
-				play_btn.setBackgroundResource(R.drawable.play);
-				play_btn.setOnClickListener(play);
-				play_btn.setOnTouchListener(playTouched);
-			} else if (intent.getAction().equalsIgnoreCase(
-					Consts.ACTION_LIKE_READY)) {
-				int i = intent.getIntExtra("errorCode", Consts.ERROR_NOERROR);
-				if (i == Consts.ERROR_NOERROR)
-					Toast.makeText(PlayerUI.this, Consts.SCORE_SUCCESS,
-							Toast.LENGTH_SHORT).show();
-				else if (i == Consts.ERROR_CALLWEBSERVICE)
-					Toast.makeText(PlayerUI.this, Consts.NETWORK_FAILED,
-							Toast.LENGTH_SHORT).show();
-			}
+			play_btn.setBackgroundResource(R.drawable.play);
+			play_btn.setOnClickListener(play);
+			play_btn.setOnTouchListener(playTouched);
 		}
 	};
 	private ImageButton.OnClickListener like = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {				
-				playService.like();
-				like_btn.setEnabled(false);
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
+			scoreService = new ScoreService(handler);
+			scoreService.scoreIt(joke.getId());
+			like_btn.setEnabled(false);
 		}
 	};
 
 	private ImageButton.OnClickListener share = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {
-				playService.like();
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
+			// try {
+			// // playService.like();
+			// } catch (RemoteException e) {
+			// Log.e(TAG, e.getMessage(), e);
+			// }
 		}
 	};
 
@@ -163,7 +178,7 @@ public class PlayerUI extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			try {
-				playService.play();
+				playService.play(joke);
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
