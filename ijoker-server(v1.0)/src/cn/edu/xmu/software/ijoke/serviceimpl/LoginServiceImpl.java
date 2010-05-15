@@ -14,8 +14,8 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("In LoginServiceImpl Test authorization userName="+userName+" passWord="+passWord);
 		User user = UserFactory.createUser(userName, passWord);
 		if (user==null||!(passWord.equals(user.getPassWord())))
-			return Consts.LOGIN_FAIL;
+			return null;
 		else
-			return Consts.LOGIN_SUCCESS;
+			return user.getUserId();
 	}
 }
