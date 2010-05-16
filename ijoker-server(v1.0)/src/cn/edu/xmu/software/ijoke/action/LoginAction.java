@@ -15,17 +15,17 @@ public class LoginAction extends BaseAction{
 	private String username;
 	private String password; 
 	private String loginType;	
-	private String verifyStr;
-	private ByteArrayInputStream inputStream;  
+	private String verifyStr;	
 	
 	private AdminLoginService adminLoginService;	
 	
 	public LoginAction(){		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String execute(){
-		System.out.println("loging:"+username+" "+password+" "+verifyStr+" "+RandomNumUtil.Instance().getString()+(verifyStr.equals(RandomNumUtil.Instance().getString())));
-		if (!verifyStr.equals(RandomNumUtil.Instance().getString())){
+		
+		if (!verifyStr.equals(getSession().get("random"))){
 			this.clearErrorsAndMessages();
 			this.addActionMessage(Messages.VERIFY_CODE_ERROR); 			
 			return INPUT;
@@ -42,14 +42,6 @@ public class LoginAction extends BaseAction{
 		}
 		
 		return loginResult;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public String generateRand() throws Exception {
-		 RandomNumUtil rdnu=RandomNumUtil.Instance();
-	     this.setInputStream(rdnu.getImage());//ȡ�ô�������ַ��ͼƬ   
-	     System.out.println("rdnu.getString()="+rdnu.getString());	     
-	     return SUCCESS;   
 	}
 	
 	public String getUsername() {
@@ -70,15 +62,6 @@ public class LoginAction extends BaseAction{
 	public String getLoginType() {
 		return loginType;
 	}
-
-
-	public ByteArrayInputStream getInputStream() {
-		return inputStream;
-	}
-
-	public void setInputStream(ByteArrayInputStream inputStream) {
-		this.inputStream = inputStream;
-	}	
 
 	public AdminLoginService getAdminLoginService() {
 		return adminLoginService;

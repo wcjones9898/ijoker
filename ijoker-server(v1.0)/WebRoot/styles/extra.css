@@ -16,7 +16,32 @@ INPUT {
 	FONT-SIZE: 12px;
 	FONT-FAMILY: "Microsoft YaHei";
 }
+input.bt_login,
+input.bt_register {	
+	height: 24px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+	margin: 2px 0;
+}
 
+input.bt_login {
+	width: 74px;
+	background: transparent url(../images/bt_login.png) no-repeat 0 0;
+}
+
+input.bt_register {
+	width: 94px;
+	color: white;
+	background: transparent url(../images/bt_register.png) no-repeat 0 0;
+}
+.error_message {	
+	margin: 2px 0;
+	text-align: center;
+	Color: #FF0000;	
+	text-decoration: none;
+}
 SELECT {
 	FONT-SIZE: 12px;
 	FONT-FAMILY: "Microsoft YaHei";
@@ -70,7 +95,7 @@ A.menuParent:hover {
 }
 
 table.eTable {
-	width: 520px;
+	width: 100%;
 	margin: 0px auto;
 	font: Georgia 11px;
 	font-size: 12px;
@@ -113,12 +138,15 @@ tr.t3 td {
 }
 .eTable th {
 	border: 1px solid #999;
-	background:#f5e2cf;
+	background:#a4c9f3;
 	line-height: 30px;
 	height: 30px;
 }
+.eTable tbody tr td input{
+	width: 80%;
+}
 .eTable tfoot tr td {
-	background: #fff;
+	background: #a4c9f3;
 	line-height: 26px;
 	height: 26px;
 }

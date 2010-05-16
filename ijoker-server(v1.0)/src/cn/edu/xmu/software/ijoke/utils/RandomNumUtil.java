@@ -11,21 +11,19 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-public class RandomNumUtil { 
-	private static RandomNumUtil randomNumUtil;
+public class RandomNumUtil {
+
     private ByteArrayInputStream image;//图像   
     private String str;//验证码   
        
     private RandomNumUtil(){   
-        //init();//初始化属性   
+        init();//初始化属性   
     }   
     /* 
      * 取得RandomNumUtil实例 
      */ 
-    public static RandomNumUtil Instance(){   
-    	if (randomNumUtil==null)
-    		randomNumUtil=new RandomNumUtil();
-        return randomNumUtil;   
+    public static RandomNumUtil Instance(){       	
+        return new RandomNumUtil();   
     }   
     /* 
      * 取得验证码图片 

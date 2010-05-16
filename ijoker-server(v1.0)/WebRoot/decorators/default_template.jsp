@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 
 
@@ -43,12 +44,10 @@
 							<tr>
 								<td height="100" class="bod">
 									<h6 class="subol">
-										笑话管理
+										笑话审核
 									</h6>
 									<ol>
-										<li><a href="uploadAudio.jsp">上传笑话</a></li>
-										<li><a href="">审核笑话</a></li>
-										
+										<li><a href="UnverifyListAction.action">未审核列表</a></li>	
 									</ol>
 								</td>
 								<td>&nbsp;</td>
@@ -57,68 +56,55 @@
 							<tr>
 								<td height="100" class="bod">
 									<h6 class="subol">
+										笑话管理
+									</h6>
+									<ol>
+										<li><a href="">分类管理</a></li>
+										<li><a href="upload_audio.jsp">上传笑话</a></li>
+										<li><a href="">笑话列表</a></li>
+										<li><a href="">上传漫画</a></li>
+										<li><a href="">漫画列表</a></li>
+									</ol>
+								</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td height="100" class="bod">
+									<h6 class="subol">
 										用户管理
 									</h6>
 									<ol>
-										<li><a href="">未处理申请</a></li>
-										<li><a href="">已处理申请</a></li>
+										<li><a href="">用户列表</a></li>
 									</ol>
 								</td>
 								<td>&nbsp;</td>
 							</tr>
 							<tr>
-								<td height="100" class="bod">
-									<h6 class="subol">
-										初审管理
-									</h6>
-									<ol>
-										<li><a href="">日程安排</a></li>
-									</ol>
-
-								</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td height="100" class="bod">
-									<h6 class="subol">
-										终审
-									</h6>
-									<ol>
-										<li>
-											<a href="">审核</a>
-										</li>
-									</ol>
-
+								<td height="208" class="bod">									
+									&nbsp;
 								</td>
 								<td>
-									&nbsp;
-								</td>
-							</tr>
-						
-							<tr>
-								<td width="75%" height="138">
-									&nbsp;
-								</td>
-								<td width="25%">
 									&nbsp;
 								</td>
 							</tr>
 
 						</table>
 					</td>
-					<td width="553" height="638" background="../images/content.jpg">
-						<table width="551" height="638" >
+					<td width="553" height="608" background="../images/content.jpg">
+						<table width="500" height="608">							
 							<tr>
-								<td height="20">&nbsp;</td>
-							</tr>
-							<tr valign="top">
-								<td width="553" height="90" align="left">
+								<td height="35" align="left" valign="bottom">
 									<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您所在的位置：</strong>
 									<decorator:title />
 								</td>
 							</tr>
+							<tr valign="top">
+								<td height="20" align="left">
+									<s:actionmessage cssClass="error_message"/>
+								</td>
+							</tr>
 							<tr>
-								<td width="553" height="500" valign="top">
+								<td valign="top">									
 									<decorator:body />
 								</td>
 							</tr>

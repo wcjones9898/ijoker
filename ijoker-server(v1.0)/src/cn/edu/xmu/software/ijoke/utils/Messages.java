@@ -1,6 +1,8 @@
 package cn.edu.xmu.software.ijoke.utils;
 
 public class Messages {
-	public final static String VERIFY_CODE_ERROR="ÇëÊäÈëÕıÈ·µÄÑéÖ¤Âë£¡";
-	public final static String LOGIN_FAIL="ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·£¡";
+	public final static String VERIFY_CODE_ERROR="éªŒè¯ç ä¸æ­£ç¡®ï¼";
+	public final static String LOGIN_FAIL="ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯";
+	public final static String FIRST_PAGE="å·²åˆ°è¾¾ç¬¬ä¸€é¡µ";
+	public final static String LAST_PAGE="å·²åˆ°è¾¾æœ€åä¸€é¡µ";
 }

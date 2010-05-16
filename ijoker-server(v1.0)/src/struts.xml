@@ -7,13 +7,13 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.ui.theme" value="simple"></constant>
 	<constant name="struts.i18n.encoding" value="UTF-8" /> 
-    <constant name="struts.custom.i18n.resources" value="globalMessages"/>    
+    <constant name="struts.custom.i18n.resources" value="Messages"/>    
     
      
     <!-- 登录及注册页面的配置文件 -->
 	<package name="login" namespace="" extends="struts-default">				
              
-		<action name="LoginAction" class="AdminLoginService">
+		<action name="LoginAction" class="LoginProxy">
 			<result name="success" type="redirect">/admin/welcome.jsp</result>
 			<result name="input">/login.jsp</result>
 		
@@ -51,6 +51,26 @@
 		<action name="UploadJokeFileAction" class="cn.edu.xmu.software.ijoke.action.UploadJokeFileAction">
 			<result name="success" type="redirect">welcome.jsp</result>
 		</action>
+		
+		<action name="UnverifyListAction" class="UnverifyListProxy">
+			<result>unverify_list.jsp</result>
+		</action>
+		<action name="LoadJokeForVerify" class="UnverifyListProxy" method="loadJokeForVerify">
+			<result>verify_joke.jsp</result>
+		</action>
+		<action name="DeleteJoke" class="UnverifyListProxy" method="deleteJoke">
+			<result type="redirectAction">UnverifyListAction</result>
+		</action>
+		<action name="VerifyJoke" class="UnverifyListProxy" method="verifyJoke">
+			<result type="redirectAction">UnverifyListAction</result>
+		</action>
+		<action name="UnverifyPrePage" class="UnverifyListProxy" method="prePage">
+			<result type="redirectAction">UnverifyListAction</result>
+		</action>
+		<action name="UnverifyNextPage" class="UnverifyListProxy" method="nextPage">
+			<result type="redirectAction">UnverifyListAction</result>
+		</action>
+		
 	</package>
 	
 		
