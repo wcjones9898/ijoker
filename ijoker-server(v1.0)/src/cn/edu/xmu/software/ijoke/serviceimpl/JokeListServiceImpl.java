@@ -9,6 +9,7 @@ import cn.edu.xmu.software.ijoke.dao.ClassAndJokeFileDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeFileDAO;
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
+import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.service.JokeListService;
 import cn.edu.xmu.software.ijoke.view.Joke;
 public class JokeListServiceImpl  implements JokeListService{
@@ -25,6 +26,7 @@ public class JokeListServiceImpl  implements JokeListService{
 	
 		 //List<ClassAndJokeFile> clAndFlList = (List<ClassAndJokeFile>) classAndFileDAO.findClassItemDAOByClassId(classId);
 		System.out.println("WebService方法jokeListService用于向客户端传递列表 参数为主题的Id，开始列表的页数及页的长度");
+		System.out.println("ClassId = "+classId);
 		List<ClassAndJokeFile> clAndFlList = (List<ClassAndJokeFile>) classAndFileDAO.
 		findClassAndJokeByLimit(classId, (begin-1)*limit, limit);
 		ArrayList<cn.edu.xmu.software.ijoke.entity.Joke> jokeList = new ArrayList();
@@ -50,8 +52,9 @@ public class JokeListServiceImpl  implements JokeListService{
 			jokeView.setAuthor(j.getAuthorName());
 			jokeView.setUploadTime(j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
-			String location = jokeFileDAO.findJokeFileByFileId(j.getFileId())
-					.getFilePath();
+			JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(j.getFileId());
+			String location = jokeFile.getFilePath()+jokeFile.getFileName()+jokeFile.getFileExtension();
+
 			jokeView.setLocation(location);
 			jokeView.setKeyWord(j.getDescription());
 			jokesView.add(jokeView);
@@ -63,9 +66,10 @@ public class JokeListServiceImpl  implements JokeListService{
 	@Test
 	public void testJokeListService()
 	{
-		List<Joke> jokeList = jokeListService("1",3,5);
+		List<Joke> jokeList = jokeListService("0",1,5);
 		for(int i=0; i<jokeList.size(); i++)
-			System.out.println(jokeList.get(i).getAuthor());
+			
+			System.out.println(jokeList.get(i).getAuthor()+jokeList.get(i).getLocation());
 	}
 
 }

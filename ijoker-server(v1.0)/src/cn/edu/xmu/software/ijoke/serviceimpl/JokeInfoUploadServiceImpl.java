@@ -44,6 +44,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setStatus("0");
 		jokeDAO.insertJoke(joke);
 		ClassAndJokeFile classAndJokeFile = new ClassAndJokeFile();
+		classAndJokeFile.setClassId("0");
 		classAndJokeFile.setJokeId(joke.getJokeId());
 		classAndJokeFileDAO.insertClassAndJokeFile(classAndJokeFile);
 		
@@ -65,6 +66,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		jokeDAO.insertJoke(joke);
 		ClassAndJokeFile classAndJokeFile = new ClassAndJokeFile();
 		classAndJokeFile.setJokeId(joke.getJokeId());
+		classAndJokeFile.setClassId("0");
 		classAndJokeFileDAO.insertClassAndJokeFile(classAndJokeFile);
 		return fileId;
 		
@@ -118,8 +120,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 	public void testJokeInfoUploadService()
 	{
 		
-		System.out.println(copyTo("D:/1.jpg",jokeInfoUploadServiceByServer("lsjlkj", "adsfadf", 
-				"1","ladklfjasd","adfasdkjhf")));
+		jokeInfoUploadService("lsjlkj", "adsfadf", 
+				"1","ladklfjasd","adfasdkjhf");
 	}
 	
 }
