@@ -30,6 +30,7 @@ public class Consts {
 	public static final String UPLOAD_SUCCESSFUL = "upload file successful!";
 	public static final String UPLOAD_ERROR = "error exist during uploading!";
 	public static final String ERROR_CANTNOT_PLAY = "cant not play this joke,try others!";
+	public static final String ERROR_TIMEUP = "record time limited to 5 minites!";
 	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
 	public static String SERVER_IP = "59.77.5.42";
 	public static String SERVICE_BASE_URL = "http://" + SERVER_IP
@@ -77,6 +78,10 @@ public class Consts {
 	public static final int CMD_PLAY = 0x36;
 	public static final int CMD_STOP = 0x37;
 	public static final int CMD_PAUSE = 0x38;
+	public static final int ERROR_PLAY = 0x39;
+	public static final int MSG_PREPARE_PLAY = 0x40;
+	public static final int MSG_STOP_PLAY = 0x41;
+	public static final int MSG_RECORD_TIMEUP = 0x42;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";

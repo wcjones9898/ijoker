@@ -26,8 +26,8 @@ public class RecorderUI extends BaseActivity {
 	private ProgressBar record_progress;
 	private Button listen_btn, record_btn, clear_btn, upload_btn;
 	private RecorderService recorderService;
-	private boolean isRecording;
-	private boolean isPlaying;
+	// private boolean isRecording;
+	// private boolean isPlaying;
 	private ProgressDialog progressDialog;
 	private static final String TAG = RecorderUI.class.getName();
 	private Handler handler = new Handler() {
@@ -35,23 +35,32 @@ public class RecorderUI extends BaseActivity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-//			progressDialog.dismiss();
 			switch (msg.what) {
 			case Consts.UPLOAD_SUCCESS:
+				progressDialog.dismiss();
 				Toast.makeText(RecorderUI.this, Consts.UPLOAD_SUCCESSFUL,
 						Toast.LENGTH_SHORT).show();
 				upload_btn.setEnabled(false);
+				
 				recorderService.clearRecord();
 				clear_btn.setEnabled(false);
 				break;
 			case Consts.ERROR_UPLOAD:
+				progressDialog.dismiss();
 				Toast.makeText(RecorderUI.this, Consts.UPLOAD_ERROR,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case Consts.STATUS_LISTEN_STOP:
 				listen_btn.setEnabled(false);
 				listen_btn.setText("试听");
-				isPlaying = !isPlaying;
+				break;
+			case Consts.MSG_RECORD_TIMEUP:
+				recorderService.stopRecord();
+				listen_btn.setEnabled(true);
+				clear_btn.setEnabled(true);
+				record_btn.setEnabled(false);
+				upload_btn.setEnabled(true);
+				record_btn.setText("录音");
 				break;
 			default:
 			}
@@ -63,7 +72,6 @@ public class RecorderUI extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recorder);
-		recorderService = new RecorderService(handler);
 		find();
 	}
 
@@ -82,7 +90,7 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!isRecording) {
+				if (!recorderService.isRecording()) {
 					recorderService.startRecord();
 					record_btn.setText("停止");
 				} else {
@@ -93,7 +101,6 @@ public class RecorderUI extends BaseActivity {
 					upload_btn.setEnabled(true);
 					record_btn.setText("录音");
 				}
-				isRecording = !isRecording;
 			}
 		});
 		clear_btn.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +121,8 @@ public class RecorderUI extends BaseActivity {
 				jokeTitle = jokeTitle_txt.getText().toString();
 				keyword = keyword_txt.getText().toString();
 				if (validate()) {
-//					progressDialog = ProgressDialog.show(RecorderUI.this, "提示",
-//							"正在上传笑话，请稍候...", true);
+					progressDialog = ProgressDialog.show(RecorderUI.this, "提示",
+							"正在上传笑话，请稍候...", true);
 					SharedPreferences settings = getSharedPreferences(
 							Consts.preferencesSetting, 0);
 					userId = settings.getString(Consts.userId, "");
@@ -129,16 +136,16 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!isPlaying) {
+				if (!recorderService.isPlaying()) {
 					recorderService.listenRecord();
 					listen_btn.setText("停止");
 				} else {
 					recorderService.stopListen();
 					listen_btn.setText("试听");
 				}
-				isPlaying = !isPlaying;
 			}
 		});
+		recorderService = new RecorderService(this, handler, record_progress);
 	}
 
 	private boolean validate() {
