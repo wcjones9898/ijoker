@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -39,6 +38,8 @@ public class BaseActivity extends Activity {
 		case MenuUtils.LOGOUT:
 			callLoginUI(Consts.ERROR_NOERROR);
 			return true;
+		case MenuUtils.IP:
+			
 		default:
 			return true;
 		}

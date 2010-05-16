@@ -47,13 +47,15 @@ public class RecorderService {
 				Log.e(TAG, e.getMessage(), e);
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);
+			} catch (Exception e) {
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 	}
 
 	public void clearRecord() {
 		if (currentRecord != null)
-			currentRecord.deleteOnExit();
+			currentRecord.delete();
 	}
 
 	public void stopListen() {
@@ -75,23 +77,22 @@ public class RecorderService {
 	public void uploadFile(String userId, String jokeTitle, String keyword) {
 		uploader = new Uploader(handler);
 		uploader.doStart(currentRecord, jokeTitle, keyword, userId);
-		if (currentRecord != null)
-			currentRecord.deleteOnExit();
 	}
 
 	public void listenRecord() {
+		stopListen();
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				mp.stop();
-				mp.release();
-				mp = null;
+				 if (mp != null) {
+				 mp.stop();
+				 mp.release();
+				 mp = null;
+				 }
 				Message message = handler
 						.obtainMessage(Consts.STATUS_LISTEN_STOP);
-				Bundle b = new Bundle();
-				message.setData(b);
 				handler.sendMessage(message);
 			}
 		});
@@ -108,6 +109,8 @@ public class RecorderService {
 			Log.e(TAG, e.getMessage(), e);
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage(), e);
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage(), e);
 		}
 		mediaPlayer.start();
 	}
@@ -115,7 +118,7 @@ public class RecorderService {
 	public void startRecord() {
 		stopRecord();
 		if (currentRecord != null)
-			currentRecord.deleteOnExit();
+			currentRecord.delete();
 		Log.i("Start Rec", "MessageManager");
 		mRecorder = new MediaRecorder();
 		initRecorder();

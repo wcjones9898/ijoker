@@ -70,11 +70,14 @@ public class PlayerUI extends BaseActivity {
 		revParams();
 		find();
 		// loadValues();
+		this
+				.startService(new Intent(
+						"cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
-		intentFilter.addAction(Consts.ACTION_LIKE_READY);
+		intentFilter.addAction(Consts.ACTION_ERROR_PLAY);
 		registerReceiver(receiver, intentFilter);
 	}
 
@@ -130,7 +133,7 @@ public class PlayerUI extends BaseActivity {
 		try {
 			if (playService.isPlaying()) {
 				Joke playingJoke = playService.getJokePlaying();
-				if (playingJoke.getId() == joke.getId()) {
+				if (playingJoke.getId().equals(joke.getId())) {
 					play_btn.setBackgroundResource(R.drawable.pause);
 					play_btn.setOnClickListener(pause);
 					play_btn.setOnTouchListener(pauseTouched);
@@ -149,6 +152,9 @@ public class PlayerUI extends BaseActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equalsIgnoreCase(Consts.ACTION_ERROR_PLAY))
+				Toast.makeText(PlayerUI.this, Consts.ERROR_CANTNOT_PLAY,
+						Toast.LENGTH_SHORT).show();
 			play_btn.setBackgroundResource(R.drawable.play);
 			play_btn.setOnClickListener(play);
 			play_btn.setOnTouchListener(playTouched);
@@ -166,11 +172,8 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton.OnClickListener share = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// try {
-			// // playService.like();
-			// } catch (RemoteException e) {
-			// Log.e(TAG, e.getMessage(), e);
-			// }
+			Toast.makeText(PlayerUI.this, "enjoy it and have a good time!",
+					Toast.LENGTH_SHORT).show();
 		}
 	};
 
@@ -191,7 +194,7 @@ public class PlayerUI extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			try {
-				playService.pause();
+				playService.stop();
 			} catch (RemoteException e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
@@ -204,7 +207,7 @@ public class PlayerUI extends BaseActivity {
 		super.onResume();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
-		intentFilter.addAction(Consts.ACTION_LIKE_READY);
+		intentFilter.addAction(Consts.ACTION_ERROR_PLAY);
 		registerReceiver(receiver, intentFilter);
 		this.bindService(new Intent(PlayerUI.this, PlayService.class),
 				serviceConnection, Context.BIND_AUTO_CREATE);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cn.edu.xmu.software.ijoker.entity.User;
 import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 import cn.edu.xmu.software.ijoker.util.Consts;
 import cn.edu.xmu.software.ijoker.util.WSUtils;

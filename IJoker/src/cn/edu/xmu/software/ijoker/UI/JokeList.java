@@ -34,6 +34,7 @@ public class JokeList extends BaseActivity {
 	private List<Joke> jokeList;
 	private int page = 1;
 	private int pages = 0;
+	private String classId;
 	private final String TAG = JokeList.class.getName();
 	private Button prev_button;
 	private Button next_button;
@@ -113,6 +114,7 @@ public class JokeList extends BaseActivity {
 				"cn.edu.xmu.software.ijoker.divisionList")) {
 			divisionTitile
 					.setText(this.getIntent().getStringExtra("className"));
+			classId = this.getIntent().getStringExtra("classId");
 			jokeNum = this.getIntent().getIntExtra("jokeNum", 0);
 		} else {
 			Bundle b = intent.getBundleExtra("android.intent.extra.jokes");
@@ -169,7 +171,7 @@ public class JokeList extends BaseActivity {
 			message.setData(b);
 			handler.sendMessage(message);
 		} else {
-			jokeListService.getJokeList(page);
+			jokeListService.getJokeList(page,classId);
 
 		}
 	}

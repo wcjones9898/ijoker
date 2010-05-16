@@ -5,6 +5,6 @@ interface IPlayService {
     void play(in Joke joke);
     void pause();
     void stop();
-	 boolean isPlaying();
-	 Joke getJokePlaying();
+ 	Joke getJokePlaying();
+	boolean isPlaying();
 }

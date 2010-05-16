@@ -3,6 +3,7 @@ package cn.edu.xmu.software.ijoker.util;
 public class Consts {
 
 	public static final String ACTION_STOP_PLAY = "cn.edu.xmu.software.ijoker.action.STOP_PLAY";
+	public static final String ACTION_ERROR_PLAY = "cn.edu.xmu.software.ijoker.action.ERROR_PLAY";
 	public static final String ACTION_JOKELIST_READY = "cn.edu.xmu.software.ijoker.action.JOKELIST_READY";
 	public static final String ACTION_DIVISIONLIST_READY = "cn.edu.xmu.software.ijoker.action.DIVISIONLIST_READY";
 	public static final String ACTION_LIKE_READY = "cn.edu.xmu.software.ijoker.action.LIKE_READY";
@@ -28,9 +29,13 @@ public class Consts {
 	public static final String NOJOKE = "No joke in this division!";
 	public static final String UPLOAD_SUCCESSFUL = "upload file successful!";
 	public static final String UPLOAD_ERROR = "error exist during uploading!";
+	public static final String ERROR_CANTNOT_PLAY = "cant not play this joke,try others!";
 	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
-	public static final String SERVICE_BASE_URL = "http://192.168.0.101:8080/ijoker-server/services/";
-	public static final String SERVER_UPLOAD_URL = "http://192.168.0.101:8080/ijoker-server/servlet/UploadService";
+	public static String SERVER_IP = "59.77.5.42";
+	public static String SERVICE_BASE_URL = "http://" + SERVER_IP
+			+ ":8080/ijoker-server/services/";
+	public static String SERVER_UPLOAD_URL = "http://" + SERVER_IP
+			+ ":8080/ijoker-server/servlet/UploadService";
 	public static final int PAGESIZE = 5;
 	public static final int MSG_JOKELIST_UPDATE = 0x1;
 	public static final int MSG_JOKELIST_READY = 0x2;
@@ -69,6 +74,9 @@ public class Consts {
 	public final static int SEARCHTYPE_SEARCH_JOKER = 1;
 	public static final int CMD_CLEAR = 0x34;
 	public static final int UPLOAD_SUCCESS = 0x35;
+	public static final int CMD_PLAY = 0x36;
+	public static final int CMD_STOP = 0x37;
+	public static final int CMD_PAUSE = 0x38;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";

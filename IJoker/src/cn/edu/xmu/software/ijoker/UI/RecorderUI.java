@@ -35,7 +35,7 @@ public class RecorderUI extends BaseActivity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			progressDialog.dismiss();
+//			progressDialog.dismiss();
 			switch (msg.what) {
 			case Consts.UPLOAD_SUCCESS:
 				Toast.makeText(RecorderUI.this, Consts.UPLOAD_SUCCESSFUL,
@@ -114,8 +114,8 @@ public class RecorderUI extends BaseActivity {
 				jokeTitle = jokeTitle_txt.getText().toString();
 				keyword = keyword_txt.getText().toString();
 				if (validate()) {
-					progressDialog = ProgressDialog.show(RecorderUI.this, "提示",
-							"正在上传笑话，请稍候...", true);
+//					progressDialog = ProgressDialog.show(RecorderUI.this, "提示",
+//							"正在上传笑话，请稍候...", true);
 					SharedPreferences settings = getSharedPreferences(
 							Consts.preferencesSetting, 0);
 					userId = settings.getString(Consts.userId, "");
