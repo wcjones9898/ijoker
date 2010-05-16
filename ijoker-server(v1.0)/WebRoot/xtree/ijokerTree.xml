@@ -1,19 +1,20 @@
-<?xml version='1.0' encoding='UTF-8'?><xml-body>
+<?xml version='1.0' encoding='UTF-8'?>
+<xml-body>
 <tree text='root'>
-<tree text='新建 Microsoft Office Excel 工作表.xlsx'>
+<tree text='Microsoft Office Excel.xlsx'>
 </tree>
-<tree text='新建 Microsoft Office Word 文档.docx'>
+<tree text='Microsoft Office Word.docx'>
 </tree>
 <tree text='Bill'>
-<tree text='新建位图图像.bmp'>
+<tree text='1.bmp'>
 </tree>
 </tree>
 <tree text='BillBill'>
-<tree text='新建 Microsoft Office Word 文档 (2).docx'>
+<tree text='Microsoft Office Word.docx'>
 </tree>
-<tree text='新建 Microsoft Office Word 文档.docx'>
+<tree text='Microsoft Office Word.docx'>
 </tree>
-<tree text='新建 WinRAR ZIP 压缩文件.zip'>
+<tree text='WinRAR ZIP.zip'>
 </tree>
 </tree>
 <tree text='jokes'>

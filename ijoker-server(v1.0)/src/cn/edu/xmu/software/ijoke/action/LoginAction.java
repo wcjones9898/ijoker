@@ -2,6 +2,7 @@ package cn.edu.xmu.software.ijoke.action;
 
 import java.io.ByteArrayInputStream;
 
+import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.service.LoginService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.Messages;
@@ -17,7 +18,7 @@ public class LoginAction extends BaseAction{
 	private String verifyStr;
 	private ByteArrayInputStream inputStream;  
 	
-	private LoginService loginService;	
+	private AdminLoginService adminLoginService;	
 	
 	public LoginAction(){		
 	}
@@ -26,11 +27,12 @@ public class LoginAction extends BaseAction{
 		System.out.println("loging:"+username+" "+password+" "+verifyStr+" "+RandomNumUtil.Instance().getString()+(verifyStr.equals(RandomNumUtil.Instance().getString())));
 		if (!verifyStr.equals(RandomNumUtil.Instance().getString())){
 			this.clearErrorsAndMessages();
-			this.addActionMessage(Messages.VERIFY_CODE_ERROR); 
-			
+			this.addActionMessage(Messages.VERIFY_CODE_ERROR); 			
 			return INPUT;
 		}
-		String loginResult=loginService.loginService(username, password);
+		
+		String loginResult=adminLoginService.login(username, password);
+		
 		if (loginResult==Consts.LOGIN_SUCCESS){
 			getSession().put("username", username);			
 			getSession().put("islogined", LOGINED);			
@@ -45,7 +47,7 @@ public class LoginAction extends BaseAction{
 	@SuppressWarnings("unchecked")
 	public String generateRand() throws Exception {
 		 RandomNumUtil rdnu=RandomNumUtil.Instance();
-	     this.setInputStream(rdnu.getImage());//È¡µÃ´øÓÐËæ»ú×Ö·û´®µÄÍ¼Æ¬   
+	     this.setInputStream(rdnu.getImage());//È¡ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Í¼Æ¬   
 	     System.out.println("rdnu.getString()="+rdnu.getString());	     
 	     return SUCCESS;   
 	}
@@ -76,14 +78,14 @@ public class LoginAction extends BaseAction{
 
 	public void setInputStream(ByteArrayInputStream inputStream) {
 		this.inputStream = inputStream;
+	}	
+
+	public AdminLoginService getAdminLoginService() {
+		return adminLoginService;
 	}
 
-	public LoginService getLoginService() {
-		return loginService;
-	}
-
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
+	public void setAdminLoginService(AdminLoginService adminLoginService) {
+		this.adminLoginService = adminLoginService;
 	}
 
 	public String getVerifyStr() {

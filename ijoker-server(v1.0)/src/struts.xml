@@ -13,7 +13,7 @@
     <!-- 登录及注册页面的配置文件 -->
 	<package name="login" namespace="" extends="struts-default">				
              
-		<action name="LoginAction" class="LoginProxy">
+		<action name="LoginAction" class="AdminLoginService">
 			<result name="success" type="redirect">/admin/welcome.jsp</result>
 			<result name="input">/login.jsp</result>
 		
@@ -27,10 +27,31 @@
 			</action>
 	</package>
 	
-	<package name="admin" namespace="/admin" extends="struts-default">
+	<!--受权限控制的Action请求配置-->   
+	<package name="admin" namespace="/admin" extends="struts-default">   
+		<interceptors>   
+			<!--定义一个名为authority的拦截器-->   
+			<interceptor class="cn.edu.xmu.software.ijoke.interceptor.AuthorityInterceptor"  
+				name="authority"/>   
+			<!--定义一个包含权限检查的拦截器栈-->   
+			<interceptor-stack name="mydefault">   
+				<!--配置内建默认拦截器-->   
+				<interceptor-ref name="defaultStack"/>   
+				<!--配置自定义的拦截器-->   
+				<interceptor-ref name="authority"/>   
+			</interceptor-stack>   
+		</interceptors>   
+	  
+		<default-interceptor-ref name="mydefault" />   
+		<!--定义全局Result-->   
+		<global-results>   
+			<result name="login" type="redirect">/login.jsp</result>   
+		</global-results> 
+	
 		<action name="UploadJokeFileAction" class="cn.edu.xmu.software.ijoke.action.UploadJokeFileAction">
 			<result name="success" type="redirect">welcome.jsp</result>
 		</action>
 	</package>
+	
 		
 </struts>

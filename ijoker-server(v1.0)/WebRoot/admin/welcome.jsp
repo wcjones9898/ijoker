@@ -10,6 +10,6 @@
 	
   </head>
   
-  <body>欢迎登陆！<br>
+  <body>${username},欢迎登陆！<br>
   </body>
 </html>
