@@ -19,6 +19,7 @@ public class Joke implements Parcelable {
 	private String author;
 	private String uploadTime;
 	private String location;
+	private String keyword;
 	private int like;
 
 	/**
@@ -50,6 +51,14 @@ public class Joke implements Parcelable {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public void setUploadTime(String uploadTime) {
@@ -100,6 +109,7 @@ public class Joke implements Parcelable {
 		this.uploadTime = in.readString();
 		this.location = in.readString();
 		this.like = in.readInt();
+		this.keyword = in.readString();
 	}
 
 	@Override
@@ -116,6 +126,7 @@ public class Joke implements Parcelable {
 		dest.writeString(uploadTime);
 		dest.writeString(location);
 		dest.writeInt(like);
+		dest.writeString(keyword);
 	}
 
 	public void like() {

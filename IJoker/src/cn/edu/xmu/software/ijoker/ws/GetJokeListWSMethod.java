@@ -51,6 +51,7 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 						+ o.getProperty("location"));
 				joke.setTitle(o.getProperty("title").toString());
 				joke.setUploadTime(o.getProperty("uploadTime").toString());
+				joke.setKeyword(o.getProperty("keyWord").toString());
 				list.add(joke);
 			}
 			Log.i(TAG, "get data from webservice with method: "

@@ -1,16 +1,9 @@
 package cn.edu.xmu.software.ijoker.UI;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.xmu.software.ijoker.R;
 import cn.edu.xmu.software.ijoker.entity.Joke;
-import cn.edu.xmu.software.ijoker.service.IPlayService;
 import cn.edu.xmu.software.ijoker.service.PlayService;
 import cn.edu.xmu.software.ijoker.service.ScoreService;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -33,7 +25,7 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton like_btn, play_btn, share_btn;
 	private ProgressBar progress_bar;
 	private Joke joke;
-	private IPlayService playService;
+	private PlayService playService;
 	private ScoreService scoreService;
 	// private int player_position = 0;
 	public boolean is_valid = false;
@@ -44,6 +36,18 @@ public class PlayerUI extends BaseActivity {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
+			case Consts.MSG_PREPARE_PLAY:
+				play_btn.setEnabled(true);
+				break;
+			case Consts.MSG_STOP_PLAY:
+				play_btn.setBackgroundResource(R.drawable.play);
+				play_btn.setOnClickListener(play);
+				play_btn.setOnTouchListener(playTouched);
+				break;
+			case Consts.ERROR_PLAY:
+				Toast.makeText(PlayerUI.this, Consts.ERROR_CANTNOT_PLAY,
+						Toast.LENGTH_SHORT).show();
+				break;
 			case Consts.MSG_LIKE_SUCCEED:
 				Toast.makeText(PlayerUI.this, Consts.SCORE_SUCCESS,
 						Toast.LENGTH_SHORT).show();
@@ -69,16 +73,7 @@ public class PlayerUI extends BaseActivity {
 		setContentView(R.layout.player);
 		revParams();
 		find();
-		// loadValues();
-		this
-				.startService(new Intent(
-						"cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
-		this.bindService(new Intent(PlayerUI.this, PlayService.class),
-				serviceConnection, Context.BIND_AUTO_CREATE);
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
-		intentFilter.addAction(Consts.ACTION_ERROR_PLAY);
-		registerReceiver(receiver, intentFilter);
+		loadValues();
 	}
 
 	// 接收传递进来的笑话信息
@@ -96,17 +91,6 @@ public class PlayerUI extends BaseActivity {
 			is_valid = false;
 	}
 
-	private ServiceConnection serviceConnection = new ServiceConnection() {
-		public void onServiceConnected(ComponentName className, IBinder service) {
-			playService = IPlayService.Stub.asInterface((IBinder) service);
-			loadValues();
-		}
-
-		public void onServiceDisconnected(ComponentName className) {
-			playService = null;
-		}
-	};
-
 	private void find() {
 		head_img = (ImageView) findViewById(R.id.head_img);
 		level_img = (ImageView) findViewById(R.id.level_img);
@@ -120,7 +104,6 @@ public class PlayerUI extends BaseActivity {
 		play_btn.setOnClickListener(play);
 		play_btn.setOnTouchListener(playTouched);
 		share_btn.setOnClickListener(share);
-
 		progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 	}
 
@@ -130,36 +113,12 @@ public class PlayerUI extends BaseActivity {
 		uploadTime_txt.setText("上传时间: " + joke.getUploadTime().toString());
 		level_img.setBackgroundResource(R.drawable.star3);
 		title_txt.setText(joke.getTitle());
-		try {
-			if (playService.isPlaying()) {
-				Joke playingJoke = playService.getJokePlaying();
-				if (playingJoke.getId().equals(joke.getId())) {
-					play_btn.setBackgroundResource(R.drawable.pause);
-					play_btn.setOnClickListener(pause);
-					play_btn.setOnTouchListener(pauseTouched);
-				}
-			}
-		} catch (RemoteException e) {
-			Log.i(TAG, e.getMessage(), e);
-		}
-		progress_bar.setMax(100);
-		progress_bar.setProgress(30);
-		progress_bar.setSecondaryProgress(70);
+		play_btn.setEnabled(false);
+		playService = new PlayService(this, handler, progress_bar);
+		playService.doStart(joke.getLocation(), 8020, 2736);
 
 	}
 
-	private BroadcastReceiver receiver = new BroadcastReceiver() {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equalsIgnoreCase(Consts.ACTION_ERROR_PLAY))
-				Toast.makeText(PlayerUI.this, Consts.ERROR_CANTNOT_PLAY,
-						Toast.LENGTH_SHORT).show();
-			play_btn.setBackgroundResource(R.drawable.play);
-			play_btn.setOnClickListener(play);
-			play_btn.setOnTouchListener(playTouched);
-		}
-	};
 	private ImageButton.OnClickListener like = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -180,11 +139,7 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton.OnClickListener play = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {
-				playService.play(joke);
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
+			playService.startPlayer();
 			play_btn.setOnClickListener(pause);
 			play_btn.setOnTouchListener(pauseTouched);
 		}
@@ -193,11 +148,7 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton.OnClickListener pause = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {
-				playService.stop();
-			} catch (RemoteException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
+			playService.stopPlayer();
 			play_btn.setOnClickListener(play);
 			play_btn.setOnTouchListener(playTouched);
 		}
@@ -205,18 +156,11 @@ public class PlayerUI extends BaseActivity {
 
 	protected void onResume() {
 		super.onResume();
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(Consts.ACTION_STOP_PLAY);
-		intentFilter.addAction(Consts.ACTION_ERROR_PLAY);
-		registerReceiver(receiver, intentFilter);
-		this.bindService(new Intent(PlayerUI.this, PlayService.class),
-				serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	protected void onDestroy() {
 		super.onDestroy();
-		unbindService(serviceConnection);
-		unregisterReceiver(receiver);
+		playService.stopPlayer();
 	}
 
 	// 点击效果
