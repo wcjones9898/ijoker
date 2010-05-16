@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 
+import cn.edu.xmu.software.ijoke.utils.Consts;
 public class ConfigFactory {
 
 	public static Properties getConfigProperties() throws IOException {
@@ -39,6 +40,7 @@ public class ConfigFactory {
 		String filePath = null;
 		try {
 			filePath = getConfigProperties().getProperty("jokeRootPath");
+			filePath = Consts.jokeRootPath;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,6 +53,7 @@ public class ConfigFactory {
 		String filePath = null;
 		try {
 			filePath = getConfigProperties().getProperty("jokeTempPath");
+			filePath = Consts.jokeTempPath;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,6 +66,7 @@ public class ConfigFactory {
 		String filePath = null;
 		try {
 			filePath = getConfigProperties().getProperty("searchIndexPath");
+			filePath = Consts.searchIndexPath;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
