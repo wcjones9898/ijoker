@@ -22,7 +22,7 @@ public class TopicListServiceImpl implements TopicListService{
 	{
 		ArrayList<Catalog> topicList = topicListService();
 		for(int i=0 ; i<topicList.size(); i++)
-			System.out.println(topicList.get(i).getClassId());
+			System.out.println(topicList.get(i).getCatalogId());
 	}
 
 }

@@ -138,7 +138,7 @@ public class JokeDAO extends HibernateDaoSupport {
 	{
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
-		session.merge(joke);
+		this.getHibernateTemplate().update(joke);
 		tx.commit();  
 		session.close();
 	}

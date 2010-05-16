@@ -10,13 +10,13 @@
             <column name="Id" />
             <generator class="increment"></generator>
         </id>
-        <property name="className" type="java.lang.String">
+        <property name="catalogName" type="java.lang.String">
             <column name="className" not-null="true" />
         </property>
-        <property name="classLevel" type="java.lang.Integer">
+        <property name="catalogLevel" type="java.lang.Integer">
             <column name="classLevel" not-null="true" />
         </property>
-        <property name="classId" type="java.lang.String">
+        <property name="catalogId" type="java.lang.String">
             <column name="classId" not-null="true" />
         </property>
     </class>

@@ -5,9 +5,9 @@ import java.util.Set;
 public class Catalog {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private String className;
-	private Integer classLevel;
-	private String classId;
+	private String catalogName;
+	private Integer catalogLevel;
+	private String catalogId;
     private int jokeNum;
 
 	// Constructors
@@ -23,28 +23,30 @@ public class Catalog {
 		this.id = id;
 	}
 
-	public String getClassName() {
-		return this.className;
+
+
+	public String getCatalogName() {
+		return catalogName;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
 	}
 
-	public Integer getClassLevel() {
-		return this.classLevel;
+	public Integer getCatalogLevel() {
+		return catalogLevel;
 	}
 
-	public void setClassLevel(Integer classLevel) {
-		this.classLevel = classLevel;
+	public void setCatalogLevel(Integer catalogLevel) {
+		this.catalogLevel = catalogLevel;
 	}
 
-	public String getClassId() {
-		return this.classId;
+	public String getCatalogId() {
+		return catalogId;
 	}
 
-	public void setClassId(String classId) {
-		this.classId = classId;
+	public void setCatalogId(String catalogId) {
+		this.catalogId = catalogId;
 	}
 
 	public int getJokeNum() {

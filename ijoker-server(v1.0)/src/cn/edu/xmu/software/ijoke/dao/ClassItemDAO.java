@@ -36,7 +36,7 @@ public class ClassItemDAO extends HibernateDaoSupport{
 		{
 			topicList.get(i).setJokeNum(session.createSQLQuery(
 					"select jokeId from jl_classandfile where classId='"+
-					topicList.get(i).getClassId()+"'").list().size());
+					topicList.get(i).getCatalogId()+"'").list().size());
 		}
 		session.close();
 		return topicList;

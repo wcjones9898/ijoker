@@ -5,10 +5,10 @@ import org.junit.Test;
 import cn.edu.xmu.software.ijoke.dao.CatalogDAO;
 import cn.edu.xmu.software.ijoke.dao.ClassItemDAO;
 import cn.edu.xmu.software.ijoke.entity.Catalog;
-import cn.edu.xmu.software.ijoke.service.ClassManageService;
+import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.utils.Consts;
-public class ClassManageServiceImpl implements ClassManageService{
+public class CatalogManageServiceImpl implements CatalogManageService{
 
 	private CatalogDAO catalogDAO;
 	
@@ -20,10 +20,10 @@ public class ClassManageServiceImpl implements ClassManageService{
 			if(catalogDAO.findClassItemByClassId(classId)!=null)
 				return  false;
 		Catalog catalog = new Catalog();
-		catalog.setClassId(classId);
-		catalog.setClassName(className);
+		catalog.setCatalogId(classId);
+		catalog.setCatalogName(className);
 		catalog.setJokeNum(0);
-		catalog.setClassLevel(1);
+		catalog.setCatalogLevel(1);
 		catalogDAO.save(catalog);
 		return true;
 		}catch(Exception e)
@@ -55,7 +55,7 @@ public class ClassManageServiceImpl implements ClassManageService{
 
 		if(catalog!=null)
 		{
-			catalog.setClassName(className);
+			catalog.setCatalogName(className);
 			catalogDAO.update(catalog);
 			return true;
 		}

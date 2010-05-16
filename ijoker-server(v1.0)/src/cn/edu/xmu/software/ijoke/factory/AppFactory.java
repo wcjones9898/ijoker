@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.service.CatalogService;
-import cn.edu.xmu.software.ijoke.service.ClassManageService;
+import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
 import cn.edu.xmu.software.ijoke.service.SearchService;
@@ -39,9 +39,9 @@ public class AppFactory {
 	{
 		return (AdminLoginService) app.getBean("AdminLoginService");
 	}
-	public static ClassManageService  getClassManageService()
+	public static CatalogManageService  getClassManageService()
 	{
-		return (ClassManageService) app.getBean("ClassManageService");
+		return (CatalogManageService) app.getBean("ClassManageService");
 	}
 	public static UserService getUserService()
 	{

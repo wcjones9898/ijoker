@@ -99,6 +99,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			jokeDAO.updateJoke(jokeTemp);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
     }
@@ -174,7 +175,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		   Joke joke = new Joke();
 		   joke.setId("adfasdkjhf");
 		   joke.setKeyWord( "拉拉");
-		   joke.setTitle("啦啦啦");
+		   joke.setTitle("啦啦lasdjflkajs");
 	       System.out.println(AppFactory.getJokeInfoService().updateJoke(joke));
 	 }
 //	 
