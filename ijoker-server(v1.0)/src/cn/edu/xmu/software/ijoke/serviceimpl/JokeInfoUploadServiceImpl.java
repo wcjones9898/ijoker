@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
@@ -40,7 +41,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setFileId(fileId);
 		joke.setTitle(title);
 		joke.setUploaderId(userId);
-		joke.setUploadTime((new Date()).toString());
+		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
+		joke.setUploadTime(formatter.format(new Date()));
 		joke.setStatus("0");
 		jokeDAO.insertJoke(joke);
 		ClassAndJokeFile classAndJokeFile = new ClassAndJokeFile();
@@ -61,7 +63,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setFileId(fileId);
 		joke.setTitle(title);
 		joke.setUploaderId(userId);
-		joke.setUploadTime((new Date()).toString());
+		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
+		joke.setUploadTime(formatter.format(new Date()));
 		joke.setStatus("0");
 		jokeDAO.insertJoke(joke);
 		ClassAndJokeFile classAndJokeFile = new ClassAndJokeFile();
