@@ -18,5 +18,12 @@ public class Consts {
 	public final static String CLASS_DELETE_FAIL = "class delete fail";
 	public final static String CLASS_UPDATE_SUCCESS = "class update success";
 	public final static String CLASS_UPDATE_FAIL = "class update fail";
+	public final static String CLASSANDJOKE_ADD_SUCCESS = "classAndJoke add success";
+	public final static String CLASSANDJOKE_ADD_FAIL = "classAndJoke add fail";
+	public final static String CLASSANDJOKE_DELETE_FAIL = "classAndJoke delete fail";
+	public final static String CLASSANDJOKE_DELETE_SUCCESS = "classAndJoke delete success";
+	public final static String CLASSANDJOKE_UPDATE_FAIL = "classAndJoke update fail";
+	public final static String CLASSANDJOKE_UPDATE_SUCCESS = "classAndJoke update success";
+	
 	
 }

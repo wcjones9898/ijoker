@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
-
+import cn.edu.xmu.software.ijoke.utils.Consts;
 public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 	private Session session;
 	public ClassAndJokeFileDAO()
@@ -74,15 +74,18 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 		return classAndJokeFile;
 	}
 	
-	public void deleteClassAndJoke(String classId, String jokeId)
+	public String deleteClassAndJoke(String classId, String jokeId)
 	{
 		ClassAndJokeFile classAndJoke =this.findClassAndJoke(classId, jokeId);
+		if(classAndJoke==null)
+			return Consts.CLASSANDJOKE_DELETE_FAIL;
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
 
 		session.delete(classAndJoke);
 		tx.commit();
 		session.close();
+		return Consts.CLASSANDJOKE_DELETE_SUCCESS;
 		
 	
 	}

@@ -12,12 +12,13 @@ import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
 import cn.edu.xmu.software.ijoke.view.Joke;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
+import cn.edu.xmu.software.ijoke.utils.Consts;
+public class JokeInfoServiceImpl implements JokeInfoService {
 
-public class JokeInfoServiceImpl implements JokeInfoService{
+	private JokeDAO jokeDAO;
+	private ClassAndJokeFileDAO classAndJokeFileDAO;
+	private JokeFileDAO jokeFileDAO;
 
-	private JokeDAO jokeDAO ;
-    private ClassAndJokeFileDAO classAndJokeFileDAO;
-    private JokeFileDAO jokeFileDAO;
 	public JokeDAO getJokeDAO() {
 		return jokeDAO;
 	}
@@ -42,11 +43,13 @@ public class JokeInfoServiceImpl implements JokeInfoService{
 		this.jokeFileDAO = jokeFileDAO;
 	}
 
-	public ArrayList<cn.edu.xmu.software.ijoke.entity.Joke> findAllByLimit10(int begin) {
+	public ArrayList<cn.edu.xmu.software.ijoke.entity.Joke> findAllByLimit10(
+			int begin) {
 		return jokeDAO.findAllByLimit10(begin);
 	}
-	public List<Joke> entityToView(List<cn.edu.xmu.software.ijoke.entity.Joke> jokesEntity)
-	{
+
+	public List<Joke> entityToView(
+			List<cn.edu.xmu.software.ijoke.entity.Joke> jokesEntity) {
 		List<Joke> jokesView = new ArrayList<Joke>();
 		for (cn.edu.xmu.software.ijoke.entity.Joke j : jokesEntity) {
 			Joke jokeView = new Joke();
@@ -64,82 +67,101 @@ public class JokeInfoServiceImpl implements JokeInfoService{
 		}
 
 		return jokesView;
-		}
+	}
+
 	public String updateJoke(String jokeId, String title, String keyWord) {
-		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO.findByJokeId(jokeId);
+		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO
+				.findByJokeId(jokeId);
+		if(joke==null)
+			return Consts.CLASSANDJOKE_UPDATE_FAIL;
 		joke.setTitle(title);
 		joke.setDescription(keyWord);
-		try{
-		   jokeDAO.updateJoke(joke);
-		   return "Update Success";
-		}catch(Exception e)
-		{
-		   return "Update fail";
+		try {
+			jokeDAO.updateJoke(joke);
+			return Consts.CLASSANDJOKE_UPDATE_SUCCESS;
+		} catch (Exception e) {
+			return Consts.CLASSANDJOKE_UPDATE_FAIL;
 		}
 	}
+
 	public String deleteJokeToClass(String jokeId, String classId) {
 		// TODO Auto-generated method stub
-		try{
-		classAndJokeFileDAO.deleteClassAndJoke(classId, jokeId);
-		
-		return "delete success";
-		}catch(Exception e)
-		{
-			return "delete fail";
+		try {
+			
+			if(classAndJokeFileDAO.deleteClassAndJoke(classId, jokeId)
+					.equals(Consts.CLASSANDJOKE_DELETE_FAIL))
+			    return Consts.CLASSANDJOKE_DELETE_FAIL;
+			else
+				return Consts.CLASSANDJOKE_DELETE_SUCCESS;
+		} catch (Exception e) {
+			return Consts.CLASSANDJOKE_DELETE_FAIL;
 		}
 
 	}
 
 	public String addJokeToClass(String jokeId, String classId) {
 		// TODO Auto-generated method stub
-		try{
-		
-		
-		classAndJokeFileDAO.addClassAndJoke(classId, jokeId);
-		
-		return "add success";	
-		}catch(Exception e)
-		{
-			return "add fail";
+		try {
+
+			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null) {
+				classAndJokeFileDAO.addClassAndJoke(classId, jokeId);
+
+				return Consts.CLASS_ADD_SUCCESS;
+			}
+			else
+				return Consts.CLASS_ADD_FAIL;
+		} catch (Exception e) {
+			return Consts.CLASS_ADD_FAIL;
 		}
 
 	}
-	public List<Joke> getWithoutVerifyJokes( int begin,int pageSize)
-	{
-		return this.entityToView(jokeDAO.findByStatus("0",begin, pageSize));
+
+	public List<Joke> getWithoutVerifyJokes(int begin, int pageSize) {
+		return this.entityToView(jokeDAO.findByStatus("0", begin, pageSize));
 	}
-	public List<Joke> getVerifiedJokes( int begin,int pageSize)
-	{
-		return this.entityToView(jokeDAO.findByStatus("1",begin, pageSize));
+
+	public List<Joke> getVerifiedJokes(int begin, int pageSize) {
+		return this.entityToView(jokeDAO.findByStatus("1", begin, pageSize));
 	}
-   @Test
-   public void testUpdateJokeClass()
-   {
-	   System.out.println(AppFactory.getJokeInfoService().addJokeToClass("2010051221120731", "4"));
-   }
-   @Test
-   public void testUpdateJoke()
-   {
-	   
-	   AppFactory.getJokeInfoService().updateJoke("20100513143038809", "拉拉", "啦啦啦");
-   }
-   @Test
-   public void testGetWithoutVerifyJokes()
-   {
-	   List<Joke> jokesView = AppFactory.getJokeInfoService().getWithoutVerifyJokes(1,5);
-	   for(int i=0; i<jokesView.size(); i++)
-	   {
-		   System.out.println(jokesView.get(i).getAuthor());
-	   }
-   }
-   @Test
-   public void testGetVerifiedJokes()
-   {
-	   List<Joke> jokesView = AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
-	   for(int i=0; i<jokesView.size(); i++)
-	   {
-		   System.out.println(jokesView.get(i).getAuthor());
-	   }
-   }
+
+//	@Test
+//	public void testUpdateJokeClass() {
+//		System.out.println(AppFactory.getJokeInfoService().addJokeToClass(
+//				"2010051221120731", "4"));
+//	}
+	 @Test
+	 public void testUpdateJoke()
+	 {
+		   
+	 System.out.println(AppFactory.getJokeInfoService().updateJoke("2010051221120732", "拉拉",
+	 "啦啦啦"));
+	 }
+	 
+	 @Test
+	 public void testDeleteJokeClass()
+	 {
+			 System.out.println(AppFactory.getJokeInfoService().deleteJokeToClass(
+						"2010051221120731", "4"));		 
+	 }
+	 @Test
+	 public void testGetWithoutVerifyJokes()
+	 {
+	 List<Joke> jokesView =
+	 AppFactory.getJokeInfoService().getWithoutVerifyJokes(1,5);
+	 for(int i=0; i<jokesView.size(); i++)
+	 {
+	 System.out.println(jokesView.get(i).getAuthor());
+	 }
+	 }
+	// @Test
+	// public void testGetVerifiedJokes()
+	// {
+	// List<Joke> jokesView =
+	// AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
+	// for(int i=0; i<jokesView.size(); i++)
+	// {
+	// System.out.println(jokesView.get(i).getAuthor());
+	// }
+	// }
 
 }
