@@ -13,8 +13,8 @@ public class JokeFile implements Serializable{
     private String fileExtension;
     private String fileId;
     private Integer Id;
-    private int fileLength;
-    private int fileTime;
+    private Integer fileLength;
+    private Integer fileTime;
 	public Integer getId() {
 		return Id;
 	}
@@ -63,19 +63,19 @@ public class JokeFile implements Serializable{
 		this.fileId = fileId;
 	}
 
-	public int getFileLength() {
+	public Integer getFileLength() {
 		return fileLength;
 	}
 
-	public void setFileLength(int fileLength) {
+	public void setFileLength(Integer fileLength) {
 		this.fileLength = fileLength;
 	}
 
-	public int getFileTime() {
+	public Integer getFileTime() {
 		return fileTime;
 	}
 
-	public void setFileTime(int fileTime) {
+	public void setFileTime(Integer fileTime) {
 		this.fileTime = fileTime;
 	}
 	

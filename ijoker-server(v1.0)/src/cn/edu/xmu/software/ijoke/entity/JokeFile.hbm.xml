@@ -22,10 +22,10 @@
         <property name="fileId" type="java.lang.String">
             <column name="fileId" not-null="true" />
         </property>
-          <property name="fileLength" type="int">
+          <property name="fileLength" type="java.lang.Integer">
             <column name="fileLength" />
         </property>
-         <property name="fileTime" type="int">
+         <property name="fileTime" type="java.lang.Integer">
             <column name="fileTime" />
         </property>
         <!-- 
