@@ -22,6 +22,8 @@ public class ClassManageServiceImpl implements ClassManageService{
 	public String addClassItem(String classId, String className) {
 		// TODO Auto-generated method stub
 		try{
+			if(classItemDAO.findClassItemByClassId(classId)!=null)
+				return  Consts.CLASS_ADD_FAIL;
 		ClassItem classItem = new ClassItem();
 		classItem.setClassId(classId);
 		classItem.setClassName(className);
@@ -39,7 +41,10 @@ public class ClassManageServiceImpl implements ClassManageService{
 	public String deleteClassItem(String classId) {
 		// TODO Auto-generated method stub
 		try{
-		classItemDAO.delete(classItemDAO.findClassItemByClassId(classId));
+			ClassItem classItem = classItemDAO.findClassItemByClassId(classId);
+			if(classItem == null)
+				return Consts.CLASS_DELETE_FAIL;
+		classItemDAO.delete(classItem);
 		return Consts.CLASS_DELETE_SUCCESS;
 		}catch(Exception e)
 		{
@@ -52,6 +57,7 @@ public class ClassManageServiceImpl implements ClassManageService{
 		// TODO Auto-generated method stub
 		try{
 		ClassItem classItem = classItemDAO.findClassItemByClassId(classId);
+
 		if(classItem!=null)
 		{
 			classItem.setClassName(className);
@@ -69,16 +75,16 @@ public class ClassManageServiceImpl implements ClassManageService{
 	@Test
 	public void testAddClassItem()
    {
-		AppFactory.getClassManageService().addClassItem("5", "拉拉");
+		System.out.println(AppFactory.getClassManageService().addClassItem("6", "拉拉"));
 	}
-//	@Test
-//	public void testDeleteClassItem()
-//	   {
-//			AppFactory.getClassManageService().deleteClassItem("5");
-//		}
+	@Test
+	public void testDeleteClassItem()
+	   {
+		System.out.println(AppFactory.getClassManageService().deleteClassItem("7"));
+		}
 	@Test
 	public void testUpdateClassItem()
 	   {
-			AppFactory.getClassManageService().updateClassItem("5","便便");
+		System.out.println(AppFactory.getClassManageService().updateClassItem("6","sadf "));
 		}
 }

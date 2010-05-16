@@ -103,7 +103,10 @@
          abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
 		</bean>
-	
+	   <bean id="RegisterService" class="cn.edu.xmu.software.ijoke.serviceimpl.RegisterServiceImpl"
+         abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		</bean>
 	<bean id="UploadJokeFileService"
 		class="cn.edu.xmu.software.ijoke.serviceimpl.UploadJokeFileServiceImpl"
 		abstract="false" lazy-init="default" autowire="default"

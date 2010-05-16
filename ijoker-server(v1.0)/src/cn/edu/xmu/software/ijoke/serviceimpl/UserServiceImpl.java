@@ -8,6 +8,7 @@ import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.service.UserService;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
+import cn.edu.xmu.software.ijoke.utils.Consts;
 public class UserServiceImpl implements UserService{
 
 	private UserDAO userDAO;
@@ -33,13 +34,29 @@ public class UserServiceImpl implements UserService{
 
 	public String verify(String userId, int status) {
 		// TODO Auto-generated method stub
+		if(userDAO.findByUserId(userId)==null)
+			return Consts.NO_USER;
 		userDAO.updateUserByUserId(userId, status);
 		return "verify success";
+	}
+//	@Test
+//	public void testUserWithOutVerify()
+//	{
+//		List<User> userList = AppFactory.getUserService().getUserWithOutVerify(0,5);
+//		for(int i=0; i<userList.size(); i++)
+//			System.out.println(userList.get(i).getNickName());
+//	}
+	@Test
+	public void testUserVerified()
+	{
+		List<User> userList = AppFactory.getUserService().getUserVerified(0,5);
+		for(int i=0; i<userList.size(); i++)
+			System.out.println(userList.get(i).getNickName());
 	}
 	@Test
 	public void testVerify()
 	{
-		AppFactory.getUserService().verify("20100512205839082", 1);
+		System.out.println(AppFactory.getUserService().verify("20100512205839088", 1));
 	}
 
 }

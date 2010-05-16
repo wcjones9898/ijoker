@@ -118,8 +118,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 	public void testJokeInfoUploadService()
 	{
 		
-		copyTo("D:/1.jpg",jokeInfoUploadServiceByServer("lsjlkj", "adsfadf", 
-				"1","ladklfjasd","adfasdkjhf"));
+		System.out.println(copyTo("D:/1.jpg",jokeInfoUploadServiceByServer("lsjlkj", "adsfadf", 
+				"1","ladklfjasd","adfasdkjhf")));
 	}
 	
 }

@@ -63,7 +63,7 @@ public class JokeListServiceImpl  implements JokeListService{
 	@Test
 	public void testJokeListService()
 	{
-		List<Joke> jokeList = jokeListService("1",1,5);
+		List<Joke> jokeList = jokeListService("1",3,5);
 		for(int i=0; i<jokeList.size(); i++)
 			System.out.println(jokeList.get(i).getAuthor());
 	}

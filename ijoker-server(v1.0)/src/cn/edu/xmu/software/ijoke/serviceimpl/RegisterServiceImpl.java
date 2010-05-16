@@ -5,7 +5,9 @@ import org.junit.Test;
 import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.UserFactory;
-public class RegisterServiceImpl {
+import cn.edu.xmu.software.ijoke.service.RegisterService;
+import cn.edu.xmu.software.ijoke.utils.Consts;
+public class RegisterServiceImpl implements RegisterService{
 
 	
 	public String registerService(String userName, String passWord, String nickName)
@@ -13,16 +15,18 @@ public class RegisterServiceImpl {
 		User user = UserFactory.createUser(userName, passWord, nickName);
 		try{
 		UserDAO userDAO = new UserDAO();
+		if(userDAO.findByUserName(userName)!=null)
+			return Consts.REGISTER_USER_EXISTS;
 		userDAO.insertUser(user);
 		return user.getUserId();
 		}catch(Exception e)
 		{
-			return "-1";
+			return Consts.REGISTER_FAIL;
 		}
 	}
 	@Test
 	public void testRegister()
 	{
-		registerService("ijoker1","123","bill");
+		System.out.println(registerService("ijoker4","123","bill"));
 	}
 }

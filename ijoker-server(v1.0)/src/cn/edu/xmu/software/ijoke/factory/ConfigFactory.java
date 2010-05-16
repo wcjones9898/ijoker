@@ -39,9 +39,9 @@ public class ConfigFactory {
 	public static String getJokePath() {
 		String filePath = null;
 		try {
-			filePath = getConfigProperties().getProperty("jokeRootPath");
+		//	filePath = getConfigProperties().getProperty("jokeRootPath");
 			filePath = Consts.jokeRootPath;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -52,9 +52,9 @@ public class ConfigFactory {
 	{
 		String filePath = null;
 		try {
-			filePath = getConfigProperties().getProperty("jokeTempPath");
+	//		filePath = getConfigProperties().getProperty("jokeTempPath");
 			filePath = Consts.jokeTempPath;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -65,9 +65,9 @@ public class ConfigFactory {
 	{
 		String filePath = null;
 		try {
-			filePath = getConfigProperties().getProperty("searchIndexPath");
+	///		filePath = getConfigProperties().getProperty("searchIndexPath");
 			filePath = Consts.searchIndexPath;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

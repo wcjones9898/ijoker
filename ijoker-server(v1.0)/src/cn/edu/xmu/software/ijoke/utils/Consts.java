@@ -25,5 +25,7 @@ public class Consts {
 	public final static String CLASSANDJOKE_UPDATE_FAIL = "classAndJoke update fail";
 	public final static String CLASSANDJOKE_UPDATE_SUCCESS = "classAndJoke update success";
 	
-	
+	public final static String NO_USER ="user not exists";
+	public final static String REGISTER_USER_EXISTS ="userName has already existed";
+	public final static String REGISTER_FAIL = "sorry register fail";
 }

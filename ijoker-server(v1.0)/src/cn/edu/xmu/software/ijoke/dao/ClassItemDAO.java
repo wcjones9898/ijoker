@@ -1,6 +1,7 @@
 package cn.edu.xmu.software.ijoke.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,8 +21,12 @@ public class ClassItemDAO extends HibernateDaoSupport{
 	public ClassItem findClassItemByClassId(String classId)
 	{
 		session =  HibernateSessionFactory.getSession();
-		ClassItem classItem = (ClassItem)session.createQuery("from ClassItem as classItem where classItem.classId ='" + classId +"'").list().get(0);
+		List classItemList = session.createQuery("from ClassItem as classItem where classItem.classId ='" + classId +"'").list();
 		session.close();
+		
+		ClassItem classItem = null;
+		if(classItemList.size()>0)
+			classItem = (ClassItem) classItemList.get(0);
 		return classItem;
 	}
 	public ArrayList findAll()

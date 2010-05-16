@@ -59,8 +59,11 @@ public class UserDAO extends HibernateDaoSupport  {
     {
     	session =  HibernateSessionFactory.getSession();
     	System.out.println("from User as user where user.userId='"+ userId+"'");
-    	User user =  (User)session.createQuery("from User as user where user.userId='"+ userId+"'").list().get(0);
+    	List userList =  session.createQuery("from User as user where user.userId='"+ userId+"'").list();
     	session.close();
+    	User user = null;
+    	if(userList.size()>0)
+    		user = (User) userList.get(0);
     	return  user;    
     }
     

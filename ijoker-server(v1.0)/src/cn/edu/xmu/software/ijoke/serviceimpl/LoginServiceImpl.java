@@ -16,11 +16,16 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("In LoginServiceImpl Test authorization userName="+userName+" passWord="+passWord);
 		User user = UserFactory.createUser(userName, passWord);
 		if (user==null||!(passWord.equals(user.getPassWord())))
-			return null;
+			return Consts.LOGIN_FAIL;
 		else
 			return user.getUserId();
 	}
 
+	@Test
+	public void testLoginService()
+	{
+		System.out.println(loginService("ijoker2","123"));
+	}
 
 
 }
