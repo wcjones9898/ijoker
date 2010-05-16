@@ -146,8 +146,10 @@ public class JokeDAO extends HibernateDaoSupport {
 	public void deleteJoke(String jokeId)
 	{
 		Joke joke = this.findByJokeId(jokeId);
+		Transaction tx=session.beginTransaction();
 		session =  HibernateSessionFactory.getSession();
 		getHibernateTemplate().delete(joke);
+		tx.commit();  
 		session.close();
 	}
 	

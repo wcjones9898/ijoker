@@ -9,6 +9,7 @@ import cn.edu.xmu.software.ijoke.dao.ClassAndJokeFileDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeFileDAO;
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
+import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.view.Joke;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
@@ -123,12 +124,33 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	public List<Joke> getVerifiedJokes(int begin, int pageSize) {
 		return this.entityToView(jokeDAO.findByStatus("1", begin, pageSize));
 	}
+	
+	public String deleteJoke(String jokeId)
+	{
+		try{
+		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO.findByJokeId(jokeId);
+		if(joke == null)
+			return Consts.JOKE_NOT_EXISTS;
+		jokeFileDAO.deleteJokeFile(joke.getFileId());
+		jokeDAO.deleteJoke(jokeId);
+		return Consts.DELETE_SUCCESS;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return Consts.DELETE_FAIL;
+		}
+	}
 
 //	@Test
 //	public void testUpdateJokeClass() {
 //		System.out.println(AppFactory.getJokeInfoService().addJokeToClass(
 //				"2010051221120731", "4"));
 //	}
+	@Test
+	public void testDeleteJoke()
+	{
+		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("20100515215447977"));
+	}
 	 @Test
 	 public void testUpdateJoke()
 	 {

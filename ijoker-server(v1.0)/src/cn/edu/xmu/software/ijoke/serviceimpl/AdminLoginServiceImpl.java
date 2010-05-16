@@ -40,7 +40,7 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 	public void testAdminLoginService()
 	{
 		
-		System.out.println(AppFactory.getAdminLoginService().login("admin","123"));
+		System.out.println(AppFactory.getAdminLoginService().login("ijoker","123"));
 		System.out.println(AppFactory.getAdminLoginService().login("admin0","123"));
 		System.out.println(AppFactory.getAdminLoginService().login("admin",""));
 		

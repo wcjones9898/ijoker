@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.xmu.software.ijoke.entity.Joke;
 import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
@@ -31,6 +32,17 @@ public class JokeFileDAO extends HibernateDaoSupport{
 		tx.commit(); 
 		session.flush();
 		session.close();
+	}
+	public void deleteJokeFile(String jokeFileId)
+	{
+		JokeFile jokeFile = this.findJokeFileByFileId(jokeFileId);
+		if(jokeFile!=null){
+			Transaction tx=session.beginTransaction();
+		session =  HibernateSessionFactory.getSession();
+		getHibernateTemplate().delete(jokeFile);
+		tx.commit();
+		session.close();
+		}
 	}
 	public static JokeDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (JokeDAO) ctx.getBean("JokeDAO");
