@@ -60,11 +60,14 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			jokeView.setAuthor(j.getAuthorName());
 			jokeView.setUploadTime(j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
-			String location = jokeFileDAO.findJokeFileByFileId(j.getFileId())
-					.getFilePath();
-			jokeView.setLocation(location);
-			jokeView.setKeyWord(j.getDescription());
-			jokesView.add(jokeView);
+			JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(j.getFileId());
+			if(jokeFile!=null)
+			{
+			    String location = jokeFile.getFilePath();
+			    jokeView.setLocation(location);
+			    jokeView.setKeyWord(j.getDescription());
+			    jokesView.add(jokeView);
+			}
 		}
 
 		return jokesView;
@@ -175,15 +178,15 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	 System.out.println(jokesView.get(i).getAuthor());
 	 }
 	 }
-	// @Test
-	// public void testGetVerifiedJokes()
-	// {
-	// List<Joke> jokesView =
-	// AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
-	// for(int i=0; i<jokesView.size(); i++)
-	// {
-	// System.out.println(jokesView.get(i).getAuthor());
-	// }
-	// }
+	 @Test
+	 public void testGetVerifiedJokes()
+	 {
+	 List<Joke> jokesView =
+	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
+	 for(int i=0; i<jokesView.size(); i++)
+	 {
+	 System.out.println(jokesView.get(i).getAuthor());
+	 }
+	 }
 
 }

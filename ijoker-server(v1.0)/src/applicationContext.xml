@@ -107,14 +107,7 @@
          abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
 		</bean>
-	<bean id="UploadJokeFileService"
-		class="cn.edu.xmu.software.ijoke.serviceimpl.UploadJokeFileServiceImpl"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
-		<property name="jokeFileDAO">
-			<ref bean="JokeFileDAO" />
-		</property>
-	</bean>
+
 
 	<bean id="CatalogService"
 		class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogServiceImpl"

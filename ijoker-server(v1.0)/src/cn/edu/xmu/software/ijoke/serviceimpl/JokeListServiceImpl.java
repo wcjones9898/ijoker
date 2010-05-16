@@ -66,7 +66,7 @@ public class JokeListServiceImpl  implements JokeListService{
 	@Test
 	public void testJokeListService()
 	{
-		List<Joke> jokeList = jokeListService("0",1,5);
+		List<Joke> jokeList = jokeListService("2",1,5);
 		for(int i=0; i<jokeList.size(); i++)
 			
 			System.out.println(jokeList.get(i).getAuthor()+jokeList.get(i).getLocation());

@@ -1,5 +1,7 @@
 package cn.edu.xmu.software.ijoke.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
@@ -19,8 +21,12 @@ public class JokeFileDAO extends HibernateDaoSupport{
 	public JokeFile findJokeFileByFileId(String fileId)
 	{
 		session =  HibernateSessionFactory.getSession();
-		JokeFile jokeFile = (JokeFile)session.createQuery("from JokeFile as jokeFile where jokeFile.fileId='"+ fileId+"'").list().get(0);
+		
+		List<JokeFile> jokeFileList = session.createQuery("from JokeFile as jokeFile where jokeFile.fileId='"+ fileId+"'").list();
 		session.close();
+		JokeFile jokeFile = null;
+		if(jokeFileList.size()>0)
+			jokeFile = jokeFileList.get(0);
 		return jokeFile;
 	}
 	public void insertJokeFile(JokeFile jokeFile)
