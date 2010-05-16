@@ -38,6 +38,8 @@ public class UploadFileServiceImpl extends HttpServlet {
 	String fileExtension = null;
     String fileId = null;
     String filePath = null;
+    int fileLength = 0 ;
+    int fileTime = 0;
     String synchronizationTicket = null;
 	public void init() throws ServletException {
 		System.out.println("UploadFileService Servlet");

@@ -74,18 +74,18 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 		return classAndJokeFile;
 	}
 	
-	public String deleteClassAndJoke(String classId, String jokeId)
+	public boolean deleteClassAndJoke(String classId, String jokeId)
 	{
 		ClassAndJokeFile classAndJoke =this.findClassAndJoke(classId, jokeId);
 		if(classAndJoke==null)
-			return Consts.CLASSANDJOKE_DELETE_FAIL;
+			return false;
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
 
 		session.delete(classAndJoke);
 		tx.commit();
 		session.close();
-		return Consts.CLASSANDJOKE_DELETE_SUCCESS;
+		return true;
 		
 	
 	}

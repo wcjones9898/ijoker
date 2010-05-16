@@ -26,6 +26,8 @@ public class Joke implements Serializable {
 	private String location;
 	private int like;
 	private String keyWord;
+	private int fileLength;
+	private int fileTime;
 	//private int dislike;
 
 	/**
@@ -94,6 +96,24 @@ public class Joke implements Serializable {
 	public void setId(String id) {
 		Id = id;
 	}
+
+	public int getFileLength() {
+		return fileLength;
+	}
+
+	public void setFileLength(int fileLength) {
+		this.fileLength = fileLength;
+	}
+
+	public int getFileTime() {
+		return fileTime;
+	}
+
+	public void setFileTime(int fileTime) {
+		this.fileTime = fileTime;
+	}
+
+	
 
 
 

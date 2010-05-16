@@ -6,5 +6,5 @@ public interface JokeInfoUploadService {
 			String userId,String fileExtension,String fileName);
 	public String jokeInfoUploadServiceByServer (String title, String keyWord, 
 			String userId,String fileExtension,String fileName);
-	public String copyTo(String oldFilePath,String fileName);
+	public boolean copyTo(String oldFilePath,String fileName);
 }

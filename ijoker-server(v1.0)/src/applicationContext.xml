@@ -35,9 +35,6 @@
 					cn/edu/xmu/software/ijoke/entity/ClassAndJokeFile.hbm.xml
 				</value>
 				<value>
-					cn/edu/xmu/software/ijoke/entity/ClassItem.hbm.xml
-				</value>
-				<value>
 					cn/edu/xmu/software/ijoke/entity/Joke.hbm.xml
 				</value>
 				<value>
@@ -68,11 +65,6 @@
 		</property>
 	</bean>
 
-	<bean id="ClassItemDAO" class="cn.edu.xmu.software.ijoke.dao.ClassItemDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory"></ref>
-		</property>
-	</bean>
 	<bean id="JokeDAO" class="cn.edu.xmu.software.ijoke.dao.JokeDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -108,14 +100,6 @@
 		dependency-check="default">
 		</bean>
 
-
-	<bean id="CatalogService"
-		class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogServiceImpl"
-		lazy-init="default" autowire="default" dependency-check="default">
-		<property name="catalogDAO">
-			<ref bean="CatalogDAO" />
-		</property>
-	</bean>
 
 	<bean id="SearchService" class="cn.edu.xmu.software.ijoke.serviceimpl.SearchServiceImpl"
 		lazy-init="default" autowire="default" dependency-check="default">
@@ -153,8 +137,8 @@
 
 	<bean id="ClassManageService" class="cn.edu.xmu.software.ijoke.serviceimpl.ClassManageServiceImpl"
 		lazy-init="default" autowire="default" dependency-check="default">
-		<property name="classItemDAO">
-			<ref bean="ClassItemDAO" />
+		<property name="catalogDAO">
+			<ref bean="CatalogDAO" />
 		</property>
 	</bean>
 	<bean id="UserService" class="cn.edu.xmu.software.ijoke.serviceimpl.UserServiceImpl"

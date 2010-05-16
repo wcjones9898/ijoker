@@ -54,7 +54,8 @@ public class JokeListServiceImpl  implements JokeListService{
 			jokeView.setLike(j.getLikeNum());
 			JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(j.getFileId());
 			String location = jokeFile.getFilePath()+jokeFile.getFileName()+jokeFile.getFileExtension();
-
+            jokeView.setFileLength(jokeFile.getFileLength());
+            jokeView.setFileTime(jokeFile.getFileTime());
 			jokeView.setLocation(location);
 			jokeView.setKeyWord(j.getDescription());
 			jokesView.add(jokeView);

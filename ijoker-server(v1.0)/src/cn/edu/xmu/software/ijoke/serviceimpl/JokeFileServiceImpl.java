@@ -12,7 +12,7 @@ import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 public class JokeFileServiceImpl implements UploadJokeFileService{
 
 	private  JokeFileDAO jokeFileDAO = new JokeFileDAO();
-	public String insertJokeFile(String fileExtension, String filePath, String fileId)
+	public boolean insertJokeFile(String fileExtension, String filePath, String fileId)
 	{
 		JokeFile jokeFile = new JokeFile();
 		jokeFile.setFileExtension(fileExtension);
@@ -27,7 +27,7 @@ public class JokeFileServiceImpl implements UploadJokeFileService{
 		jokeFile.setFileName(fileId);
 		jokeFile.setFileId(fileId);
         jokeFileDAO.insertJokeFile(jokeFile);
-        return "ok";
+        return true;
         
 	}
 	

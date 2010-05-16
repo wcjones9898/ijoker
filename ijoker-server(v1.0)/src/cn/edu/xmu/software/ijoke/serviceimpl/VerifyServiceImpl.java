@@ -9,17 +9,17 @@ import cn.edu.xmu.software.ijoke.utils.Consts;
 public class VerifyServiceImpl implements VerifyService{
 
 	private JokeDAO jokeDAO = new JokeDAO();
-	public String verify(String jokeId) {
+	public boolean verify(String jokeId) {
 		// TODO Auto-generated method stub
 		try{
 		Joke joke = jokeDAO.findByJokeId(jokeId);
 		joke.setStatus("1");
 		jokeDAO.updateJoke(joke);
-		return Consts.VERIFY_SUCCESS;
+		return true;
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-			return Consts.VERIFY_FAIL;
+			return false;
 		}
 	}
 

@@ -73,68 +73,68 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		return jokesView;
 	}
 
-	public String updateJoke(String jokeId, String title, String keyWord) {
+	public boolean updateJoke(String jokeId, String title, String keyWord) {
 		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO
 				.findByJokeId(jokeId);
 		if(joke==null)
-			return Consts.CLASSANDJOKE_UPDATE_FAIL;
+			return false;
 		joke.setTitle(title);
 		joke.setDescription(keyWord);
 		try {
 			jokeDAO.updateJoke(joke);
-			return Consts.CLASSANDJOKE_UPDATE_SUCCESS;
+			return true;
 		} catch (Exception e) {
-			return Consts.CLASSANDJOKE_UPDATE_FAIL;
+			return false;
 		}
 	}
-    public String updateJoke(Joke joke)
+    public boolean updateJoke(Joke joke)
     {
     	cn.edu.xmu.software.ijoke.entity.Joke jokeTemp = jokeDAO
 		.findByJokeId(joke.getId());
       if(jokeTemp==null)
-	   return Consts.CLASSANDJOKE_UPDATE_FAIL;
+	   return false;
        jokeTemp.setTitle(joke.getTitle());
        jokeTemp.setDescription(joke.getKeyWord());
     	try {
 			jokeDAO.updateJoke(jokeTemp);
-			return Consts.CLASSANDJOKE_UPDATE_SUCCESS;
+			return true;
 		} catch (Exception e) {
-			return Consts.CLASSANDJOKE_UPDATE_FAIL;
+			return false;
 		}
     }
-	public String deleteJokeToClass(String jokeId, String classId) {
+	public boolean deleteJokeToClass(String jokeId, String classId) {
 		// TODO Auto-generated method stub
 		try {
 			
-			if(classAndJokeFileDAO.deleteClassAndJoke(classId, jokeId)
-					.equals(Consts.CLASSANDJOKE_DELETE_FAIL))
-			    return Consts.CLASSANDJOKE_DELETE_FAIL;
+			if(classAndJokeFileDAO.deleteClassAndJoke(classId, jokeId))
+			    return false;
 			else
-				return Consts.CLASSANDJOKE_DELETE_SUCCESS;
+				return true;
 		} catch (Exception e) {
-			return Consts.CLASSANDJOKE_DELETE_FAIL;
+			return false;
 		}
 
 	}
 
-	public String addJokeToClass(String jokeId, String classId) {
+	public boolean addJokeToClass(String jokeId, String classId) {
 		// TODO Auto-generated method stub
 		try {
 
 			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null) {
 				classAndJokeFileDAO.addClassAndJoke(classId, jokeId);
 
-				return Consts.CLASS_ADD_SUCCESS;
+				return true;
 			}
 			else
-				return Consts.CLASS_ADD_FAIL;
+				return false;
 		} catch (Exception e) {
-			return Consts.CLASS_ADD_FAIL;
+			return false;
 		}
 
 	}
 
 	public List<Joke> getWithoutVerifyJokes(int begin, int pageSize) {
+		
 		return this.entityToView(jokeDAO.findByStatus("0", begin, pageSize));
 	}
 
@@ -142,19 +142,19 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		return this.entityToView(jokeDAO.findByStatus("1", begin, pageSize));
 	}
 	
-	public String deleteJoke(String jokeId)
+	public boolean deleteJoke(String jokeId)
 	{
 		try{
 		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO.findByJokeId(jokeId);
 		if(joke == null)
-			return Consts.JOKE_NOT_EXISTS;
+			return false;
 		jokeFileDAO.deleteJokeFile(joke.getFileId());
 		jokeDAO.deleteJoke(jokeId);
-		return Consts.DELETE_SUCCESS;
+		return true;
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-			return Consts.DELETE_FAIL;
+			return false;
 		}
 	}
 
@@ -163,46 +163,48 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //		System.out.println(AppFactory.getJokeInfoService().addJokeToClass(
 //				"2010051221120731", "4"));
 //	}
-	@Test
-	public void testDeleteJoke()
-	{
-		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("2010051613431364"));
-	}
+//	@Test
+//	public void testDeleteJoke()
+//	{
+//		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("test"));
+//	}
 	 @Test
 	 public void testUpdateJoke()
 	 {
 		   Joke joke = new Joke();
-		   joke.setId("2010051613431364");
+		   joke.setId("adfasdkjhf");
 		   joke.setKeyWord( "拉拉");
 		   joke.setTitle("啦啦啦");
 	       System.out.println(AppFactory.getJokeInfoService().updateJoke(joke));
 	 }
-	 
-	 @Test
-	 public void testDeleteJokeClass()
-	 {
-			 System.out.println(AppFactory.getJokeInfoService().deleteJokeToClass(
-						"2010051221120731", "4"));		 
-	 }
-	 @Test
-	 public void testGetWithoutVerifyJokes()
-	 {
-	 List<Joke> jokesView =
-	 AppFactory.getJokeInfoService().getWithoutVerifyJokes(1,5);
-	 for(int i=0; i<jokesView.size(); i++)
-	 {
-	 System.out.println(jokesView.get(i).getAuthor());
-	 }
-	 }
-	 @Test
-	 public void testGetVerifiedJokes()
-	 {
-	 List<Joke> jokesView =
-	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
-	 for(int i=0; i<jokesView.size(); i++)
-	 {
-	 System.out.println(jokesView.get(i).getAuthor());
-	 }
-	 }
+//	 
+//	 @Test
+//	 public void testDeleteJokeClass()
+//	 {
+//			 System.out.println(AppFactory.getJokeInfoService().deleteJokeToClass(
+//						"2010051221120731", "4"));		 
+//	 }
+//	 @Test
+//	 public void testGetWithoutVerifyJokes()
+//	 {
+//		
+//	 List<Joke> jokesView =
+//	 AppFactory.getJokeInfoService().getWithoutVerifyJokes(1,5);
+//	 for(int i=0; i<jokesView.size(); i++)
+//	 {
+//	 System.out.println(jokesView.get(i).getAuthor());
+//	 }
+//	 }
+//	 @Test
+//	 public void testGetVerifiedJokes()
+//	 {
+//		 
+//	 List<Joke> jokesView =
+//	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
+//	 for(int i=0; i<jokesView.size(); i++)
+//	 {
+//	 System.out.println(jokesView.get(i).getAuthor());
+//	 }
+//	 }
 
 }

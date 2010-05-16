@@ -26,8 +26,7 @@
 	<mapping
 		resource="cn/edu/xmu/software/ijoke/entity/JokeFile.hbm.xml" />
 	<mapping resource="cn/edu/xmu/software/ijoke/entity/User.hbm.xml" />
-	<mapping
-		resource="cn/edu/xmu/software/ijoke/entity/ClassItem.hbm.xml" />
+
 	<mapping resource="cn/edu/xmu/software/ijoke/entity/Joke.hbm.xml" />
 	<mapping
 		resource="cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml" />

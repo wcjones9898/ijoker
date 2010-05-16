@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService{
 		return userDAO.findByStatus(0, begin, pageSize);
 	}
 
-	public String verify(String userId, int status) {
+	public boolean verify(String userId, int status) {
 		// TODO Auto-generated method stub
 		if(userDAO.findByUserId(userId)==null)
-			return Consts.NO_USER;
+			return false;
 		userDAO.updateUserByUserId(userId, status);
-		return "verify success";
+		return true;
 	}
 //	@Test
 //	public void testUserWithOutVerify()

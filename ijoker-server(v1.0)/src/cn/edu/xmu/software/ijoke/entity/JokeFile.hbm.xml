@@ -22,6 +22,12 @@
         <property name="fileId" type="java.lang.String">
             <column name="fileId" not-null="true" />
         </property>
+          <property name="fileLength" type="int">
+            <column name="fileLength" />
+        </property>
+         <property name="fileTime" type="int">
+            <column name="fileTime" />
+        </property>
         <!-- 
         <set name="jlJokes" inverse="true">
             <key>

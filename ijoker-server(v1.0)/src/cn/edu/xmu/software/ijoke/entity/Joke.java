@@ -20,6 +20,8 @@ public class Joke implements java.io.Serializable {
     private int likeNum;
     private String status;  
     private String description;//用来标注Joke是否经过审核
+    private int audioLength;
+    private int aduioTime;
  
 	// Constructors
 
@@ -120,6 +122,22 @@ public class Joke implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getAudioLength() {
+		return audioLength;
+	}
+
+	public void setAudioLength(int audioLength) {
+		this.audioLength = audioLength;
+	}
+
+	public int getAduioTime() {
+		return aduioTime;
+	}
+
+	public void setAduioTime(int aduioTime) {
+		this.aduioTime = aduioTime;
 	}
 
 

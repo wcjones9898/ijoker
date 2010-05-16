@@ -58,6 +58,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		String filePath = ConfigFactory.getJokePath();
 		jokeFileService.insertJokeFile(fileExtension, filePath,fileId);
 		User user = userDAO.findByUserId(userId);
+		
 		Joke joke = new Joke();
 		joke.setAuthorName(user.getNickName());
 		joke.setJokeId(fileId);
@@ -65,7 +66,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setTitle(title);
 		joke.setUploaderId(userId);
 		joke.setDescription(keyWord);
-	
+	    
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		joke.setUploadTime(formatter.format(new Date()));
 		joke.setStatus("0");
@@ -77,7 +78,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		return fileId;
 		
 	}
-	public String copyTo(String oldFilePath,String fileName)
+	public boolean copyTo(String oldFilePath,String fileName)
 	{
 		File oldFile = new File(oldFilePath);
 		
@@ -98,36 +99,36 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return Consts.COPY_FAIL;
+				return false;
 			}
 			try {
 				fis.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return Consts.COPY_FAIL;
+				return false;
 			}
 			try {
 				fos.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return Consts.COPY_FAIL;
+				return false;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			
 			e.printStackTrace();
-			return Consts.COPY_FAIL;
+			return false;
 		}
-		return Consts.COPY_SUCCESS;
+		return true;
 	}
 	@Test
 	public void testJokeInfoUploadService()
 	{
 		
-		jokeInfoUploadService("lsjlkj", "adsfadf", 
-				"1","ladklfjasd","adfasdkjhf");
+		jokeInfoUploadService("test", ""+1, 
+				"1",".mp3",""+1);
 	}
 	
 }

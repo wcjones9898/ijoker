@@ -8,8 +8,6 @@ import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.edu.xmu.software.ijoke.entity.Catalog;
-import cn.edu.xmu.software.ijoke.entity.ClassItem;
-import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
 
 public class ClassItemDAO extends HibernateDaoSupport{
@@ -18,22 +16,22 @@ public class ClassItemDAO extends HibernateDaoSupport{
 	{
 		
 	}
-	public ClassItem findClassItemByClassId(String classId)
+	public Catalog findClassItemByClassId(String classId)
 	{
 		session =  HibernateSessionFactory.getSession();
-		List classItemList = session.createQuery("from ClassItem as classItem where classItem.classId ='" + classId +"'").list();
+		List classItemList = session.createQuery("from Catalog as classItem where classItem.classId ='" + classId +"'").list();
 		session.close();
 		
-		ClassItem classItem = null;
+		Catalog classItem = null;
 		if(classItemList.size()>0)
-			classItem = (ClassItem) classItemList.get(0);
+			classItem = (Catalog) classItemList.get(0);
 		return classItem;
 	}
 	public ArrayList findAll()
 	{
 		session =  HibernateSessionFactory.getSession();
 		System.out.println("In ClassItemDAO findAll()");
-		ArrayList<ClassItem> topicList = (ArrayList)session.createQuery("from ClassItem").list();
+		ArrayList<Catalog> topicList = (ArrayList)session.createQuery("from Catalog").list();
 		for(int i=0; i<topicList.size(); i++)
 		{
 			topicList.get(i).setJokeNum(session.createSQLQuery(
@@ -46,38 +44,38 @@ public class ClassItemDAO extends HibernateDaoSupport{
 	public ArrayList findByLimit(int begin,int limit )
 	{
 		session =  HibernateSessionFactory.getSession();
-		System.out.println("In ClassItemDAO findEveryTen()");
+		System.out.println("In Catalog findEveryTen()");
 		
 		ArrayList list = (ArrayList)session.createQuery(
-				"from ClassItem as classItem order by classItem.classId limit "+begin+","+limit).list();
+				"from Catalog as catalog order by catalog.classId limit "+begin+","+limit).list();
 		session.close();
 		return list;
 	}
-	public void save(ClassItem classItem) {
+	public void save(Catalog catalog) {
 		
 		try {
-			getHibernateTemplate().save(classItem);
+			getHibernateTemplate().save(catalog);
 			
 		} catch (RuntimeException re) {
 			
 			throw re;
 		}
 	}
-	public void delete(ClassItem classItem) {
+	public void delete(Catalog catalog) {
 		
 		try {
-			getHibernateTemplate().delete(classItem);
+			getHibernateTemplate().delete(catalog);
 			
 		} catch (RuntimeException re) {
 			
 			throw re;
 		}
 	}
-	public void update(ClassItem classItem) {
+	public void update(Catalog catalog) {
 		
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
-		session.merge(classItem);
+		session.merge(catalog);
 		tx.commit();  
 		session.close();
 	}
