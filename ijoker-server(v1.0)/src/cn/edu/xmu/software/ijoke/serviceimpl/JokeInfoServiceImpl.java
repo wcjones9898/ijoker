@@ -87,7 +87,21 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			return Consts.CLASSANDJOKE_UPDATE_FAIL;
 		}
 	}
-
+    public String updateJoke(Joke joke)
+    {
+    	cn.edu.xmu.software.ijoke.entity.Joke jokeTemp = jokeDAO
+		.findByJokeId(joke.getId());
+      if(jokeTemp==null)
+	   return Consts.CLASSANDJOKE_UPDATE_FAIL;
+       jokeTemp.setTitle(joke.getTitle());
+       jokeTemp.setDescription(joke.getKeyWord());
+    	try {
+			jokeDAO.updateJoke(jokeTemp);
+			return Consts.CLASSANDJOKE_UPDATE_SUCCESS;
+		} catch (Exception e) {
+			return Consts.CLASSANDJOKE_UPDATE_FAIL;
+		}
+    }
 	public String deleteJokeToClass(String jokeId, String classId) {
 		// TODO Auto-generated method stub
 		try {
@@ -157,9 +171,11 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	 @Test
 	 public void testUpdateJoke()
 	 {
-		   
-	 System.out.println(AppFactory.getJokeInfoService().updateJoke("2010051221120732", "拉拉",
-	 "啦啦啦"));
+		   Joke joke = new Joke();
+		   joke.setId("2010051613431364");
+		   joke.setKeyWord( "拉拉");
+		   joke.setTitle("啦啦啦");
+	       System.out.println(AppFactory.getJokeInfoService().updateJoke(joke));
 	 }
 	 
 	 @Test

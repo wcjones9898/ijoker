@@ -9,6 +9,7 @@ public interface JokeInfoService {
 
 	public ArrayList<cn.edu.xmu.software.ijoke.entity.Joke> findAllByLimit10(int begin);
     public String updateJoke(String jokeId,String title, String keyWord);
+    public String updateJoke(Joke joke);
     public String addJokeToClass(String jokeId,String classId);
     public String deleteJokeToClass(String jokeId,String classId);
     public List<Joke> getWithoutVerifyJokes(int begin,int pageSize);
