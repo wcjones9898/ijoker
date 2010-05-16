@@ -7,9 +7,7 @@ import android.util.Log;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class SearchService extends Thread {
-	private String keyword;
-	private int searchType;
+public class SearchService {
 	private static final String TAG = SearchService.class.getName();
 	private Handler handler;
 
@@ -17,9 +15,7 @@ public class SearchService extends Thread {
 		this.handler = handler;
 	}
 
-	@Override
-	public void run() {
-		super.run();
+	public void search(String keyword, int searchType) {
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		parms.put("info", keyword);
@@ -27,11 +23,5 @@ public class SearchService extends Thread {
 		wsEngine.doStart(Consts.METHODNAME_SEARCH, parms);
 		Log.i(TAG, "call webservice to search keyword: " + keyword
 				+ " searchType: " + searchType);
-	}
-
-	public void search(String keyword, int searchType) {
-		this.keyword = keyword;
-		this.searchType = searchType;
-		this.start();
 	}
 }

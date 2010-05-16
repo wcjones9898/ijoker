@@ -1,6 +1,5 @@
 package cn.edu.xmu.software.ijoker.UI;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

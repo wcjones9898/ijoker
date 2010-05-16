@@ -124,6 +124,8 @@ public class Uploader extends Thread {
 			filePost.releaseConnection();
 			fileGet.releaseConnection();
 		}
+		if (currentRecord != null)
+			currentRecord.delete();
 		Message message = handler.obtainMessage(Consts.UPLOAD_SUCCESS);
 		Bundle b = new Bundle();
 		message.setData(b);

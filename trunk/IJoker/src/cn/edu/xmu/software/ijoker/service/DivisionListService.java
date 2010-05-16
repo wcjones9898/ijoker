@@ -2,10 +2,10 @@ package cn.edu.xmu.software.ijoker.service;
 
 import java.util.HashMap;
 
-import cn.edu.xmu.software.ijoker.engine.WSEngine;
-import cn.edu.xmu.software.ijoker.util.Consts;
 import android.os.Handler;
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.engine.WSEngine;
+import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class DivisionListService extends AbstractService {
 

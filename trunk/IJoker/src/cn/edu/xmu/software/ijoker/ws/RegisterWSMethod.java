@@ -2,8 +2,6 @@ package cn.edu.xmu.software.ijoker.ws;
 
 import java.util.HashMap;
 
-import org.ksoap2.serialization.SoapObject;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;

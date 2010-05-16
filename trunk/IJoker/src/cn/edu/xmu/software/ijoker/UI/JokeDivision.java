@@ -125,5 +125,7 @@ public class JokeDivision extends BaseActivity {
 
 	protected void onDestroy() {
 		super.onDestroy();
+		this.stopService(new Intent(
+		"cn.edu.xmu.software.ijoker.PLAY_SERVICE"));
 	}
 }

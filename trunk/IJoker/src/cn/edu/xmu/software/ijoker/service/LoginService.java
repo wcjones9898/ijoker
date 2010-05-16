@@ -7,9 +7,7 @@ import android.util.Log;
 import cn.edu.xmu.software.ijoker.engine.WSEngine;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
-public class LoginService extends Thread {
-	private String username;
-	private String password;
+public class LoginService {
 	private static final String TAG = LoginService.class.getName();
 	private Handler handler;
 
@@ -17,9 +15,7 @@ public class LoginService extends Thread {
 		this.handler = handler;
 	}
 
-	@Override
-	public void run() {
-		super.run();
+	public void authenticate(String username, String password) {
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
 		parms.put("username", username);
@@ -27,11 +23,5 @@ public class LoginService extends Thread {
 		wsEngine.doStart(Consts.METHODNAME_AUTHORIZATION, parms);
 		Log.i(TAG, "call webservice to authenticate username: " + username
 				+ " password: " + password);
-	}
-
-	public void authenticate(String username, String password) {
-		this.username = username;
-		this.password = password;
-		this.start();
 	}
 }
