@@ -43,8 +43,9 @@ public class JokeFileDAO extends HibernateDaoSupport{
 	{
 		JokeFile jokeFile = this.findJokeFileByFileId(jokeFileId);
 		if(jokeFile!=null){
-			Transaction tx=session.beginTransaction();
+
 		session =  HibernateSessionFactory.getSession();
+		Transaction tx=session.beginTransaction();
 		getHibernateTemplate().delete(jokeFile);
 		tx.commit();
 		session.close();

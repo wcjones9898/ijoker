@@ -166,7 +166,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	@Test
 	public void testDeleteJoke()
 	{
-		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("20100515215447977"));
+		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("2010051613431364"));
 	}
 	 @Test
 	 public void testUpdateJoke()
