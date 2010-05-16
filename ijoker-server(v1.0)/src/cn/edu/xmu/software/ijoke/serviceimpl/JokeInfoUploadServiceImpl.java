@@ -41,6 +41,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setFileId(fileId);
 		joke.setTitle(title);
 		joke.setUploaderId(userId);
+		joke.setDescription(keyWord);
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		joke.setUploadTime(formatter.format(new Date()));
 		joke.setStatus("0");
@@ -63,6 +64,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		joke.setFileId(fileId);
 		joke.setTitle(title);
 		joke.setUploaderId(userId);
+		joke.setDescription(keyWord);
+	
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		joke.setUploadTime(formatter.format(new Date()));
 		joke.setStatus("0");
