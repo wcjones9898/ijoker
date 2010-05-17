@@ -10,7 +10,6 @@ import cn.edu.xmu.software.ijoker.util.Consts;
 
 public class LoginService extends AbstractService {
 	private static final String TAG = LoginService.class.getName();
-	private Handler handler;
 
 	public LoginService(Handler handler, Context context) {
 		super(handler, context);
