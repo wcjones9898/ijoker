@@ -113,8 +113,8 @@ public class JokeList extends BaseActivity {
 		if (intent.getAction().equalsIgnoreCase(
 				"cn.edu.xmu.software.ijoker.divisionList")) {
 			divisionTitile
-					.setText(this.getIntent().getStringExtra("className"));
-			classId = this.getIntent().getStringExtra("classId");
+					.setText(this.getIntent().getStringExtra("catalogName"));
+			classId = this.getIntent().getStringExtra("catalogId");
 			jokeNum = this.getIntent().getIntExtra("jokeNum", 0);
 		} else {
 			Bundle b = intent.getBundleExtra("android.intent.extra.jokes");

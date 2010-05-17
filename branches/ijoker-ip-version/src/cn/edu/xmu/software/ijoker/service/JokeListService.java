@@ -19,7 +19,7 @@ public class JokeListService extends AbstractService {
 		Log.i(TAG, "get the jokelist for page: " + page);
 		WSEngine wsEngine = new WSEngine(handler);
 		HashMap<String, Object> parms = new HashMap<String, Object>();
-		parms.put("classId", classId);
+		parms.put("catalogId", classId);
 		parms.put("begin", page);
 		parms.put("limit", Consts.PAGESIZE);
 		parms.put(Consts.MEDIA_URL, this.getMediaCenterURL());
