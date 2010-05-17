@@ -61,7 +61,7 @@
 									<ol>
 										<li><a href="CatalogManageAction.action">分类管理</a></li>
 										<li><a href="upload_audio.jsp">上传笑话</a></li>
-										<li><a href="">笑话列表</a></li>
+										<li><a href="JokeListAction.action">笑话列表</a></li>
 										<li><a href="">上传漫画</a></li>
 										<li><a href="">漫画列表</a></li>
 									</ol>

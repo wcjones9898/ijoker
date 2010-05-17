@@ -21,7 +21,7 @@
 			</tr>
 		</thead>
 		<tbody id="tab">
-			<s:iterator value="unverifyList" status="st">
+			<s:iterator value="jokeList" status="st">
 				<tr>
 					<td>
 						<s:property value="#st.Index+1" />
@@ -40,14 +40,14 @@
 					</td>
 					
 					<td>
-						<s:url action="LoadJokeForVerify" id="load">
+						<s:url action="LoadJokeForModify" id="load">
 							<s:param name="selectedJokeIndex" value="#st.Index"></s:param>
 						</s:url>
 						<s:url action="DeleteJoke" id="delete">
 							<s:param name="selectedJokeId" value="Id"></s:param>
 						</s:url>						
 
-						<s:a href="%{load}" cssClass="bb">[审核]</s:a>						
+						<s:a href="%{load}" cssClass="bb">[修改]</s:a>						
 						<s:a href="%{delete}" cssClass="bb">[删除]</s:a>
 
 					</td>
@@ -57,8 +57,8 @@
 			<tfoot>
 				<tr>
 					<td colspan="6">
-						<s:submit value="上一页" action="UnverifyPrePage" cssClass="bt_login"/>
-						<s:submit value="下一页" action="UnverifyNextPage" cssClass="bt_login"/>
+						<s:submit value="上一页" action="JokePrePage" cssClass="bt_login"/>
+						<s:submit value="下一页" action="JokeNextPage" cssClass="bt_login"/>
 					</td>					
 				</tr>
 			</tfoot>

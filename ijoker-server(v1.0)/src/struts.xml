@@ -87,7 +87,25 @@
 			<result type="redirectAction">CatalogManageAction</result>
 		</action>
 		
-		
+		<!-- 笑话列表 -->			
+		<action name="JokeListAction" class="JokeListProxy">
+			<result>joke_list.jsp</result>
+		</action>
+		<action name="LoadJokeForModify" class="JokeListProxy" method="loadJokeForModify">
+			<result>joke_modify.jsp</result>
+		</action>
+		<action name="DeleteJoke" class="JokeListProxy" method="deleteJoke">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="ModifyJoke" class="JokeListProxy" method="modifyJoke">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="JokePrePage" class="JokeListProxy" method="prePage">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="JokeNextPage" class="JokeListProxy" method="nextPage">
+			<result type="redirectAction">JokeListAction</result>
+		</action>	
 		
 		<!-- 上传笑话 -->
 		<action name="UploadJokeFileAction" class="UploadJokeFileProxy">

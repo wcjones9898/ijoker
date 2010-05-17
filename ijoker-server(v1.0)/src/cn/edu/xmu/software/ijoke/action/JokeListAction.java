@@ -10,7 +10,7 @@ import cn.edu.xmu.software.ijoke.view.Joke;
 @SuppressWarnings("serial")
 public class JokeListAction extends BaseAction {
 	private JokeInfoService jokeInfoService;
-	private List<Joke> unverifyList;
+	private List<Joke> jokeList;
 	private String selectedJokeId;
 	private int selectedJokeIndex;
 	private Joke selectedJoke;
@@ -23,27 +23,27 @@ public class JokeListAction extends BaseAction {
 
 	@Override
 	public String execute() throws Exception {
-		unverifyList=jokeInfoService.getWithoutVerifyJokes(index_start,index_end);		
+		jokeList=jokeInfoService.getVerifiedJokes(index_start,index_end);		
+		return SUCCESS;
+	}	
+	
+	public String loadJokeForModify(){
+		selectedJoke=jokeList.get(selectedJokeIndex);
 		return SUCCESS;
 	}
-		
-	public String loadJokeForVerify(){
-		selectedJoke=unverifyList.get(selectedJokeIndex);
+	
+	public String modifyJoke(){	
+		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
+		jokeInfoService.updateJoke(selectedJoke);
 		return SUCCESS;
-	}		
+	}
 	
 	public String deleteJoke(){
 		System.out.println("deleteJoke:"+selectedJokeId);		
 		jokeInfoService.deleteJoke(selectedJokeId);
 		return SUCCESS;
 	}
-	
-	public String verifyJoke(){	
-		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
-		jokeInfoService.updateJoke(selectedJoke);
-		return SUCCESS;
-	}
-	
+		
 	public String prePage(){	
 		this.clearErrorsAndMessages();
 		if (index_start>Consts.ONEPAGE_ITEM_NUM){
@@ -61,7 +61,7 @@ public class JokeListAction extends BaseAction {
 	
 	public String nextPage(){	
 		this.clearErrorsAndMessages();
-		if (unverifyList.size()== Consts.ONEPAGE_ITEM_NUM){
+		if (jokeList.size()== Consts.ONEPAGE_ITEM_NUM){
 			index_start+=Consts.ONEPAGE_ITEM_NUM;
 			index_start++;
 			index_end+=Consts.ONEPAGE_ITEM_NUM;
@@ -84,14 +84,6 @@ public class JokeListAction extends BaseAction {
 
 	public void setJokeInfoService(JokeInfoService jokeInfoService) {
 		this.jokeInfoService = jokeInfoService;
-	}
-
-	public List<Joke> getUnverifyList() {
-		return unverifyList;
-	}
-
-	public void setUnverifyList(List<Joke> unverifyList) {
-		this.unverifyList = unverifyList;
 	}
 
 	public String getSelectedJokeId() {
@@ -117,6 +109,16 @@ public class JokeListAction extends BaseAction {
 	public void setSelectedJokeIndex(int selectedJokeIndex) {
 		this.selectedJokeIndex = selectedJokeIndex;
 	}
+
+	public List<Joke> getJokeList() {
+		return jokeList;
+	}
+
+	public void setJokeList(List<Joke> jokeList) {
+		this.jokeList = jokeList;
+	}
+	
+	
 	
 	
 	

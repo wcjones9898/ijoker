@@ -9,6 +9,10 @@
 		<property name="jokeInfoService" ref="JokeInfoService"/>
 	</bean>	
 	
+	<bean id="JokeListProxy" class="cn.edu.xmu.software.ijoke.action.UnverifyListAction">
+		<property name="jokeInfoService" ref="JokeInfoService"/>
+	</bean>		
+	
 	<bean id="CatalogManageProxy" class="cn.edu.xmu.software.ijoke.action.CatalogManageAction">
 		<property name="catalogManageService" ref="CatalogManageService"/>
 	</bean>
