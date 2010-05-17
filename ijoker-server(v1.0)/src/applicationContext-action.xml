@@ -9,4 +9,14 @@
 		<property name="jokeInfoService" ref="JokeInfoService"/>
 	</bean>	
 	
+	<bean id="CatalogManageProxy" class="cn.edu.xmu.software.ijoke.action.CatalogManageAction">
+		<property name="catalogManageService" ref="CatalogManageService"/>
+	</bean>
+	
+	<bean id="UploadJokeFileProxy" class="cn.edu.xmu.software.ijoke.action.UploadJokeFileAction">
+		<property name="jokeInfoUploadService" ref="JokeInfoUploadService"/>
+	</bean>
+	
+	
+	
 </beans>

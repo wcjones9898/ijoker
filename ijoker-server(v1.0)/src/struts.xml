@@ -29,34 +29,27 @@
 	
 	<!--受权限控制的Action请求配置-->   
 	<package name="admin" namespace="/admin" extends="struts-default">   
-		<interceptors>   
-			<!--定义一个名为authority的拦截器-->   
+		<interceptors>  			   
 			<interceptor class="cn.edu.xmu.software.ijoke.interceptor.AuthorityInterceptor"  
-				name="authority"/>   
-			<!--定义一个包含权限检查的拦截器栈-->   
-			<interceptor-stack name="mydefault">   
-				<!--配置内建默认拦截器-->   
-				<interceptor-ref name="defaultStack"/>   
-				<!--配置自定义的拦截器-->   
+				name="authority"/>
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack"/>
 				<interceptor-ref name="authority"/>   
 			</interceptor-stack>   
-		</interceptors>   
-	  
-		<default-interceptor-ref name="mydefault" />   
-		<!--定义全局Result-->   
+		</interceptors>   	  
+		<default-interceptor-ref name="mydefault" />
 		<global-results>   
 			<result name="login" type="redirect">/login.jsp</result>   
 		</global-results> 
 	
-		<action name="UploadJokeFileAction" class="cn.edu.xmu.software.ijoke.action.UploadJokeFileAction">
-			<result name="success" type="redirect">welcome.jsp</result>
-		</action>
 		
+		
+		<!-- 笑话审核 -->
 		<action name="UnverifyListAction" class="UnverifyListProxy">
 			<result>unverify_list.jsp</result>
 		</action>
 		<action name="LoadJokeForVerify" class="UnverifyListProxy" method="loadJokeForVerify">
-			<result>verify_joke.jsp</result>
+			<result>joke_verify.jsp</result>
 		</action>
 		<action name="DeleteJoke" class="UnverifyListProxy" method="deleteJoke">
 			<result type="redirectAction">UnverifyListAction</result>
@@ -71,6 +64,35 @@
 			<result type="redirectAction">UnverifyListAction</result>
 		</action>
 		
+		<!-- 分类管理 -->
+		<action name="CatalogManageAction" class="CatalogManageProxy">
+			<result>catalog_manage.jsp</result>
+		</action>
+		<action name="LoadCatalogForModify" class="CatalogManageProxy" method="loadCatalogForModify">
+			<result>catalog_modify.jsp</result>
+		</action>
+		<action name="ModifyCatalog" class="CatalogManageProxy" method="modifyCatalog">
+			<result type="redirectAction">CatalogManageAction</result>
+		</action>
+		<action name="DeleteCatalog" class="CatalogManageProxy" method="deleteCatalog">
+			<result type="redirectAction">CatalogManageAction</result>
+		</action>
+		<action name="AddCatalog" class="CatalogManageProxy" method="addCatalog">
+			<result type="redirectAction">CatalogManageAction</result>
+		</action>
+		<action name="CatalogPrePage" class="CatalogManageProxy" method="prePage">
+			<result type="redirectAction">CatalogManageAction</result>
+		</action>
+		<action name="CatalogNextPage" class="CatalogManageProxy" method="nextPage">
+			<result type="redirectAction">CatalogManageAction</result>
+		</action>
+		
+		
+		
+		<!-- 上传笑话 -->
+		<action name="UploadJokeFileAction" class="UploadJokeFileProxy">
+			<result type="redirectAction">UnverifyListAction</result>
+		</action>
 	</package>
 	
 		

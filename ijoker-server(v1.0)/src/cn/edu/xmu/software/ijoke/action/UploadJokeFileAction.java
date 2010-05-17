@@ -6,15 +6,52 @@ import java.util.Date;
 
 import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
+import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 import cn.edu.xmu.software.ijoke.view.Joke;
 public class UploadJokeFileAction extends BaseAction {
 
-	private File jokeFile = null;
-	private String title = null;
-	private String keyWord = null;
-	private String userId = null;
-	UploadJokeFileService uploadJokeFileService;
+	private File jokeFile;
+	private String title,keyWord,username,fileExtension,fileName;
+	private JokeInfoUploadService jokeInfoUploadService;
+	
+	
+	
+	public String execute()
+	{
+		username=(String)this.getSession().get("username");
+		fileExtension=jokeFile.getName().substring(this.jokeFile.getName().indexOf("."));
+		
+		jokeInfoUploadService.jokeInfoUploadServiceByServer(title, keyWord, username, fileExtension, fileName);
+		System.out.println("文件上传成功....");
+		return SUCCESS;
+	}
+
+	private String createSynchronizationTicket() {
+		String synchronizationTicket = null;
+		Timestamp date = new Timestamp((new Date().getTime()));
+		synchronizationTicket = date.toString().replace(" ", "");
+		synchronizationTicket = synchronizationTicket.replace("-", "");
+		synchronizationTicket = synchronizationTicket.replace(":", "");
+		synchronizationTicket = synchronizationTicket.replace(".", "");
+		return synchronizationTicket;
+	}
+
+	private String createFileId() {
+		String fileName = null;
+		Timestamp date = new Timestamp((new Date().getTime()));
+		fileName = date.toString().replace(" ", "");
+		fileName = fileName.replace("-", "");
+		fileName = fileName.replace(":", "");
+		fileName = fileName.replace(".", "");
+		return fileName;
+	}
+	
+	
+	
+	
+	
+	
 	public File getJokeFile() {
 		return jokeFile;
 	}
@@ -39,47 +76,15 @@ public class UploadJokeFileAction extends BaseAction {
 		this.keyWord = keyWord;
 	}
 
-	public String getUserId() {
-		return userId;
+	public JokeInfoUploadService getJokeInfoUploadService() {
+		return jokeInfoUploadService;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setJokeInfoUploadService(JokeInfoUploadService jokeInfoUploadService) {
+		this.jokeInfoUploadService = jokeInfoUploadService;
 	}
 
-	public String execute()
-	{
-		System.out.println("文件上传成功....");
-//	    JokeFile jokeFile = new JokeFile();
-//	    jokeFile.setFileExtension(this.jokeFile.getName().substring(this.jokeFile.getName().indexOf(".")));
-//	    String fileId = createFileId();
-//	    jokeFile.setFileName(fileId);
-//	    jokeFile.setFileId(fileId);
-//	    Joke joke = new Joke();
-//	   // joke.setAuthor(author)
-//	    
-//	    return  uploadJokeFileService.insertJokeFile(
-//	    		jokeFile.getFileExtension(), ConfigFactory.getJokePath(), fileId);
-		return null;
-	}
 
-	private String createSynchronizationTicket() {
-		String synchronizationTicket = null;
-		Timestamp date = new Timestamp((new Date().getTime()));
-		synchronizationTicket = date.toString().replace(" ", "");
-		synchronizationTicket = synchronizationTicket.replace("-", "");
-		synchronizationTicket = synchronizationTicket.replace(":", "");
-		synchronizationTicket = synchronizationTicket.replace(".", "");
-		return synchronizationTicket;
-	}
 
-	private String createFileId() {
-		String fileName = null;
-		Timestamp date = new Timestamp((new Date().getTime()));
-		fileName = date.toString().replace(" ", "");
-		fileName = fileName.replace("-", "");
-		fileName = fileName.replace(":", "");
-		fileName = fileName.replace(".", "");
-		return fileName;
-	}
+	
 }

@@ -10,46 +10,44 @@
   <body>
   	
 	<table class="eTable">
+		<caption></caption>
 		<thead>
 			<tr>
 				<th>序号</th>
-				<th>标题</th>
-				<th>作者</th>
-				<th>关键字</th>
-				<th>上传时间</th>				
+				<th>类名</th>							
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody id="tab">
-			<s:iterator value="unverifyList" status="st">
+			<tr>
+				<s:form action="AddCatalog">
+				<td></td>
+				<td>
+					<s:textfield name="newCatalogName"/>
+				</td>
+				<td align="center">
+					<s:submit value="添加" action="AddCatalog" cssClass="bt_register"/>	
+				</td>
+				</s:form>
+			</tr>
+			<s:iterator value="catalogList" status="st">
 				<tr>
 					<td>
 						<s:property value="#st.Index+1" />
 					</td>
 					<td>
-						<s:property value="title" />
-					</td>
-					<td>
-						<s:property value="author" />
-					</td>
-					<td>
-						<s:property value="keyWord" />
-					</td>
-					<td>
-						<s:property value="uploadTime" />
-					</td>
+						<s:property value="catalogName" />
+					</td>					
 					
 					<td>
-						<s:url action="LoadJokeForVerify" id="load">
-							<s:param name="selectedJokeIndex" value="#st.Index"></s:param>
-						</s:url>
-						<s:url action="DeleteJoke" id="delete">
-							<s:param name="selectedJokeId" value="Id"></s:param>
+						<s:url action="LoadCatalogForModify" id="modify">
+							<s:param name="selectedIndex" value="#st.Index"></s:param>
 						</s:url>						
-
-						<s:a href="%{load}" cssClass="bb">[审核]</s:a>						
+						<s:url action="DeleteCatalog" id="delete">
+							<s:param name="selectedCatalogId" value="catalogId"></s:param>
+						</s:url>
+						<s:a href="%{modify}" cssClass="bb">[修改]</s:a>											
 						<s:a href="%{delete}" cssClass="bb">[删除]</s:a>
-
 					</td>
 				</tr>
 			</s:iterator>
