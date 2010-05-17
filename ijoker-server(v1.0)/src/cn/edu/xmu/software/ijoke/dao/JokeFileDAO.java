@@ -36,7 +36,6 @@ public class JokeFileDAO extends HibernateDaoSupport{
 		//session.merge(joke);
 		session.save(jokeFile);
 		tx.commit(); 
-		session.flush();
 		session.close();
 	}
 	public void deleteJokeFile(String jokeFileId)
