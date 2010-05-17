@@ -12,6 +12,23 @@
 				enctype="multipart/form-data">
 				<table class="eTable">
 					<tbody id="tab">
+						
+						<tr>
+							<td>
+								<s:label value="标题" cssClass="gray"></s:label>
+							</td>
+							<td>
+								<s:textfield name="title" label="标题" size="14" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<s:label value="关键词" cssClass="gray"></s:label>
+							</td>
+							<td>
+								<s:textfield name="keyword" label="关键词" size="14" />
+							</td>
+						</tr>
 						<tr>
 							<td>
 								<s:label value="文件位置" cssClass="gray"></s:label>
@@ -21,22 +38,7 @@
 	
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<s:label value="关键词" cssClass="gray"></s:label>
-							</td>
-							<td>
-								<s:textfield name="keyWord" label="关键词" size="14" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<s:label value="标题" cssClass="gray"></s:label>
-							</td>
-							<td>
-								<s:textfield name="title" label="标题" size="14" />
-							</td>
-						</tr>
+						
 					</tbody>
 					<tfoot>					
 						<tr>

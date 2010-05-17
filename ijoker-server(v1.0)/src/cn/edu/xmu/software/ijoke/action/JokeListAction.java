@@ -23,7 +23,8 @@ public class JokeListAction extends BaseAction {
 
 	@Override
 	public String execute() throws Exception {
-		jokeList=jokeInfoService.getVerifiedJokes(index_start,index_end);		
+		jokeList=jokeInfoService.getVerifiedJokes(index_start,index_end);	
+		System.out.println("jokeList.size()="+jokeList.size());
 		return SUCCESS;
 	}	
 	

@@ -14,7 +14,7 @@ public class CatalogManageAction extends BaseAction {
 	private int index_start,index_end;
 	private int selectedIndex;
 	private Catalog selectedCatalog;
-	private String selectedCatalogId,selectedCatalogName;
+	private String selectedCatalogId,selectedCatalogName,newCatalogName;
 	
 	public CatalogManageAction(){
 		index_start=0;
@@ -33,7 +33,8 @@ public class CatalogManageAction extends BaseAction {
 	}
 			
 	public String addCatalog(){
-		//catalogManageService.addCatalog(classId, className);
+		System.out.println("add:newCatalogName -"+newCatalogName);
+		catalogManageService.addCatalog(newCatalogName);
 		return SUCCESS;
 	}
 	
@@ -45,7 +46,7 @@ public class CatalogManageAction extends BaseAction {
 	
 	public String modifyCatalog(){
 		System.out.println("modify:new name -"+selectedCatalogName);
-		//catalogManageService.updateCatalog(selectedCatalogId, selectedCatalogName);
+		catalogManageService.updateCatalog(selectedCatalog.getCatalogId(), selectedCatalog.getCatalogName());
 		return SUCCESS;
 	}
 	
@@ -127,6 +128,14 @@ public class CatalogManageAction extends BaseAction {
 
 	public void setSelectedCatalog(Catalog selectedCatalog) {
 		this.selectedCatalog = selectedCatalog;
+	}
+
+	public String getNewCatalogName() {
+		return newCatalogName;
+	}
+
+	public void setNewCatalogName(String newCatalogName) {
+		this.newCatalogName = newCatalogName;
 	}
 	
 	
