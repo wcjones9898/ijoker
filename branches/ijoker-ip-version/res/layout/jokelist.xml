@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:background="@drawable/bg_list"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+ 
+  	  
+	<TextView 
+		android:id="@+id/divisionLabel"
+		android:text="笑话列表" 
+		android:textSize="30px"
+		android:layout_width="fill_parent" 
+		android:layout_height="50px"
+		android:gravity="center"/>
+	
+	<RelativeLayout android:id="@+id/listPad"
+		android:layout_below="@id/divisionLabel"
+		android:layout_width="fill_parent"
+		android:layout_marginTop="10px" 		
+		android:layout_marginLeft="20px" 
+		android:layout_marginRight="20px" 
+		android:layout_height="280px">
+		
+		<ListView android:id="@+id/JokeList"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"/>	
+	
+	</RelativeLayout>
+	<RelativeLayout android:layout_below="@id/listPad"
+		android:layout_width="fill_parent"
+		android:layout_height="30px"
+		android:layout_marginLeft="30px" 
+		android:layout_marginRight="30px"
+		android:gravity="bottom">
+		
+		<Button android:id="@+id/lastPage_btn"
+			android:text="上一页"			
+			android:layout_width="wrap_content"
+			android:layout_alignParentLeft="true" 			 
+			android:layout_height="30px"
+			style="@style/NormalButton"/>
+		
+		<Button android:id="@+id/nextPage_btn"
+			android:text="下一页"			
+			android:layout_width="wrap_content"
+			android:layout_alignParentRight="true" 			
+			android:layout_height="30px"
+			style="@style/NormalButton"/>
+		
+		
+	</RelativeLayout>
+	
+	
+	
+	
+	
+</RelativeLayout>

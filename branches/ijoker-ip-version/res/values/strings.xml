@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, Login!</string>
+	<string name="app_name">笑客iJoker</string>
+	<string name="media_ip">Media Center IP:</string>
+	<string name="server_ip">Server IP:</string>
+	<string name="alert_dialog_text_entry">Change IP here</string>
+	<string name="alert_dialog_ok">OK</string>
+	<string name="alert_dialog_cancel">Cancel</string>
+</resources>
