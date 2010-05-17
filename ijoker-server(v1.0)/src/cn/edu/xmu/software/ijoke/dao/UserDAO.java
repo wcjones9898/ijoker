@@ -98,6 +98,14 @@ public class UserDAO extends HibernateDaoSupport  {
 		tx.commit();  
 		session.close();
 	}
+	public void updateUser(User user)
+	{
+		session =  HibernateSessionFactory.getSession();
+		Transaction tx=session.beginTransaction();
+		session.merge(user);
+		tx.commit();  
+		session.close();
+	}
     @Test 
     public void testInsertUser()
     {

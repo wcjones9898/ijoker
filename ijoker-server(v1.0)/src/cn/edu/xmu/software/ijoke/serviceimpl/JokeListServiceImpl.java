@@ -21,14 +21,14 @@ public class JokeListServiceImpl  implements JokeListService{
     private JokeDAO jokeDAO = new JokeDAO();
     
     // WebService方法 用于向客户端传递列表 参数为主题的Id，开始列表的页数及页的长度
-	public List jokeListService(String classId,int begin, int limit)
+	public List jokeListService(String catalogId,int begin, int limit)
 	{
 	
 		 //List<ClassAndJokeFile> clAndFlList = (List<ClassAndJokeFile>) classAndFileDAO.findClassItemDAOByClassId(classId);
 		System.out.println("WebService方法jokeListService用于向客户端传递列表 参数为主题的Id，开始列表的页数及页的长度");
-		System.out.println("ClassId = "+classId);
+		System.out.println("catalogId = "+catalogId);
 		List<ClassAndJokeFile> clAndFlList = (List<ClassAndJokeFile>) classAndFileDAO.
-		findClassAndJokeByLimit(classId, (begin-1)*limit, limit);
+		findClassAndJokeByLimit(catalogId, (begin-1)*limit, limit);
 		ArrayList<cn.edu.xmu.software.ijoke.entity.Joke> jokeList = new ArrayList();
 		 for(int i=0; i<clAndFlList.size(); i++)
 		 {
@@ -52,13 +52,17 @@ public class JokeListServiceImpl  implements JokeListService{
 			jokeView.setAuthor(j.getAuthorName());
 			jokeView.setUploadTime(j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
+			
 			JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(j.getFileId());
+			if(jokeFile!=null)
+			{
 			String location = jokeFile.getFilePath()+jokeFile.getFileName()+jokeFile.getFileExtension();
             jokeView.setFileLength(jokeFile.getFileLength());
             jokeView.setFileTime(jokeFile.getFileTime());
 			jokeView.setLocation(location);
 			jokeView.setKeyWord(j.getDescription());
 			jokesView.add(jokeView);
+			}
 
 		}
 		return jokesView;
@@ -67,10 +71,10 @@ public class JokeListServiceImpl  implements JokeListService{
 	@Test
 	public void testJokeListService()
 	{
-		List<Joke> jokeList = jokeListService("2",1,5);
+		List<Joke> jokeList = jokeListService("1",1,5);
 		for(int i=0; i<jokeList.size(); i++)
 			
-			System.out.println(jokeList.get(i).getAuthor()+jokeList.get(i).getLocation());
+			System.out.println(jokeList.get(i).getAuthor()+jokeList.get(i).getTitle());
 	}
 
 }

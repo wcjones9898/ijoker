@@ -31,8 +31,8 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 	public List<ClassAndJokeFile> findClassAndJokeByLimit(String classId,int begin,int limit)
 	{
 		session =  HibernateSessionFactory.getSession();
-		System.out.println("SELECT  * from jl_classandfile where classId="
-				+classId+" limit "+begin+","+limit);
+		System.out.println("from ClassAndJokeFile as classAndJokeFile where classAndJokeFile.classId ='"+classId+"'"
+				);
 		List<ClassAndJokeFile> classAndJokeFileList = (List<ClassAndJokeFile>)session.createQuery("from ClassAndJokeFile as classAndJokeFile where classAndJokeFile.classId ='"
 				+ classId +"'").setFirstResult(begin).setMaxResults(limit+begin).list();
 		session.close();

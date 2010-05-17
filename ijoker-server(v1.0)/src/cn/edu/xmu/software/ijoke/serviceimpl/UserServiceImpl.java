@@ -39,6 +39,29 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateUserByUserId(userId, status);
 		return true;
 	}
+	public boolean lock(String userName) {
+		// TODO Auto-generated method stub\
+		User user = userDAO.findByUserName(userName);
+		if(user!=null)
+		{
+			user.setStatus(0);
+			userDAO.updateUser(user);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean unlock(String userName) {
+		// TODO Auto-generated method stub
+		User user = userDAO.findByUserName(userName);
+		if(user!=null)
+		{
+			user.setStatus(1);
+			userDAO.updateUser(user);
+			return true;
+		}
+		return false;
+	}
 //	@Test
 //	public void testUserWithOutVerify()
 //	{
@@ -46,17 +69,24 @@ public class UserServiceImpl implements UserService{
 //		for(int i=0; i<userList.size(); i++)
 //			System.out.println(userList.get(i).getNickName());
 //	}
+//	@Test
+//	public void testUserVerified()
+//	{
+//		List<User> userList = AppFactory.getUserService().getUserVerified(0,5);
+//		for(int i=0; i<userList.size(); i++)
+//			System.out.println(userList.get(i).getNickName());
+//	}
+//	@Test
+//	public void testVerify()
+//	{
+//		System.out.println(AppFactory.getUserService().verify("20100512205839088", 1));
+//	}
 	@Test
-	public void testUserVerified()
+	public void testUserLock()
 	{
-		List<User> userList = AppFactory.getUserService().getUserVerified(0,5);
-		for(int i=0; i<userList.size(); i++)
-			System.out.println(userList.get(i).getNickName());
+		AppFactory.getUserService().lock("adf");
 	}
-	@Test
-	public void testVerify()
-	{
-		System.out.println(AppFactory.getUserService().verify("20100512205839088", 1));
-	}
+
+
 
 }

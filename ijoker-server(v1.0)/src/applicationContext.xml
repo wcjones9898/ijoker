@@ -91,10 +91,7 @@
 
 	</bean>
 
-    <bean id="JokeListService" class="cn.edu.xmu.software.ijoke.serviceimpl.JokeListServiceImpl"
-         abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
-		</bean>
+
 	   <bean id="RegisterService" class="cn.edu.xmu.software.ijoke.serviceimpl.RegisterServiceImpl"
          abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
