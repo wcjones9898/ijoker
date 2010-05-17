@@ -36,7 +36,7 @@ public class CatalogDAO extends HibernateDaoSupport {
 	protected void initDao() {
 		// do nothing
 	}
-	public Catalog findClassItemByClassId(String classId)
+	public Catalog findCatalogByCatalogId(String classId)
 	{
 		session =  HibernateSessionFactory.getSession();
 		List classItemList = session.createQuery("from Catalog as catalog where catalog.catalogId ='" + classId +"'").list();
@@ -46,6 +46,17 @@ public class CatalogDAO extends HibernateDaoSupport {
 		if(classItemList.size()>0)
 			classItem = (Catalog) classItemList.get(0);
 		return classItem;
+	}
+	public Catalog findCatalogByCatalogName(String catalogName)
+	{
+		session =  HibernateSessionFactory.getSession();
+		List catalogList = session.createQuery("from Catalog as catalog where catalog.catalogName ='" + catalogName +"'").list();
+		session.close();
+		
+		Catalog catalog = null;
+		if(catalogList.size()>0)
+			catalog = (Catalog) catalogList.get(0);
+		return catalog;
 	}
 	public ArrayList findAll()
 	{
@@ -73,7 +84,11 @@ public class CatalogDAO extends HibernateDaoSupport {
 	public void save(Catalog catalog) {
 		
 		try {
+			session =  HibernateSessionFactory.getSession();
+			Transaction tx=session.beginTransaction();
 			getHibernateTemplate().save(catalog);
+			tx.commit();  
+			session.close();
 			
 		} catch (RuntimeException re) {
 			
@@ -83,7 +98,13 @@ public class CatalogDAO extends HibernateDaoSupport {
 	public void delete(Catalog catalog) {
 		
 		try {
+		
+			session =  HibernateSessionFactory.getSession();
+			Transaction tx=session.beginTransaction();
 			getHibernateTemplate().delete(catalog);
+			tx.commit();  
+			
+			session.close();
 			
 		} catch (RuntimeException re) {
 			

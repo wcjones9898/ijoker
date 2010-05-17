@@ -1,5 +1,7 @@
 package cn.edu.xmu.software.ijoke.serviceimpl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,18 +16,33 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 
 	private CatalogDAO catalogDAO;
 	
-	
+	private void getCatalogId()
+	{
+		
+	}
 
-	public boolean addCatalog(String classId, String className) {
+
+	private String createCatalogId()
+	{
+		String catalogId = null;
+		Timestamp date = new Timestamp((new Date().getTime()));
+		catalogId = date.toString().replace(" ","");
+		catalogId = catalogId.replace("-","");
+		catalogId = catalogId.replace(":","");
+		catalogId = catalogId.replace(".","");
+	    return catalogId;
+	}
+	public boolean addCatalog(String catalogName) {
 		// TODO Auto-generated method stub
+
 		try{
-			if(catalogDAO.findClassItemByClassId(classId)!=null)
+			if(catalogDAO.findCatalogByCatalogName(catalogName)!=null)
 				return  false;
-		Catalog catalog = new Catalog();
-		catalog.setCatalogId(classId);
-		catalog.setCatalogName(className);
-		catalog.setJokeNum(0);
-		catalog.setCatalogLevel(1);
+			
+			Catalog catalog = new Catalog();
+			catalog.setCatalogId(this.createCatalogId());
+			catalog.setCatalogName(catalogName);
+			catalog.setCatalogLevel(1);
 		catalogDAO.save(catalog);
 		return true;
 		}catch(Exception e)
@@ -38,7 +55,7 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 	public boolean deleteCatalog(String classId) {
 		// TODO Auto-generated method stub
 		try{
-			Catalog catalog = catalogDAO.findClassItemByClassId(classId);
+			Catalog catalog = catalogDAO.findCatalogByCatalogId(classId);
 			if(catalog == null)
 				return false;
 		catalogDAO.delete(catalog);
@@ -53,7 +70,7 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 	public boolean updateCatalog(String classId, String className) {
 		// TODO Auto-generated method stub
 		try{
-			Catalog catalog = catalogDAO.findClassItemByClassId(classId);
+			Catalog catalog = catalogDAO.findCatalogByCatalogId(classId);
 
 		if(catalog!=null)
 		{
@@ -69,21 +86,7 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 		return false;
 	}
 
-//	@Test
-//	public void testAddClassItem()
-//   {
-//		System.out.println(AppFactory.getCatalogManageService().addCatalog("6", "拉拉"));
-//	}
-	@Test
-	public void testUpdateClassItem()
-	   {
-		System.out.println(AppFactory.getCatalogManageService().updateCatalog("6","sadf "));
-		}
-//	@Test
-//	public void testDeleteClassItem()
-//	   {
-//		System.out.println(AppFactory.getCatalogManageService().deleteCatalog("6"));
-//		}
+
 
 
 	public CatalogDAO getCatalogDAO() {
@@ -105,10 +108,27 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 		return this.catalogDAO.findByLimit(begin, pageSize);
 	}
 	@Test
+	public void testAddClassItem()
+   {
+		System.out.println(AppFactory.getCatalogManageService().addCatalog( "拉拉啦啦啦"));
+	}
+//	@Test
+//	public void testUpdateClassItem()
+//	   {
+//		System.out.println(AppFactory.getCatalogManageService().updateCatalog("6","sadf "));
+//		}
+//	@Test
+//	public void testDeleteClassItem()
+//	   {
+//		System.out.println(AppFactory.getCatalogManageService().deleteCatalog("7"));
+//		}
+	@Test
 	public void testGetCatalogList()
 	{
 		List<Catalog> catalogList = AppFactory.getCatalogManageService().getCatalogList(1, 5);
 		for(int i=0 ;i <catalogList.size();i++)
 			System.out.print(catalogList.get(i).getCatalogName());
 	}
+
+
 }

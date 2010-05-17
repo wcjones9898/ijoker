@@ -52,7 +52,8 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		classAndJokeFileDAO.insertClassAndJokeFile(classAndJokeFile);
 		
 	}
-	public String jokeInfoUploadServiceByServer (String title, String keyWord, 
+	public String jokeInfoUploadServiceByServer (
+			String title, String keyWord, 
 			String userId,String fileExtension,String fileId)
 	{
 		String filePath = ConfigFactory.getJokePath();
@@ -129,6 +130,11 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		
 		jokeInfoUploadService("test", ""+1, 
 				"1",".mp3",""+1);
+	}
+	public boolean jokeInfoUploadServiceByServer(String title, String key,
+			String userId, File file) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }
