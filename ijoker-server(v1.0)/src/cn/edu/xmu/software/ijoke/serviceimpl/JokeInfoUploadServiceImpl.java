@@ -20,7 +20,7 @@ import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
-
+import cn.edu.xmu.software.ijoke.factory.IdFactroy;
 public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 
 	private JokeDAO jokeDAO = new JokeDAO();
@@ -79,11 +79,11 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		return fileId;
 		
 	}
-	public boolean copyTo(String oldFilePath,String fileName)
+	private boolean copyTo(String oldFilePath,String fileName)
 	{
 		File oldFile = new File(oldFilePath);
 		
-		File newFile = new File(ConfigFactory.getJokePath()+
+		File newFile = new File(ConfigFactory.getJokeUploadPath()+
 				fileName+
 				oldFile.getName().substring(oldFile.getName().indexOf(".")));
 		System.out.println(ConfigFactory.getJokePath()+
@@ -124,17 +124,20 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		}
 		return true;
 	}
+
+	public boolean jokeInfoUploadServiceByServer(String title, String keyWord,
+			String userId, File file) {
+		// TODO Auto-generated method stub
+		return copyTo(file.getAbsolutePath(),jokeInfoUploadServiceByServer(title, keyWord, 
+			userId,file.getName().substring(file.getName().indexOf("."))
+			,IdFactroy.createId()));
+	}
 	@Test
 	public void testJokeInfoUploadService()
 	{
+		File file = new File("D:/test.wav");
 		
-		jokeInfoUploadService("test", ""+1, 
-				"1",".mp3",""+1);
+		jokeInfoUploadServiceByServer("test", "test", 
+				"1",file);
 	}
-	public boolean jokeInfoUploadServiceByServer(String title, String key,
-			String userId, File file) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 }

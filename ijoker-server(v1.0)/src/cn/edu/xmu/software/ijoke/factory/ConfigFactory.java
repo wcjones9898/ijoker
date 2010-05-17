@@ -61,18 +61,31 @@ public class ConfigFactory {
 		return filePath;
 	}
 	
-	public static String getSearchIndexPath()
-	{
+	public static String getJokeUploadPath() {
 		String filePath = null;
 		try {
-	///		filePath = getConfigProperties().getProperty("searchIndexPath");
-			filePath = Consts.searchIndexPath;
+		//	filePath = getConfigProperties().getProperty("jokeRootPath");
+			filePath = Consts.jokeUploadRootPath;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return filePath;
 	}
+
+	public static String getJokeUploadTempPath()
+	{
+		String filePath = null;
+		try {
+	//		filePath = getConfigProperties().getProperty("jokeTempPath");
+			filePath = Consts.jokeUploadTempPath;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filePath;
+	}
+	
 	@Test
 	public void testGetJokePath() {
 		System.out.print(getJokePath());

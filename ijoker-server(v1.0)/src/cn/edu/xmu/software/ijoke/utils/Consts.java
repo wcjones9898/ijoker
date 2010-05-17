@@ -10,8 +10,10 @@ public class Consts {
 	public final static int BUFFER_SIZE = 100000;
 	public final static String jokeRootPath="/jokes/";
 	public final static String jokeTempPath="/jokes/temp/";
-	public final static String searchIndexPath="/jokes/index/";
 
+
+	public final static String jokeUploadRootPath="D:/jokes/";
+	public final static String jokeUploadTempPath="D:/jokes/temp/";
 
 	
 	public final static String NO_USER ="user not exists";
