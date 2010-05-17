@@ -140,6 +140,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	}
 
 	public List<Joke> getVerifiedJokes(int begin, int pageSize) {
+		System.out.print(begin+"   "+pageSize);
 		return this.entityToView(jokeDAO.findByStatus("1", begin, pageSize));
 	}
 	
@@ -201,7 +202,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	 {
 		 
 	 List<Joke> jokesView =
-	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
+	 AppFactory.getJokeInfoService().getVerifiedJokes(0,16);
 	 for(int i=0; i<jokesView.size(); i++)
 	 {
 	 System.out.println(jokesView.get(i).getAuthor());

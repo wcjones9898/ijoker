@@ -19,5 +19,8 @@
         <property name="authority" type="java.lang.String">
             <column name="authority" />
         </property>
+                <property name="adminId" type="java.lang.String">
+            <column name="adminId" />
+        </property>
     </class>
 </hibernate-mapping>

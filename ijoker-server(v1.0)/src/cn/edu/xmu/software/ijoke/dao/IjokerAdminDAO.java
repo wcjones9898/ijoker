@@ -29,7 +29,7 @@ public class IjokerAdminDAO extends HibernateDaoSupport{
 	public static final String ADMIN_NAME = "adminName";
 	public static final String PASS_WORD = "passWord";
 	public static final String AUTHORITY = "authority";
-
+    public static final String ADMIN_ID="adminId";
 	public void save(IjokerAdmin transientInstance) {
 		log.debug("saving IjokerAdmin instance");
 		try {
@@ -101,7 +101,9 @@ public class IjokerAdminDAO extends HibernateDaoSupport{
 	public List findByPassWord(Object passWord) {
 		return findByProperty(PASS_WORD, passWord);
 	}
-
+	public List findByAdminId(Object adminId) {
+		return findByProperty(ADMIN_ID, adminId);
+	}
 	public List findByAuthority(Object authority) {
 		return findByProperty(AUTHORITY, authority);
 	}

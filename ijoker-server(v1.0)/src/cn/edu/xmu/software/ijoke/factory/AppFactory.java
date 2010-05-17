@@ -8,6 +8,7 @@ import cn.edu.xmu.software.ijoke.service.AdminLoginService;
 import cn.edu.xmu.software.ijoke.service.CatalogService;
 import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
+import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
 import cn.edu.xmu.software.ijoke.service.SearchService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
@@ -47,7 +48,10 @@ public class AppFactory {
 	{
 		return (UserService) app.getBean("UserService");
 	}
-
+	public static JokeInfoUploadService getJokeInfoUploadService()
+	{
+		return (JokeInfoUploadService) app.getBean("JokeInfoUploadService");
+	}
 	@Test
 	public void testUploadJokeFileService()
 	{

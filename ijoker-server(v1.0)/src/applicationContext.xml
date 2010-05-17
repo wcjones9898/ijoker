@@ -156,6 +156,8 @@
 	
 	<bean id="JokeInfoUploadService" class="cn.edu.xmu.software.ijoke.serviceimpl.JokeInfoUploadServiceImpl"
 		lazy-init="default" autowire="default" dependency-check="default">
-
+			<property name="adminDAO">
+			<ref bean="IjokerAdminDAO" />
+		</property>
 	</bean>
 </beans>

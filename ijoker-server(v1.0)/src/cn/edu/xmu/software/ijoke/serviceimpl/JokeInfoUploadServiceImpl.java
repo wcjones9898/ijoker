@@ -11,9 +11,11 @@ import java.util.Date;
 import org.junit.Test;
 
 import cn.edu.xmu.software.ijoke.dao.ClassAndJokeFileDAO;
+import cn.edu.xmu.software.ijoke.dao.IjokerAdminDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeDAO;
 import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
+import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
 import cn.edu.xmu.software.ijoke.entity.Joke;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
@@ -21,11 +23,13 @@ import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.factory.IdFactroy;
+import cn.edu.xmu.software.ijoke.factory.AppFactory;;
 public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 
 	private JokeDAO jokeDAO = new JokeDAO();
 	private UserDAO userDAO = new UserDAO();
-   
+    private IjokerAdminDAO adminDAO;
+    
 	private ClassAndJokeFileDAO classAndJokeFileDAO = new ClassAndJokeFileDAO();
 	private UploadJokeFileService jokeFileService = new JokeFileServiceImpl();
 	
@@ -54,18 +58,19 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 	}
 	public String jokeInfoUploadServiceByServer (
 			String title, String keyWord, 
-			String userId,String fileExtension,String fileId)
+			String userName,String fileExtension,String fileId)
 	{
 		String filePath = ConfigFactory.getJokePath();
 		jokeFileService.insertJokeFile(fileExtension, filePath,fileId);
-		User user = userDAO.findByUserId(userId);
+		System.out.print(userName);
+		IjokerAdmin admin = (IjokerAdmin) adminDAO.findByAdminName(userName).get(0);
 		
 		Joke joke = new Joke();
-		joke.setAuthorName(user.getNickName());
+		joke.setAuthorName(admin.getAdminName());
 		joke.setJokeId(fileId);
 		joke.setFileId(fileId);
 		joke.setTitle(title);
-		joke.setUploaderId(userId);
+		joke.setUploaderId(admin.getAdminId());
 		joke.setDescription(keyWord);
 	    
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
@@ -128,7 +133,7 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 	public boolean jokeInfoUploadServiceByServer(String title, String keyWord,
 			String userId, File file) {
 		// TODO Auto-generated method stub
-		return copyTo(file.getAbsolutePath(),jokeInfoUploadServiceByServer(title, keyWord, 
+		return copyTo(file.getAbsolutePath(),AppFactory.getJokeInfoUploadService().jokeInfoUploadServiceByServer(title, keyWord, 
 			userId,file.getName().substring(file.getName().indexOf("."))
 			,IdFactroy.createId()));
 	}
@@ -139,5 +144,11 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		
 		jokeInfoUploadServiceByServer("test", "test", 
 				"1",file);
+	}
+	public IjokerAdminDAO getAdminDAO() {
+		return adminDAO;
+	}
+	public void setAdminDAO(IjokerAdminDAO adminDAO) {
+		this.adminDAO = adminDAO;
 	}
 }

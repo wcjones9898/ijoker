@@ -6,6 +6,7 @@ public class IjokerAdmin {
 	private String adminName;
 	private String passWord;
 	private String authority;
+	private String adminId;
 	public String getAdminName() {
 		return adminName;
 	}
@@ -29,6 +30,12 @@ public class IjokerAdmin {
 	}
 	public void setId(Integer id) {
 		Id = id;
+	}
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
 	
 }
