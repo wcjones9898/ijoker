@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"	android:layout_height="fill_parent" 
+	android:background="@drawable/bg_func">
+	
+		<RelativeLayout android:id="@+id/func_pad" 
+			android:layout_marginTop="90px" android:layout_marginLeft="40px"
+			android:layout_marginRight="40px" android:gravity="center"
+			android:layout_width="fill_parent" 	android:layout_height="130px">
+			
+			<TextView android:id="@+id/Funcs_text" 						
+				android:text="听笑话"
+				android:textSize="32px"
+				android:textColor="#FFFFFF"
+				style="@style/ShadowLabel"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+		</RelativeLayout>
+		
+		<RelativeLayout	android:layout_below="@id/func_pad"
+			android:layout_marginTop="20px" android:layout_marginLeft="40px"
+			android:layout_marginRight="40px" android:gravity="center"
+			android:layout_width="fill_parent" 	android:layout_height="130px">
+			
+			<ImageButton android:id="@+id/Funcs_button"	
+			    android:src="@drawable/icon_listen"
+			    android:background="@xml/icon"				    	    
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="80px"/>	
+	
+			<ImageButton android:id="@+id/LeftFunc_button" 			
+				android:src="@xml/leftfunc"
+				android:background="@drawable/button_left"
+				android:layout_toLeftOf="@id/Funcs_button"
+				
+				android:layout_marginRight="30px"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+				
+			<ImageButton android:id="@+id/RightFunc_button" 			
+				android:src="@xml/rightfunc"
+				android:background="@drawable/button_right"
+				android:layout_toRightOf="@id/Funcs_button" 
+				
+				android:layout_marginLeft="30px"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"/>
+		</RelativeLayout>
+			
+</RelativeLayout>
