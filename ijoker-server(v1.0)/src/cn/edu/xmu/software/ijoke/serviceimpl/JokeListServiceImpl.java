@@ -47,12 +47,13 @@ public class JokeListServiceImpl  implements JokeListService{
 		for (cn.edu.xmu.software.ijoke.entity.Joke j : jokesEntity) {
 			Joke jokeView = new Joke();
 
-			jokeView.setId(j.getJokeId());
-			jokeView.setTitle(j.getTitle());
-			jokeView.setAuthor(j.getAuthorName());
-			jokeView.setUploadTime(j.getUploadTime());
+			jokeView.setId(""+j.getJokeId());
+			jokeView.setTitle(""+j.getTitle());
+			jokeView.setAuthor(""+j.getAuthorName());
+			jokeView.setUploadTime(""+j.getUploadTime());
 			jokeView.setLike(j.getLikeNum());
-			
+
+		    jokeView.setKeyWord(""+j.getDescription());
 			JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(j.getFileId());
 			if(jokeFile!=null)
 			{

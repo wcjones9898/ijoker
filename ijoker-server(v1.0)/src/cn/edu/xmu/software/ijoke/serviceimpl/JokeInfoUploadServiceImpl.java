@@ -17,13 +17,15 @@ import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
 import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
 import cn.edu.xmu.software.ijoke.entity.Joke;
+import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.entity.User;
 import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.factory.IdFactroy;
-import cn.edu.xmu.software.ijoke.factory.AppFactory;;
+import cn.edu.xmu.software.ijoke.factory.AppFactory;
+import cn.edu.xmu.software.ijoke.dispose.WAVDispose;
 public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 
 	private JokeDAO jokeDAO = new JokeDAO();
@@ -37,7 +39,15 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 			String userId,String fileExtension,String fileId)
 	{
 		String filePath = ConfigFactory.getJokePath();
-		jokeFileService.insertJokeFile(fileExtension, filePath,fileId);
+		JokeFile jokeFile = new JokeFile();
+		jokeFile.setFileExtension(fileExtension);
+		jokeFile.setFilePath(filePath);
+		jokeFile.setFileName(fileId);
+		jokeFile.setFileId(fileId);
+
+	    jokeFile.setFileLength(1);
+	    jokeFile.setFileTime(1);
+		jokeFileService.insertJokeFile(jokeFile);
 		User user = userDAO.findByUserId(userId);
 		Joke joke = new Joke();
 		joke.setAuthorName(user.getNickName());
@@ -56,13 +66,29 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		classAndJokeFileDAO.insertClassAndJokeFile(classAndJokeFile);
 		
 	}
-	public String jokeInfoUploadServiceByServer (
+	private String jokeInfoUploadServiceByServer (
 			String title, String keyWord, 
-			String userName,String fileExtension,String fileId)
+			String userName,String fileExtension,String fileId,String realfilePath)
 	{
+		
 		String filePath = ConfigFactory.getJokePath();
-		jokeFileService.insertJokeFile(fileExtension, filePath,fileId);
-		System.out.print(userName);
+		JokeFile jokeFile = new JokeFile();
+		jokeFile.setFileExtension(fileExtension);
+		jokeFile.setFilePath(filePath);
+		jokeFile.setFileName(fileId);
+		jokeFile.setFileId(fileId);
+		int[] fileInfo = null ;
+	    try {
+			fileInfo = WAVDispose.getFileResults(realfilePath);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    jokeFile.setFileLength(fileInfo[0]);
+	    jokeFile.setFileTime(fileInfo[1]);
+		jokeFileService.insertJokeFile(jokeFile);
+	
 		IjokerAdmin admin = (IjokerAdmin) adminDAO.findByAdminName(userName).get(0);
 		
 		Joke joke = new Joke();
@@ -81,11 +107,14 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 		classAndJokeFile.setJokeId(joke.getJokeId());
 		classAndJokeFile.setClassId("0");
 		classAndJokeFileDAO.insertClassAndJokeFile(classAndJokeFile);
+		System.out.println(jokeFile.getFileTime());
 		return fileId;
 		
 	}
 	private boolean copyTo(String oldFilePath,String fileName)
 	{
+		if(fileName == null)
+			return false;
 		File oldFile = new File(oldFilePath);
 		
 		File newFile = new File(ConfigFactory.getJokeUploadPath()+
@@ -133,17 +162,17 @@ public class JokeInfoUploadServiceImpl implements JokeInfoUploadService{
 	public boolean jokeInfoUploadServiceByServer(String title, String keyWord,
 			String userId, File file) {
 		// TODO Auto-generated method stub
-		return copyTo(file.getAbsolutePath(),AppFactory.getJokeInfoUploadService().jokeInfoUploadServiceByServer(title, keyWord, 
+		return copyTo(file.getAbsolutePath(),jokeInfoUploadServiceByServer(title, keyWord, 
 			userId,file.getName().substring(file.getName().indexOf("."))
-			,IdFactroy.createId()));
+			,IdFactroy.createId(), file.getAbsolutePath()));
 	}
 	@Test
 	public void testJokeInfoUploadService()
 	{
 		File file = new File("D:/test.wav");
 		
-		jokeInfoUploadServiceByServer("test", "test", 
-				"1",file);
+		System.out.println(AppFactory.getJokeInfoUploadService().jokeInfoUploadServiceByServer("test", "test", 
+				"ijoker",file));
 	}
 	public IjokerAdminDAO getAdminDAO() {
 		return adminDAO;

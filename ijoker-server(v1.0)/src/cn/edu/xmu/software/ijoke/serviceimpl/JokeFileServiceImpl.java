@@ -37,4 +37,12 @@ public class JokeFileServiceImpl implements UploadJokeFileService{
 		insertJokeFile(".mp3","/guodegang/","123aredsfa");
 	}
 
+	public boolean insertJokeFile(JokeFile jokeFile) {
+		// TODO Auto-generated method stub
+		if(jokeFile == null)
+			return false;
+		jokeFileDAO.insertJokeFile(jokeFile);
+		return true;
+	}
+
 }
