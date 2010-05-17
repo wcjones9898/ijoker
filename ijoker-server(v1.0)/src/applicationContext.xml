@@ -135,7 +135,7 @@
 
 	</bean>
 
-	<bean id="ClassManageService" class="cn.edu.xmu.software.ijoke.serviceimpl.ClassManageServiceImpl"
+	<bean id="CatalogManageService" class="cn.edu.xmu.software.ijoke.serviceimpl.CatalogManageServiceImpl"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="catalogDAO">
 			<ref bean="CatalogDAO" />

@@ -1,5 +1,7 @@
 package cn.edu.xmu.software.ijoke.serviceimpl;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import cn.edu.xmu.software.ijoke.dao.CatalogDAO;
@@ -70,17 +72,17 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 	@Test
 	public void testAddClassItem()
    {
-		System.out.println(AppFactory.getClassManageService().addCatalog("6", "拉拉"));
+		System.out.println(AppFactory.getCatalogManageService().addCatalog("6", "拉拉"));
 	}
 	@Test
 	public void testDeleteClassItem()
 	   {
-		System.out.println(AppFactory.getClassManageService().deleteCatalog("7"));
+		System.out.println(AppFactory.getCatalogManageService().deleteCatalog("7"));
 		}
 	@Test
 	public void testUpdateClassItem()
 	   {
-		System.out.println(AppFactory.getClassManageService().updateCatalog("6","sadf "));
+		System.out.println(AppFactory.getCatalogManageService().updateCatalog("6","sadf "));
 		}
 
 	public CatalogDAO getCatalogDAO() {
@@ -89,5 +91,23 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 
 	public void setCatalogDAO(CatalogDAO catalogDAO) {
 		this.catalogDAO = catalogDAO;
+	}
+
+	public List<Catalog> getCatalogList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Catalog> getCatalogList(int begin, int pageSize) {
+		// TODO Auto-generated method stub
+		
+		return this.catalogDAO.findByLimit(begin, pageSize);
+	}
+	@Test
+	public void testGetCatalogList()
+	{
+		List<Catalog> catalogList = AppFactory.getCatalogManageService().getCatalogList(1, 5);
+		for(int i=0 ;i <catalogList.size();i++)
+			System.out.print(catalogList.get(i).getCatalogName());
 	}
 }

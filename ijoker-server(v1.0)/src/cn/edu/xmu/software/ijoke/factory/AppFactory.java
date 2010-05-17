@@ -39,9 +39,9 @@ public class AppFactory {
 	{
 		return (AdminLoginService) app.getBean("AdminLoginService");
 	}
-	public static CatalogManageService  getClassManageService()
+	public static CatalogManageService  getCatalogManageService()
 	{
-		return (CatalogManageService) app.getBean("ClassManageService");
+		return (CatalogManageService) app.getBean("CatalogManageService");
 	}
 	public static UserService getUserService()
 	{

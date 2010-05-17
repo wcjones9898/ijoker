@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.hibernate.Session;
 import cn.edu.xmu.software.ijoke.entity.Catalog;
+import cn.edu.xmu.software.ijoke.entity.Joke;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
 
 /**
@@ -38,7 +39,7 @@ public class CatalogDAO extends HibernateDaoSupport {
 	public Catalog findClassItemByClassId(String classId)
 	{
 		session =  HibernateSessionFactory.getSession();
-		List classItemList = session.createQuery("from Catalog as classItem where classItem.classId ='" + classId +"'").list();
+		List classItemList = session.createQuery("from Catalog as catalog where catalog.catalogId ='" + classId +"'").list();
 		session.close();
 		
 		Catalog classItem = null;
@@ -63,12 +64,11 @@ public class CatalogDAO extends HibernateDaoSupport {
 	public ArrayList findByLimit(int begin,int limit )
 	{
 		session =  HibernateSessionFactory.getSession();
-		System.out.println("In Catalog findEveryTen()");
-		
-		ArrayList list = (ArrayList)session.createQuery(
-				"from Catalog as catalog order by catalog.classId limit "+begin+","+limit).list();
+		ArrayList<Catalog> catalogList = (ArrayList<Catalog>) session.createQuery("from Catalog")
+		.setFirstResult(begin).setMaxResults(begin+10).list();
 		session.close();
-		return list;
+		return catalogList;
+	
 	}
 	public void save(Catalog catalog) {
 		
