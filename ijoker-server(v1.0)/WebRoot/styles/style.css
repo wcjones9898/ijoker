@@ -44,7 +44,7 @@ A{
 	color: #FFFFFF;
 }
 
-A:hover {
+li A:hover {
 	Color: #0066CC;
 	font-weight: bold;
 	text-decoration: none;

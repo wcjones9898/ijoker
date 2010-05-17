@@ -25,7 +25,7 @@ public class UploadJokeFileAction extends BaseAction {
 	public String execute() throws IOException
 	{
 		username=(String)this.getSession().get("username");		
-        File tempFile = new File(ServletActionContext.getServletContext().getRealPath("/tmp" ) + "/" + jokeFileFileName);
+        File tempFile = new File(fileSavePath + jokeFileFileName);
         FileUtil.copy(jokeFile, tempFile);
         
 		jokeInfoUploadService.jokeInfoUploadServiceByServer(title, keyword, username,tempFile);

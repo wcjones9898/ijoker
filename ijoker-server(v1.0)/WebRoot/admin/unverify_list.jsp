@@ -43,12 +43,12 @@
 						<s:url action="LoadJokeForVerify" id="load">
 							<s:param name="selectedJokeIndex" value="#st.Index"></s:param>
 						</s:url>
-						<s:url action="DeleteJoke" id="delete">
+						<s:url action="DeleteUnverifyJoke" id="delete">
 							<s:param name="selectedJokeId" value="Id"></s:param>
 						</s:url>						
 
-						<s:a href="%{load}" cssClass="bb">[审核]</s:a>						
-						<s:a href="%{delete}" cssClass="bb">[删除]</s:a>
+						<s:a href="%{load}" >[审核]</s:a>						
+						<s:a href="%{delete}">[删除]</s:a>
 
 					</td>
 				</tr>

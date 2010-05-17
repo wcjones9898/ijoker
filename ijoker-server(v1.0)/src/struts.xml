@@ -42,7 +42,25 @@
 			<result name="login" type="redirect">/login.jsp</result>   
 		</global-results> 
 	
-		
+		<!-- 笑话列表 -->			
+		<action name="JokeListAction" class="JokeListProxy">
+			<result>joke_list.jsp</result>
+		</action>
+		<action name="LoadJokeForModify" class="JokeListProxy" method="loadJokeForModify">
+			<result>joke_modify.jsp</result>
+		</action>
+		<action name="DeleteJoke" class="JokeListProxy" method="deleteJoke">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="ModifyJoke" class="JokeListProxy" method="modifyJoke">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="JokePrePage" class="JokeListProxy" method="prePage">
+			<result type="redirectAction">JokeListAction</result>
+		</action>
+		<action name="JokeNextPage" class="JokeListProxy" method="nextPage">
+			<result type="redirectAction">JokeListAction</result>
+		</action>	
 		
 		<!-- 笑话审核 -->
 		<action name="UnverifyListAction" class="UnverifyListProxy">
@@ -51,7 +69,7 @@
 		<action name="LoadJokeForVerify" class="UnverifyListProxy" method="loadJokeForVerify">
 			<result>joke_verify.jsp</result>
 		</action>
-		<action name="DeleteJoke" class="UnverifyListProxy" method="deleteJoke">
+		<action name="DeleteUnverifyJoke" class="UnverifyListProxy" method="deleteJoke">
 			<result type="redirectAction">UnverifyListAction</result>
 		</action>
 		<action name="VerifyJoke" class="UnverifyListProxy" method="verifyJoke">
@@ -86,26 +104,25 @@
 		<action name="CatalogNextPage" class="CatalogManageProxy" method="nextPage">
 			<result type="redirectAction">CatalogManageAction</result>
 		</action>
+				
 		
-		<!-- 笑话列表 -->			
-		<action name="JokeListAction" class="JokeListProxy">
-			<result>joke_list.jsp</result>
+		<!-- 用户列表 -->	
+		<action name="UserListAction" class="UserListProxy">
+			<result>user_list.jsp</result>
 		</action>
-		<action name="LoadJokeForModify" class="JokeListProxy" method="loadJokeForModify">
-			<result>joke_modify.jsp</result>
+		<action name="LoadLockedUser" class="UserListProxy" method="loadLockedUser">
+			<result>user_locked_list.jsp</result>
 		</action>
-		<action name="DeleteJoke" class="JokeListProxy" method="deleteJoke">
-			<result type="redirectAction">JokeListAction</result>
+		<action name="LoadUserForDetail" class="UserListProxy" method="loadUserForDetail">
+			<result>user_detail.jsp</result>
 		</action>
-		<action name="ModifyJoke" class="JokeListProxy" method="modifyJoke">
-			<result type="redirectAction">JokeListAction</result>
+		<action name="LockUser" class="UserListProxy" method="lockUser">
+			<result type="redirectAction">UserListAction</result>
 		</action>
-		<action name="JokePrePage" class="JokeListProxy" method="prePage">
-			<result type="redirectAction">JokeListAction</result>
+		<action name="UnlockUser" class="UserListProxy" method="unlockUser">
+			<result type="redirectAction">LoadLockedUser</result>
 		</action>
-		<action name="JokeNextPage" class="JokeListProxy" method="nextPage">
-			<result type="redirectAction">JokeListAction</result>
-		</action>	
+		
 		
 		<!-- 上传笑话 -->
 		<action name="UploadJokeFileAction" class="UploadJokeFileProxy">

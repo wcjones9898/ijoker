@@ -74,7 +74,8 @@
 										用户管理
 									</h6>
 									<ol>
-										<li><a href="">用户列表</a></li>
+										<li><a href="UserListAction.action">用户列表</a></li>
+										<li><a href="LoadLockedUser.action">已冻结用户</a></li>
 									</ol>
 								</td>
 								<td>&nbsp;</td>
