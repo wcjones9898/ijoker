@@ -73,8 +73,8 @@ public class JokeDivision extends BaseActivity {
 				} else {
 					Intent intent = new Intent();
 					intent.setAction("cn.edu.xmu.software.ijoker.divisionList");
-					intent.putExtra("classId", classItem.getClassId());
-					intent.putExtra("className", classItem.getClassName());
+					intent.putExtra("catalogId", classItem.getClassId());
+					intent.putExtra("catalogName", classItem.getClassName());
 					intent.putExtra("jokeNum", classItem.getJokeNum());
 					intent.setClass(JokeDivision.this, JokeList.class);
 					startActivity(intent);

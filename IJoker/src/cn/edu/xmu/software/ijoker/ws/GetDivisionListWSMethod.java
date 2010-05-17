@@ -44,10 +44,10 @@ public class GetDivisionListWSMethod extends AbstractWSMethod {
 			while (iterator.hasNext()) {
 				SoapObject o = iterator.next();
 				ClassItem classItem = new ClassItem();
-				classItem.setClassId(o.getProperty("classId").toString());
+				classItem.setClassId(o.getProperty("catalogId").toString());
 				classItem.setClassLevel(Integer.parseInt(o.getProperty(
-						"classLevel").toString()));
-				classItem.setClassName(o.getProperty("className").toString());
+						"catalogLevel").toString()));
+				classItem.setClassName(o.getProperty("catalogName").toString());
 				classItem.setId(Integer
 						.parseInt(o.getProperty("id").toString()));
 				classItem.setJokeNum(Integer.parseInt(o.getProperty("jokeNum")
