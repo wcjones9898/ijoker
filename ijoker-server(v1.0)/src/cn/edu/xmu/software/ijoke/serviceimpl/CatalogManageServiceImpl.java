@@ -69,21 +69,22 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 		return false;
 	}
 
-	@Test
-	public void testAddClassItem()
-   {
-		System.out.println(AppFactory.getCatalogManageService().addCatalog("6", "拉拉"));
-	}
-	@Test
-	public void testDeleteClassItem()
-	   {
-		System.out.println(AppFactory.getCatalogManageService().deleteCatalog("7"));
-		}
+//	@Test
+//	public void testAddClassItem()
+//   {
+//		System.out.println(AppFactory.getCatalogManageService().addCatalog("6", "拉拉"));
+//	}
 	@Test
 	public void testUpdateClassItem()
 	   {
 		System.out.println(AppFactory.getCatalogManageService().updateCatalog("6","sadf "));
 		}
+//	@Test
+//	public void testDeleteClassItem()
+//	   {
+//		System.out.println(AppFactory.getCatalogManageService().deleteCatalog("6"));
+//		}
+
 
 	public CatalogDAO getCatalogDAO() {
 		return catalogDAO;

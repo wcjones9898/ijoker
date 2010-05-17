@@ -94,7 +94,7 @@ public class CatalogDAO extends HibernateDaoSupport {
 		
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
-		session.merge(catalog);
+		this.getHibernateTemplate().update(catalog);
 		tx.commit();  
 		session.close();
 	}

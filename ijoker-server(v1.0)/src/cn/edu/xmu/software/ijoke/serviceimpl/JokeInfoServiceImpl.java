@@ -169,15 +169,15 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //	{
 //		 System.out.println(AppFactory.getJokeInfoService().deleteJoke("test"));
 //	}
-	 @Test
-	 public void testUpdateJoke()
-	 {
-		   Joke joke = new Joke();
-		   joke.setId("adfasdkjhf");
-		   joke.setKeyWord( "拉拉");
-		   joke.setTitle("啦啦lasdjflkajs");
-	       System.out.println(AppFactory.getJokeInfoService().updateJoke(joke));
-	 }
+//	 @Test
+//	 public void testUpdateJoke()
+//	 {
+//		   Joke joke = new Joke();
+//		   joke.setId("adfasdkjhf");
+//		   joke.setKeyWord( "拉拉");
+//		   joke.setTitle("啦啦lasdjflkajs");
+//	       System.out.println(AppFactory.getJokeInfoService().updateJoke(joke));
+//	 }
 //	 
 //	 @Test
 //	 public void testDeleteJokeClass()
@@ -196,16 +196,16 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //	 System.out.println(jokesView.get(i).getAuthor());
 //	 }
 //	 }
-//	 @Test
-//	 public void testGetVerifiedJokes()
-//	 {
-//		 
-//	 List<Joke> jokesView =
-//	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
-//	 for(int i=0; i<jokesView.size(); i++)
-//	 {
-//	 System.out.println(jokesView.get(i).getAuthor());
-//	 }
-//	 }
+	 @Test
+	 public void testGetVerifiedJokes()
+	 {
+		 
+	 List<Joke> jokesView =
+	 AppFactory.getJokeInfoService().getVerifiedJokes(1,5);
+	 for(int i=0; i<jokesView.size(); i++)
+	 {
+	 System.out.println(jokesView.get(i).getAuthor());
+	 }
+	 }
 
 }
