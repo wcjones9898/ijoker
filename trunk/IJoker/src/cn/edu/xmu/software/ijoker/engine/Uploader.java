@@ -27,7 +27,6 @@ public class Uploader extends Thread {
 	private String jokeTitle;
 	private String keyword;
 	private String userId;
-	private long lengthinsecond;
 	private static final String TAG = Uploader.class.getName();
 
 	public Uploader(Handler handler) {
@@ -35,12 +34,11 @@ public class Uploader extends Thread {
 	}
 
 	public void doStart(File currentRecord, String jokeTitle, String keyword,
-			String userId, long lengthinsecond) {
+			String userId) {
 		this.jokeTitle = jokeTitle;
 		this.keyword = keyword;
 		this.userId = userId;
 		this.currentRecord = currentRecord;
-		this.lengthinsecond = lengthinsecond;
 		this.start();
 	}
 
@@ -81,14 +79,11 @@ public class Uploader extends Thread {
 				// filePost.releaseConnection();
 				String a = filePost.getResponseBody().toString();
 				Log.i(TAG, "get synchronizationTicket: " + a);
-				NameValuePair[] data = {
-						new NameValuePair("title", jokeTitle),
+				NameValuePair[] data = { new NameValuePair("title", jokeTitle),
 
-						new NameValuePair("userId", userId),
+				new NameValuePair("userId", userId),
 						new NameValuePair("keyWord", keyword),
-						new NameValuePair("synchronizationTicket", a),
-						new NameValuePair("lengthinsecond", Long
-								.toString(lengthinsecond)) };
+						new NameValuePair("synchronizationTicket", a) };
 				fileGet.getParams().setContentCharset("gbk");
 
 				// 填入各个表单域的值

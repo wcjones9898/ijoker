@@ -1,10 +1,18 @@
 package cn.edu.xmu.software.ijoker.UI;
 
+import java.io.File;
+
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import cn.edu.xmu.software.ijoker.R;
+import cn.edu.xmu.software.ijoker.engine.Uploader;
+import cn.edu.xmu.software.ijoker.service.IRecordService;
 import cn.edu.xmu.software.ijoker.service.RecorderService;
 import cn.edu.xmu.software.ijoker.util.Consts;
 
@@ -25,7 +35,8 @@ public class RecorderUI extends BaseActivity {
 	private String userId;
 	private ProgressBar record_progress;
 	private Button listen_btn, record_btn, clear_btn, upload_btn;
-	private RecorderService recorderService;
+	private IRecordService recordService;
+	private Uploader uploader;
 	// private boolean isRecording;
 	// private boolean isPlaying;
 	private ProgressDialog progressDialog;
@@ -41,8 +52,8 @@ public class RecorderUI extends BaseActivity {
 				Toast.makeText(RecorderUI.this, Consts.UPLOAD_SUCCESSFUL,
 						Toast.LENGTH_SHORT).show();
 				upload_btn.setEnabled(false);
-				
-				recorderService.clearRecord();
+
+				// recorderService.clearRecord();
 				clear_btn.setEnabled(false);
 				break;
 			case Consts.ERROR_UPLOAD:
@@ -55,7 +66,7 @@ public class RecorderUI extends BaseActivity {
 				listen_btn.setText("试听");
 				break;
 			case Consts.MSG_RECORD_TIMEUP:
-				recorderService.stopRecord();
+				// recorderService.stopRecord();
 				listen_btn.setEnabled(true);
 				clear_btn.setEnabled(true);
 				record_btn.setEnabled(false);
@@ -73,6 +84,14 @@ public class RecorderUI extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recorder);
 		find();
+		this.bindService(new Intent(RecorderUI.this, RecorderService.class),
+				mConnection, Context.BIND_AUTO_CREATE);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		this.unbindService(mConnection);
 	}
 
 	private void find() {
@@ -90,16 +109,21 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!recorderService.isRecording()) {
-					recorderService.startRecord();
-					record_btn.setText("停止");
-				} else {
-					recorderService.stopRecord();
-					listen_btn.setEnabled(true);
-					clear_btn.setEnabled(true);
-					record_btn.setEnabled(false);
-					upload_btn.setEnabled(true);
-					record_btn.setText("录音");
+				try {
+					if (recordService.getRecorderState() == 1) {
+						recordService.stopRecorder();
+						listen_btn.setEnabled(true);
+						clear_btn.setEnabled(true);
+						record_btn.setEnabled(false);
+						upload_btn.setEnabled(true);
+						record_btn.setText("录音");
+					} else {
+						recordService.startRecorder();
+						record_btn.setText("停止");
+					}
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -107,7 +131,7 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				recorderService.clearRecord();
+				// recorderService.clearRecord();
 				record_btn.setEnabled(true);
 				clear_btn.setEnabled(false);
 				listen_btn.setEnabled(false);
@@ -128,7 +152,16 @@ public class RecorderUI extends BaseActivity {
 					userId = settings.getString(Consts.userId, "");
 					Log.i(TAG, "save data to preferences with userId: "
 							+ userId);
-					recorderService.uploadFile(userId, jokeTitle, keyword);
+					try {
+						uploader = new Uploader(handler);
+						String filePath = recordService.getCurrentRecord();
+						File currentRecord = new File(filePath);
+						uploader.doStart(currentRecord, jokeTitle, keyword,
+								userId);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -136,16 +169,20 @@ public class RecorderUI extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!recorderService.isPlaying()) {
-					recorderService.listenRecord();
-					listen_btn.setText("停止");
-				} else {
-					recorderService.stopListen();
-					listen_btn.setText("试听");
+				try {
+					if (recordService.getPlayerState() == 1) {
+						recordService.stopPlayer();
+						listen_btn.setText("试听");
+					} else {
+						recordService.startPlayer();
+						listen_btn.setText("停止");
+					}
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
-		recorderService = new RecorderService(this, handler, record_progress);
 	}
 
 	private boolean validate() {
@@ -164,4 +201,19 @@ public class RecorderUI extends BaseActivity {
 		}
 		return flag;
 	}
+
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+			recordService = IRecordService.Stub.asInterface((IBinder) arg1);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			recordService = null;
+
+		}
+
+	};
 }
