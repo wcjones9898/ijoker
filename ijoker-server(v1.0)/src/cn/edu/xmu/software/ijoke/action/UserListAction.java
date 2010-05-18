@@ -25,14 +25,13 @@ public class UserListAction extends BaseAction {
 
 	@Override
 	public String execute() throws Exception {
-		
-		userList=userService.getUserWithOutVerify(index_start, index_end);
+		userList=userService.getUserVerified(index_start, index_end);			
 		System.out.println("getUserVerified:"+userList.size());
 		return SUCCESS;
 	}	
 	
 	public String loadLockedUser(){
-		userList=userService.getUserVerified(index_start, index_end);	
+		userList=userService.getUserWithOutVerify(index_start, index_end);	
 		return SUCCESS;
 	}
 	
@@ -43,7 +42,7 @@ public class UserListAction extends BaseAction {
 	
 	public String unlockUser(){	
 		boolean result=userService.unlock(selectedUsername);
-		showOperationMessage(result);
+		//showOperationMessage(result);
 		System.out.println("unlocking user:"+selectedUsername);
 		
 		return SUCCESS;
@@ -51,7 +50,7 @@ public class UserListAction extends BaseAction {
 	
 	public String lockUser(){
 		boolean result=userService.lock(selectedUsername);
-		showOperationMessage(result);
+		//showOperationMessage(result);
 		System.out.println("locking user:"+selectedUsername);		
 		
 		return SUCCESS;

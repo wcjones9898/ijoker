@@ -125,7 +125,7 @@
 		
 		
 		<!-- 上传笑话 -->
-		<action name="UploadJokeFileAction" class="UploadJokeFileProxy">
+		<action name="JokeFileUploadAction" class="JokeFileUploadProxy">
 			<result type="redirectAction">UnverifyListAction</result>
 		</action>
 	</package>

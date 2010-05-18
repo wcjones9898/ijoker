@@ -13,19 +13,19 @@
 		<property name="jokeInfoService" ref="JokeInfoService"/>
 	</bean>
 	
+	<bean id="JokeFileUploadProxy" class="cn.edu.xmu.software.ijoke.action.JokeFileUploadAction">
+		<property name="jokeInfoUploadService" ref="JokeInfoUploadService"/>
+	</bean>
+	
 	<bean id="UserListProxy" class="cn.edu.xmu.software.ijoke.action.UserListAction">
 		<property name="userService" ref="UserService"/>
-	</bean>			
-	
-	
+	</bean>	
 	
 	<bean id="CatalogManageProxy" class="cn.edu.xmu.software.ijoke.action.CatalogManageAction">
 		<property name="catalogManageService" ref="CatalogManageService"/>
 	</bean>
 	
-	<bean id="UploadJokeFileProxy" class="cn.edu.xmu.software.ijoke.action.UploadJokeFileAction">
-		<property name="jokeInfoUploadService" ref="JokeInfoUploadService"/>
-	</bean>
+	
 	
 	
 	

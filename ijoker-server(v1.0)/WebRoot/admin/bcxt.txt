@@ -1,1 +1,0 @@
-name=DESIGN COMPANY &slogan=COMPANY SLOGAN GOES HERE&rep=replay&button1=ABOUT US&button2=CONTACTS&button3=SERVICES&button4=PORTFOLIO&button5=LOGIN&url1=&url2=#&url3=#&url4=#&url5=#&iurl1=#&iurl2=#&iurl3=#&iurl4=#&enddata=1

@@ -47,8 +47,8 @@
 							<s:param name="selectedJokeId" value="Id"></s:param>
 						</s:url>						
 
-						<s:a href="%{load}" cssClass="bb">[修改]</s:a>						
-						<s:a href="%{delete}" cssClass="bb">[删除]</s:a>
+						<s:a href="%{load}">[修改]</s:a>						
+						<s:a href="%{delete}">[删除]</s:a>
 
 					</td>
 				</tr>

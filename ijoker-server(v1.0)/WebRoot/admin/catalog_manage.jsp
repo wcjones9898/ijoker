@@ -46,8 +46,8 @@
 						<s:url action="DeleteCatalog" id="delete">
 							<s:param name="selectedCatalogId" value="catalogId"></s:param>
 						</s:url>
-						<s:a href="%{modify}" cssClass="bb">[修改]</s:a>											
-						<s:a href="%{delete}" cssClass="bb">[删除]</s:a>
+						<s:a href="%{modify}">[修改]</s:a>											
+						<s:a href="%{delete}">[删除]</s:a>
 					</td>
 				</tr>
 			</s:iterator>
