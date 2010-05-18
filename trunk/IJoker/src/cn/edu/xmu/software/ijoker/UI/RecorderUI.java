@@ -114,7 +114,7 @@ public class RecorderUI extends BaseActivity {
 						recordService.stopRecorder();
 						listen_btn.setEnabled(true);
 						clear_btn.setEnabled(true);
-						record_btn.setEnabled(false);
+//						record_btn.setEnabled(false);
 						upload_btn.setEnabled(true);
 						record_btn.setText("录音");
 					} else {
