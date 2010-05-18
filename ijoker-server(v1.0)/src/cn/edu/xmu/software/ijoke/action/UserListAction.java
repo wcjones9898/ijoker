@@ -13,7 +13,7 @@ import cn.edu.xmu.software.ijoke.view.Joke;
 public class UserListAction extends BaseAction {
 	private UserService userService;
 	private List<User> userList;
-	private String selectedUserId;
+	private String selectedUsername;
 	private int selectedUserIndex;
 	private User selectedUser;
 	private int index_start,index_end;
@@ -42,14 +42,17 @@ public class UserListAction extends BaseAction {
 	}
 	
 	public String unlockUser(){	
-		
-		System.out.println("unlocking user:"+selectedUser.getUserName());
+		boolean result=userService.unlock(selectedUsername);
+		showOperationMessage(result);
+		System.out.println("unlocking user:"+selectedUsername);
 		
 		return SUCCESS;
 	}
 	
 	public String lockUser(){
-		System.out.println("locking user:"+selectedUser.getUserName());		
+		boolean result=userService.lock(selectedUsername);
+		showOperationMessage(result);
+		System.out.println("locking user:"+selectedUsername);		
 		
 		return SUCCESS;
 	}
@@ -105,12 +108,12 @@ public class UserListAction extends BaseAction {
 		this.userList = userList;
 	}
 
-	public String getSelectedUserId() {
-		return selectedUserId;
+	public String getSelectedUsername() {
+		return selectedUsername;
 	}
 
-	public void setSelectedUserId(String selectedUserId) {
-		this.selectedUserId = selectedUserId;
+	public void setSelectedUsername(String selectedUsername) {
+		this.selectedUsername = selectedUsername;
 	}
 
 	public int getSelectedUserIndex() {

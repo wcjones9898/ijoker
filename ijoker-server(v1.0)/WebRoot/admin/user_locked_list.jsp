@@ -32,11 +32,11 @@
 							<s:param name="selectedUserIndex" value="#st.Index"></s:param>
 						</s:url>
 						<s:url action="UnlockUser" id="unlock">
-							<s:param name="selectedUserId" value="Id"></s:param>
+							<s:param name="selectedUsername" value="userName"></s:param>
 						</s:url>						
 
-						<s:a href="%{load}" cssClass="bb">[查看]</s:a>						
-						<s:a href="%{unlock}" cssClass="bb">[解冻]</s:a>
+						<s:a href="%{load}">[查看]</s:a>						
+						<s:a href="%{unlock}">[解冻]</s:a>
 
 					</td>
 				</tr>

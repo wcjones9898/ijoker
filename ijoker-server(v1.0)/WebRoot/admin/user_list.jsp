@@ -32,7 +32,7 @@
 							<s:param name="selectedUserIndex" value="#st.Index"></s:param>
 						</s:url>
 						<s:url action="LockUser" id="lock">
-							<s:param name="selectedUserId" value="Id"></s:param>
+							<s:param name="selectedUsername" value="userName"></s:param>
 						</s:url>						
 
 						<s:a href="%{load}">[查看]</s:a>						
