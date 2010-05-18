@@ -87,6 +87,10 @@ public class UserServiceImpl implements UserService{
 		AppFactory.getUserService().lock("adf");
 	}
 
-
+//	@Test
+//	public void testUserUnlock()
+//	{
+//		AppFactory.getUserService().unlock("adf");
+//	}
 
 }

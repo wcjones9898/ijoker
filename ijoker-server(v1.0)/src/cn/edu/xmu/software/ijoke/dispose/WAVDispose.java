@@ -31,10 +31,7 @@ public class WAVDispose {
     {
     	return size/AvgBytesPerSec;
     }
-    static void init()
-    {
-    	
-    }
+
 
     static int bytes4ToInt(byte[] b) throws IOException
     {
