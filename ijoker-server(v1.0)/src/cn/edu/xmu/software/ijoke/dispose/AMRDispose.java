@@ -32,7 +32,7 @@ public class AMRDispose {
     @Test
     public void testGetFileResults() throws IOException
     {
-    	int[] results = getFileResults("d:/record6.amr");
+    	int[] results = getFileResults("d:/record1.amr");
     	System.out.println(results[0]);
     	System.out.println(results[1]);
     }

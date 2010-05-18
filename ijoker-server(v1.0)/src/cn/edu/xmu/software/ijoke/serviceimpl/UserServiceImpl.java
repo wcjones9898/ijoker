@@ -62,35 +62,35 @@ public class UserServiceImpl implements UserService{
 		}
 		return false;
 	}
-//	@Test
-//	public void testUserWithOutVerify()
-//	{
-//		List<User> userList = AppFactory.getUserService().getUserWithOutVerify(0,5);
-//		for(int i=0; i<userList.size(); i++)
-//			System.out.println(userList.get(i).getNickName());
-//	}
-//	@Test
-//	public void testUserVerified()
-//	{
-//		List<User> userList = AppFactory.getUserService().getUserVerified(0,5);
-//		for(int i=0; i<userList.size(); i++)
-//			System.out.println(userList.get(i).getNickName());
-//	}
+	@Test
+	public void testUserWithOutVerify()
+	{
+		List<User> userList = AppFactory.getUserService().getUserWithOutVerify(0,5);
+		for(int i=0; i<userList.size(); i++)
+			System.out.println(userList.get(i).getNickName());
+	}
+	@Test
+	public void testUserVerified()
+	{
+		List<User> userList = AppFactory.getUserService().getUserVerified(0,5);
+		for(int i=0; i<userList.size(); i++)
+			System.out.println(userList.get(i).getNickName());
+	}
 //	@Test
 //	public void testVerify()
 //	{
 //		System.out.println(AppFactory.getUserService().verify("20100512205839088", 1));
 //	}
-	@Test
-	public void testUserLock()
-	{
-		AppFactory.getUserService().lock("adf");
-	}
-
 //	@Test
-//	public void testUserUnlock()
+//	public void testUserLock()
 //	{
-//		AppFactory.getUserService().unlock("adf");
+//		AppFactory.getUserService().lock("adf");
 //	}
+
+	@Test
+	public void testUserUnlock()
+	{
+		AppFactory.getUserService().unlock("adf");
+	}
 
 }
