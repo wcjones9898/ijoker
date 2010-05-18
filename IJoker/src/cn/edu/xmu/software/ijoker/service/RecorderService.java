@@ -19,7 +19,7 @@ public class RecorderService extends Service {
 	public final String TAG = RecorderService.class.getName();
 	private File currentRecord;
 	private MediaRecorder mRecorder = null;
-	private MediaPlayer mediaPlayer = new MediaPlayer();
+	private MediaPlayer mediaPlayer = null;
 	private int recorderState = 0;
 	private int playerState = 0;
 
@@ -30,10 +30,18 @@ public class RecorderService extends Service {
 
 	@Override
 	public void onDestroy() {
-		mediaPlayer.stop();
-		mediaPlayer.release();
-		mRecorder.stop();
-		mRecorder.release();
+		if (mediaPlayer != null) {
+			if (mediaPlayer.isPlaying())
+				mediaPlayer.stop();
+			mediaPlayer.reset();
+			mediaPlayer.release();
+			mediaPlayer = null;
+		}
+		if (mRecorder != null) {
+			mRecorder.stop();
+			mRecorder.reset();
+			mRecorder.release();
+		}
 		if (currentRecord != null)
 			currentRecord.delete();
 		super.onDestroy();
@@ -43,7 +51,6 @@ public class RecorderService extends Service {
 
 		@Override
 		public String getCurrentRecord() throws RemoteException {
-			// TODO Auto-generated method stub
 			if (currentRecord != null)
 				return currentRecord.getAbsolutePath();
 			return null;
@@ -51,13 +58,11 @@ public class RecorderService extends Service {
 
 		@Override
 		public int getPlayerState() throws RemoteException {
-			// TODO Auto-generated method stub
 			return playerState;
 		}
 
 		@Override
 		public int getRecorderState() throws RemoteException {
-			// TODO Auto-generated method stub
 			return recorderState;
 		}
 
@@ -65,18 +70,11 @@ public class RecorderService extends Service {
 		public void startPlayer() throws RemoteException {
 			if (playerState == 3 || playerState == 0) {
 				FileInputStream fis;
+				if (mediaPlayer == null)
+					mediaPlayer = new MediaPlayer();
 				try {
 					fis = new FileInputStream(currentRecord);
 					mediaPlayer.setDataSource(fis.getFD());
-					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-
-						@Override
-						public void onPrepared(MediaPlayer mp) {
-							playerState = 1;
-							mediaPlayer.start();
-						}
-
-					});
 					mediaPlayer.prepare();
 				} catch (FileNotFoundException e) {
 					Log.e(TAG, e.getMessage(), e);
@@ -89,6 +87,8 @@ public class RecorderService extends Service {
 				} catch (Exception e) {
 					Log.e(TAG, e.getMessage(), e);
 				}
+				playerState = 1;
+				mediaPlayer.start();
 			} else if (playerState == 1)
 				return;
 		}
@@ -96,12 +96,8 @@ public class RecorderService extends Service {
 		@Override
 		public void startRecorder() throws RemoteException {
 			if (recorderState == 3 || recorderState == 0) {
-				if (mRecorder != null) {
-					mRecorder.stop();
-					mRecorder.release();
-					mRecorder = null;
-				}
-				mRecorder = new MediaRecorder();
+				if (mRecorder == null)
+					mRecorder = new MediaRecorder();
 				if (mRecorder != null) {
 					mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 					mRecorder
@@ -109,7 +105,6 @@ public class RecorderService extends Service {
 					mRecorder
 							.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 				}
-				// mRecorder.reset();
 				try {
 					if (currentRecord != null)
 						currentRecord.delete();
@@ -123,10 +118,8 @@ public class RecorderService extends Service {
 				try {
 					mRecorder.prepare();
 				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				recorderState = 1;
@@ -139,23 +132,19 @@ public class RecorderService extends Service {
 		public void stopPlayer() throws RemoteException {
 			if (!mediaPlayer.isPlaying())
 				return;
-			playerState = 3;
 			mediaPlayer.stop();
+			playerState = 3;
+			mediaPlayer.reset();
 		}
 
 		@Override
 		public void stopRecorder() throws RemoteException {
-			recorderState = 3;
 			mRecorder.stop();
+			recorderState = 3;
+			mRecorder.reset();
 		}
 
 	};
-
-	// public void uploadFile(String userId, String jokeTitle, String keyword) {
-	// uploader = new Uploader(handler);
-	// uploader.doStart(currentRecord, jokeTitle, keyword, userId,
-	// lengthinsecond);
-	// }
 
 	// public void startRecordProgressUpdater() {
 	// ++lengthinsecond;
