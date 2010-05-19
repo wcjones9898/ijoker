@@ -157,4 +157,10 @@
 			<ref bean="IjokerAdminDAO" />
 		</property>
 	</bean>
+		<bean id="VerifyService" class="cn.edu.xmu.software.ijoke.serviceimpl.VerifyServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+				<property name="jokeDAOServer">
+			<ref bean="JokeDAO" />
+		</property>
+	</bean>
 </beans>

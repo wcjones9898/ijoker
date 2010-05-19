@@ -4,17 +4,18 @@ import org.junit.Test;
 
 import cn.edu.xmu.software.ijoke.dao.JokeDAO;
 import cn.edu.xmu.software.ijoke.entity.Joke;
+import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.service.VerifyService;
-import cn.edu.xmu.software.ijoke.utils.Consts;
 public class VerifyServiceImpl implements VerifyService{
-
-	private JokeDAO jokeDAO = new JokeDAO();
+    private JokeDAO jokeDAOServer;
+	
 	public boolean verify(String jokeId) {
 		// TODO Auto-generated method stub
 		try{
-		Joke joke = jokeDAO.findByJokeId(jokeId);
+		Joke joke = jokeDAOServer.findByJokeId(jokeId);
 		joke.setStatus("1");
-		jokeDAO.updateJoke(joke);
+		System.out.println(joke.getJokeId());
+		jokeDAOServer.updateJoke(joke);
 		return true;
 		}catch(Exception e)
 		{
@@ -23,9 +24,17 @@ public class VerifyServiceImpl implements VerifyService{
 		}
 	}
 
+	public JokeDAO getJokeDAOServer() {
+		return jokeDAOServer;
+	}
+
+	public void setJokeDAOServer(JokeDAO jokeDAOServer) {
+		this.jokeDAOServer = jokeDAOServer;
+	}
+
 	@Test
 	public void testVerify()
 	{
-		verify("1");
+		AppFactory.getVerifyService().verify("20100518011631055");
 	}
 }

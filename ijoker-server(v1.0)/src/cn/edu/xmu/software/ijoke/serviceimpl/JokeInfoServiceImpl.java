@@ -123,7 +123,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 
 			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null) {
 				classAndJokeFileDAO.addClassAndJoke(classId, jokeId);
-
+                verify(jokeId);
 				return true;
 			}
 			else
@@ -143,7 +143,21 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		System.out.print(begin+"   "+pageSize);
 		return this.entityToView(jokeDAO.findByStatus("1", begin, pageSize));
 	}
-	
+	public boolean verify(String jokeId) {
+		// TODO Auto-generated method stub
+		try{
+		cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO.findByJokeId(jokeId);
+		joke.setStatus("1");
+		
+		System.out.println("审核笑话"+joke.getJokeId());
+		jokeDAO.updateJoke(joke);
+		return true;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public boolean deleteJoke(String jokeId)
 	{
 		try{

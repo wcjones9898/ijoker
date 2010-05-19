@@ -13,6 +13,7 @@ import cn.edu.xmu.software.ijoke.service.SearchByJokeIdService;
 import cn.edu.xmu.software.ijoke.service.SearchService;
 import cn.edu.xmu.software.ijoke.service.UploadJokeFileService;
 import cn.edu.xmu.software.ijoke.service.UserService;
+import cn.edu.xmu.software.ijoke.service.VerifyService;
 
 public class AppFactory {
 	public static ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -51,6 +52,10 @@ public class AppFactory {
 	public static JokeInfoUploadService getJokeInfoUploadService()
 	{
 		return (JokeInfoUploadService) app.getBean("JokeInfoUploadService");
+	}
+	public static VerifyService getVerifyService()
+	{
+		return (VerifyService) app.getBean("VerifyService");
 	}
 	@Test
 	public void testUploadJokeFileService()
