@@ -8,7 +8,7 @@
 	<body>
 		<div align="center">
 
-			<s:form action="UploadJokeFileAction" method="POST"
+			<s:form action="JokeFileUploadAction" method="POST"
 				enctype="multipart/form-data">
 				<table class="eTable">
 					<tbody id="tab">
