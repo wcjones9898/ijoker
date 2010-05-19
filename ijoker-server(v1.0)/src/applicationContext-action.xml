@@ -7,10 +7,11 @@
 
 	<bean id="UnverifyListProxy" class="cn.edu.xmu.software.ijoke.action.UnverifyListAction">
 		<property name="jokeInfoService" ref="JokeInfoService"/>
+		<property name="catalogManageService" ref="CatalogManageService"/>
 	</bean>	
 	
 	<bean id="JokeListProxy" class="cn.edu.xmu.software.ijoke.action.JokeListAction">
-		<property name="jokeInfoService" ref="JokeInfoService"/>
+		<property name="jokeInfoService" ref="JokeInfoService"/>		
 	</bean>
 	
 	<bean id="JokeFileUploadProxy" class="cn.edu.xmu.software.ijoke.action.JokeFileUploadAction">

@@ -1,7 +1,10 @@
 package cn.edu.xmu.software.ijoke.action;
 
 import java.util.List;
+import java.util.Map;
 
+import cn.edu.xmu.software.ijoke.entity.Catalog;
+import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.Messages;
@@ -10,11 +13,14 @@ import cn.edu.xmu.software.ijoke.view.Joke;
 @SuppressWarnings("serial")
 public class UnverifyListAction extends BaseAction {
 	private JokeInfoService jokeInfoService;
+	private CatalogManageService catalogManageService;
 	private List<Joke> unverifyList;
 	private String selectedJokeId;
 	private int selectedJokeIndex;
 	private Joke selectedJoke;
 	private int index_start,index_end;
+	private List<Catalog> catalogList;
+	private String selectedCatalogId;
 	
 	public UnverifyListAction(){
 		index_start=0;
@@ -29,6 +35,11 @@ public class UnverifyListAction extends BaseAction {
 		
 	public String loadJokeForVerify(){
 		selectedJoke=unverifyList.get(selectedJokeIndex);
+		catalogList=catalogManageService.getCatalogList(0, Consts.ONEPAGE_ITEM_NUM);
+		System.out.println("Catalog num:"+catalogList.size());
+//		for (Catalog catalog:catalogs){
+//			catalogList.put(catalog.getCatalogId(),catalog.getCatalogName());
+//		}	
 		return SUCCESS;
 	}		
 	
@@ -41,6 +52,8 @@ public class UnverifyListAction extends BaseAction {
 	public String verifyJoke(){	
 		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
 		jokeInfoService.updateJoke(selectedJoke);
+		System.out.println("addJokeToCatalog:"+selectedJoke.getId()+"->"+selectedCatalogId);
+		jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedCatalogId);
 		return SUCCESS;
 	}
 	
@@ -78,6 +91,30 @@ public class UnverifyListAction extends BaseAction {
 	
 	
 	
+	public CatalogManageService getCatalogManageService() {
+		return catalogManageService;
+	}
+
+	public void setCatalogManageService(CatalogManageService catalogManageService) {
+		this.catalogManageService = catalogManageService;
+	}	
+
+	public List<Catalog> getCatalogList() {
+		return catalogList;
+	}
+
+	public void setCatalogList(List<Catalog> catalogList) {
+		this.catalogList = catalogList;
+	}
+
+	public String getSelectedCatalogId() {
+		return selectedCatalogId;
+	}
+
+	public void setSelectedCatalogId(String selectedCatalogId) {
+		this.selectedCatalogId = selectedCatalogId;
+	}
+
 	public JokeInfoService getJokeInfoService() {
 		return jokeInfoService;
 	}
