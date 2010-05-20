@@ -35,11 +35,20 @@
 		</activity>
 		<activity android:name=".UI.About"
 			android:screenOrientation="portrait" />
-		<!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14be0d9f170a4e"
-			android:name="ADMOB_PUBLISHER_ID" />
+			
+		<activity android:name=".UI.CartoonGallery"                
+                android:theme="@android:style/Theme.Dialog">
+       
+        </activity>
+	
+		
 		<service android:name=".service.RecorderService"
 			android:process=":remote" />
+			
+			<meta-data android:value="a14be0d9f170a4e"
+			android:name="ADMOB_PUBLISHER_ID" />
+			
+			
 	</application>
 	<uses-sdk android:minSdkVersion="3" />
 

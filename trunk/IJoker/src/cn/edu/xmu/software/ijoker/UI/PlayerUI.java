@@ -133,6 +133,9 @@ public class PlayerUI extends BaseActivity {
 		public void onClick(View v) {
 			Toast.makeText(PlayerUI.this, "enjoy it and have a good time!",
 					Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent();
+			intent.setClass(PlayerUI.this, CartoonGallery.class);
+			startActivity(intent);
 		}
 	};
 
