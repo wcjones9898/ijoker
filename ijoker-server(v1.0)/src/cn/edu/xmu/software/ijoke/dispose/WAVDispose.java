@@ -40,7 +40,7 @@ public class WAVDispose {
         int size = 0;
         for ( int i =0; i<4 ; i++) {
             bLoop = b[i];
-            size+= (bLoop & 0xFF) << (8 * i);
+            size+= (bLoop & 0xFF) <<i*8;
           
         }
     	

@@ -12,8 +12,10 @@ import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
 import cn.edu.xmu.software.ijoke.entity.JokeFile;
 import cn.edu.xmu.software.ijoke.view.Joke;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
+import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
+
 public class JokeInfoServiceImpl implements JokeInfoService {
 
 	private JokeDAO jokeDAO;
@@ -64,9 +66,10 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			if(jokeFile!=null)
 			{
 			    String location = jokeFile.getFilePath();
-			    jokeView.setLocation(location);
+			    jokeView.setLocation(Consts.jokeMediaServerPath+location+jokeFile.getFileName()+jokeFile.getFileExtension());
 			    jokeView.setKeyWord(j.getDescription());
 			    jokesView.add(jokeView);
+			    System.out.println(jokeView.getLocation());
 			}
 		}
 

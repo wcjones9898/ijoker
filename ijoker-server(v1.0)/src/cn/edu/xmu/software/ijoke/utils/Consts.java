@@ -15,7 +15,7 @@ public class Consts {
 	public final static String jokeUploadRootPath="D:/jokes/";
 	public final static String jokeUploadTempPath="D:/jokes/temp/";
 
-	
+	public final static String jokeMediaServerPath = "http://59.77.5.42:80";
 	public final static String NO_USER ="user not exists";
 	public final static String REGISTER_USER_EXISTS ="userName has already existed";
 	public final static String REGISTER_FAIL = "sorry register fail";
