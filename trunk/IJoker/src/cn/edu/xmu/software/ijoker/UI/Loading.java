@@ -31,9 +31,7 @@ public class Loading extends BaseActivity {
 					Log.i(TAG, "login success! now step into functions UI");
 					callFunctionsUI(msg.getData().getString("userId"));
 				} else {
-					Log
-							.i(TAG,
-									"can not login,check the imformation and login again!");
+					Log.i(TAG,"can not login,check the imformation and login again!");
 					callLoginUI(msg.arg2);
 				}
 				break;
@@ -42,7 +40,6 @@ public class Loading extends BaseActivity {
 			default:
 			}
 		}
-
 	};
 
 	@Override

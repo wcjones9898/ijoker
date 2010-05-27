@@ -32,7 +32,7 @@ public class Consts {
 	public static final String ERROR_CANTNOT_PLAY = "cant not play this joke,try others!";
 	public static final String ERROR_TIMEUP = "record time limited to 5 minites!";
 	public static final String MEDIA_CENTER_BASE_URL = "http://59.77.5.42:80";
-	public static String SERVER_IP = "192.168.1.103";
+	public static String SERVER_IP = "59.77.5.42";
 	public static String SERVICE_BASE_URL = "http://" + SERVER_IP
 			+ ":8080/ijoker-server/services/";
 	public static String SERVER_UPLOAD_URL = "http://" + SERVER_IP
