@@ -2,15 +2,15 @@ package cn.edu.xmu.software.ijoke.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.hibernate.Session;
+
 import cn.edu.xmu.software.ijoke.entity.Catalog;
-import cn.edu.xmu.software.ijoke.entity.Joke;
 import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
 
 /**

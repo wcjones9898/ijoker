@@ -1,0 +1,113 @@
+package cn.edu.xmu.software.ijoke.serviceimpl;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Transaction;
+import org.junit.Test;
+
+import cn.edu.xmu.software.ijoke.dao.CartoonDAO;
+import cn.edu.xmu.software.ijoke.dao.CartoonFileDAO;
+import cn.edu.xmu.software.ijoke.entity.Cartoon;
+import cn.edu.xmu.software.ijoke.entity.CartoonFile;
+import cn.edu.xmu.software.ijoke.factory.IdFactroy;
+import cn.edu.xmu.software.ijoke.factory.AppFactory;
+import cn.edu.xmu.software.ijoke.service.CartoonInfoService;
+
+public class CartoonInfoServiceImpl implements CartoonInfoService{
+
+	private CartoonDAO cartoonDAO;
+	private CartoonFileDAO cartoonFileDAO;
+	
+	public CartoonDAO getCartoonDAO() {
+		return cartoonDAO;
+	}
+
+	public void setCartoonDAO(CartoonDAO cartoonDAO) {
+		this.cartoonDAO = cartoonDAO;
+	}
+
+	public CartoonFileDAO getCartoonFileDAO() {
+		return cartoonFileDAO;
+	}
+
+	public void setCartoonFileDAO(CartoonFileDAO cartoonFileDAO) {
+		this.cartoonFileDAO = cartoonFileDAO;
+	}
+
+	public boolean uploadCartoonFiles(List<File> fileList, String userId,String cartoonTitle) {
+		// TODO Auto-generated method stub
+		File tempFile = null;
+		try{
+		for(int i=0;i<fileList.size();i++)
+		{
+			String fileId = IdFactroy.createId();
+			tempFile = fileList.get(i);
+			CartoonFile cartoonFile = new CartoonFile();
+			cartoonFile.setFileExtension(tempFile.getName().substring(tempFile.getName().indexOf(".")));
+		    cartoonFile.setFileName(fileId);
+		    cartoonFile.setFileId(fileId);
+		    
+		    Cartoon cartoon = new Cartoon();
+		    cartoon.setAuthorName("");
+		    cartoon.setCartoonId(fileId);
+		    cartoon.setFileId(fileId);
+		    cartoon.setCartoonTitle(cartoonTitle);
+		    cartoon.setUploaderId(userId);
+		    SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
+		    cartoon.setUploadTime(formatter.format(new Date()));
+		    cartoon.setStatus(0);
+		    cartoonFileDAO.save(cartoonFile);
+		    cartoonDAO.save(cartoon);
+		
+		}
+		
+		return true;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public List<Cartoon> getVerifiedCartoonList(int begin, int pageSize) {
+		// TODO Auto-generated method stub
+		return cartoonDAO.findByStatus(1, begin, pageSize);
+	}
+
+	public List<Cartoon> getWithoutVerifiedCartoonList(int begin, int pageSize) {
+		// TODO Auto-generated method stub
+		return cartoonDAO.findByStatus(0, begin, pageSize);
+	}
+
+	@Test 
+	public void testUploadCartoonFiles()
+	{
+		ArrayList<File> fileList = new ArrayList();
+		File file1 = new File("D:/1.jpg");
+		File file2 = new File("D:/2.jpg");
+		fileList.add(file1);
+		fileList.add(file2);
+		
+		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"1","风景"));
+		
+	}
+	@Test
+	public void testGetCartoonList()
+	{
+		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getVerifiedCartoonList(0, 5);
+		for(int i=0; i<fileList.size(); i++)
+		System.out.println(fileList.get(i).getAuthorName());
+	}
+
+	@Test
+	public void testGetWithoutVerifiedCartoonList()
+	{
+		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getWithoutVerifiedCartoonList(0, 5);
+		for(int i=0; i<fileList.size(); i++)
+		System.out.println(fileList.get(i).getCartoonId());
+	}
+}

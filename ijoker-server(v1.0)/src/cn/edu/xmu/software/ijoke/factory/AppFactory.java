@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.edu.xmu.software.ijoke.service.AdminLoginService;
+import cn.edu.xmu.software.ijoke.service.CartoonInfoService;
 import cn.edu.xmu.software.ijoke.service.CatalogService;
 import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
@@ -56,6 +57,10 @@ public class AppFactory {
 	public static VerifyService getVerifyService()
 	{
 		return (VerifyService) app.getBean("VerifyService");
+	}
+	public static CartoonInfoService getCartoonInfoService()
+	{
+		return (CartoonInfoService) app.getBean("CartoonInfoService");
 	}
 	@Test
 	public void testUploadJokeFileService()

@@ -23,8 +23,20 @@
 			<generator class="increment"></generator>
 		</primary-key>
 	</table>
-<table name="jl_admin" catalog="ijokerdata"
-	class="cn.edu.xmu.software.ijoke.entity.IjokerAdmin">
+	<table name="jl_admin" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.IjokerAdmin">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+	<table name="jl_cartoon" catalog="ijokerdata"
+		class="cn.edu.xmu.software.ijoke.entity.Cartoon">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+<table name="jl_cartoonfile" catalog="ijokerdata"
+	class="cn.edu.xmu.software.ijoke.entity.CartoonFile">
 	<primary-key>
 		<generator class="increment"></generator>
 	</primary-key>

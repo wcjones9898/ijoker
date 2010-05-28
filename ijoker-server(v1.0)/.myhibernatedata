@@ -1,5 +1,5 @@
 #
-#Sat May 15 11:07:09 CST 2010
+#Fri May 28 12:39:16 CST 2010
 genBasicCompId=true
 sessionFactoryName=cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory
 profile=

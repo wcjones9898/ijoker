@@ -43,6 +43,12 @@
 				<value>
 					cn/edu/xmu/software/ijoke/entity/IjokerAdmin.hbm.xml
 				</value>
+				<value>
+					cn/edu/xmu/software/ijoke/entity/Cartoon.hbm.xml
+				</value>
+				<value>
+					cn/edu/xmu/software/ijoke/entity/CartoonFile.hbm.xml
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -75,12 +81,21 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="CatalogDAO" class="cn.edu.xmu.software.ijoke.dao.CatalogDAO">
+	<bean id="CartoonDAO" class="cn.edu.xmu.software.ijoke.dao.CartoonDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	
+		<bean id="CartoonFileDAO" class="cn.edu.xmu.software.ijoke.dao.CartoonFileDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+		<bean id="CatalogDAO" class="cn.edu.xmu.software.ijoke.dao.CatalogDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<bean id="UserDAO" class="cn.edu.xmu.software.ijoke.dao.UserDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -161,6 +176,15 @@
 		lazy-init="default" autowire="default" dependency-check="default">
 				<property name="jokeDAOServer">
 			<ref bean="JokeDAO" />
+		</property>
+	</bean>
+<bean id="CartoonInfoService" class="cn.edu.xmu.software.ijoke.serviceimpl.CartoonInfoServiceImpl"
+		lazy-init="default" autowire="default" dependency-check="default">
+	    <property name="cartoonDAO">
+			<ref bean="CartoonDAO" />
+		</property>
+		<property name="cartoonFileDAO">
+			<ref bean="CartoonFileDAO" />
 		</property>
 	</bean>
 </beans>

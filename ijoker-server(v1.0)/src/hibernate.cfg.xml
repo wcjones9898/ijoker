@@ -32,6 +32,10 @@
 		resource="cn/edu/xmu/software/ijoke/entity/Catalog.hbm.xml" />
 	<mapping
 		resource="cn/edu/xmu/software/ijoke/entity/IjokerAdmin.hbm.xml" />
+	<mapping
+		resource="cn/edu/xmu/software/ijoke/entity/Cartoon.hbm.xml" />
+	<mapping
+		resource="cn/edu/xmu/software/ijoke/entity/CartoonFile.hbm.xml" />
 
 </session-factory>
 
