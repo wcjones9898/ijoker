@@ -188,4 +188,18 @@ public class CartoonDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+	public void update(Cartoon cartoon) {
+		
+		try {
+
+			Transaction tx=getSession().beginTransaction();
+			getHibernateTemplate().update(cartoon);
+			tx.commit();  
+
+			
+		} catch (RuntimeException re) {
+			
+			throw re;
+		}
+	}
 }

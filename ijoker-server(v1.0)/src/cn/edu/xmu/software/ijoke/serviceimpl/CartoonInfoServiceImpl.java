@@ -82,32 +82,61 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		// TODO Auto-generated method stub
 		return cartoonDAO.findByStatus(0, begin, pageSize);
 	}
-
-	@Test 
-	public void testUploadCartoonFiles()
-	{
-		ArrayList<File> fileList = new ArrayList();
-		File file1 = new File("D:/1.jpg");
-		File file2 = new File("D:/2.jpg");
-		fileList.add(file1);
-		fileList.add(file2);
-		
-		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"1","风景"));
-		
-	}
-	@Test
-	public void testGetCartoonList()
-	{
-		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getVerifiedCartoonList(0, 5);
-		for(int i=0; i<fileList.size(); i++)
-		System.out.println(fileList.get(i).getAuthorName());
+	public boolean updateCartoon(Cartoon cartoon) {
+		// TODO Auto-generated method stub
+		try{
+		cartoonDAO.save(cartoon);
+		return true;
+		}catch(Exception e)
+		{
+			return false;
+		}
 	}
 
-	@Test
-	public void testGetWithoutVerifiedCartoonList()
-	{
-		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getWithoutVerifiedCartoonList(0, 5);
-		for(int i=0; i<fileList.size(); i++)
-		System.out.println(fileList.get(i).getCartoonId());
+	public boolean verify(String cartoonId) {
+		// TODO Auto-generated method stub\
+		try{
+		Cartoon cartoon = (Cartoon) cartoonDAO.findByCartoonId(cartoonId).get(0);
+		cartoon.setStatus(1);
+		cartoonDAO.update(cartoon);
+		return true;
+		}catch(Exception e) 
+		{
+			return false;
+		}
 	}
+	@Test
+	public void testVerify()
+	{
+		System.out.println(AppFactory.getCartoonInfoService().verify("20100528132405631"));
+	}
+//	@Test 
+//	public void testUploadCartoonFiles()
+//	{
+//		ArrayList<File> fileList = new ArrayList();
+//		File file1 = new File("D:/1.jpg");
+//		File file2 = new File("D:/2.jpg");
+//		fileList.add(file1);
+//		fileList.add(file2);
+//		
+//		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"1","风景"));
+//		
+//	}
+//	@Test
+//	public void testGetCartoonList()
+//	{
+//		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getVerifiedCartoonList(0, 5);
+//		for(int i=0; i<fileList.size(); i++)
+//		System.out.println(fileList.get(i).getAuthorName());
+//	}
+//
+//	@Test
+//	public void testGetWithoutVerifiedCartoonList()
+//	{
+//		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getWithoutVerifiedCartoonList(0, 5);
+//		for(int i=0; i<fileList.size(); i++)
+//		System.out.println(fileList.get(i).getCartoonId());
+//	}
+
+
 }
