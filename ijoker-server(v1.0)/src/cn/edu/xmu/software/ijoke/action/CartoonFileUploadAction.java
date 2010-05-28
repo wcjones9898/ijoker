@@ -2,28 +2,33 @@ package cn.edu.xmu.software.ijoke.action;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.apache.struts2.ServletActionContext;
-
+import java.util.List;
 import cn.edu.xmu.software.ijoke.service.JokeInfoUploadService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.FileUtil;
+@SuppressWarnings("serial")
 public class CartoonFileUploadAction extends BaseAction {
 	
-	private File cartoonFile;	
-	private String cartoonFileContentType;//获取上传文件的类型，注意上传类型变量命名方式
-	private String cartoonFileFileName;//获取上传文件的名称
+	private List<File> cartoon;	
+	private List<String> cartoonContentType;//获取上传文件的类型，注意上传类型变量命名方式
+	private List<String> cartoonFileName;//获取上传文件的名称
 	private String fileSavePath;
 	//设置上传文件的保存路径，利用struts2框架的设置注入。在struts.xml文件配置<param name = "fileSavePath"/>关键字
 	private String title,keyword,username;
 	private JokeInfoUploadService jokeInfoUploadService;
-	
+		
 	public CartoonFileUploadAction(){
 		fileSavePath= Consts.jokeUploadTempPath;	
 	}
-	
 	public String execute() throws IOException
 	{
+		System.out.println(cartoon.size());
+		for (int i=0;i<=cartoon.size()-1;i++){
+			File tempFile = new File(fileSavePath + cartoonFileName.get(i));
+	        FileUtil.copy(cartoon.get(i), tempFile);
+			System.out.println(tempFile.getAbsolutePath());
+		}
+		
 		/*username=(String)this.getSession().get("username");		
         File tempFile = new File(fileSavePath + cartoonFileFileName);
         FileUtil.copy(cartoonFile, tempFile);
@@ -32,9 +37,6 @@ public class CartoonFileUploadAction extends BaseAction {
 		System.out.println(username+" "+tempFile.getAbsolutePath());*/
 		return SUCCESS;
 	}
-
-	
-	
 	
 
 	
@@ -45,30 +47,32 @@ public class CartoonFileUploadAction extends BaseAction {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}		
+	}	
 
-	public File getCartoonFile() {
-		return cartoonFile;
+	
+
+	public List<File> getCartoon() {
+		return cartoon;
 	}
 
-	public void setCartoonFile(File cartoonFile) {
-		this.cartoonFile = cartoonFile;
+	public void setCartoon(List<File> cartoon) {
+		this.cartoon = cartoon;
 	}
 
-	public String getCartoonFileContentType() {
-		return cartoonFileContentType;
+	public List<String> getCartoonContentType() {
+		return cartoonContentType;
 	}
 
-	public void setCartoonFileContentType(String cartoonFileContentType) {
-		this.cartoonFileContentType = cartoonFileContentType;
+	public void setCartoonContentType(List<String> cartoonContentType) {
+		this.cartoonContentType = cartoonContentType;
 	}
 
-	public String getCartoonFileFileName() {
-		return cartoonFileFileName;
+	public List<String> getCartoonFileName() {
+		return cartoonFileName;
 	}
 
-	public void setCartoonFileFileName(String cartoonFileFileName) {
-		this.cartoonFileFileName = cartoonFileFileName;
+	public void setCartoonFileName(List<String> cartoonFileName) {
+		this.cartoonFileName = cartoonFileName;
 	}
 
 	public String getUsername() {
@@ -82,11 +86,9 @@ public class CartoonFileUploadAction extends BaseAction {
 	public String getFileSavePath() {
 		return fileSavePath;
 	}
-	
 	public void setFileSavePath(String fileSavePath) {
 		this.fileSavePath = fileSavePath;
 	}
-
 	public String getKeyword() {
 		return keyword;
 	}

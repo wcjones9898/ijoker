@@ -128,6 +128,9 @@
 		<action name="JokeFileUploadAction" class="JokeFileUploadProxy">
 			<result type="redirectAction">UnverifyListAction</result>
 		</action>
+		<action name="CartoonFileUploadAction" class="CartoonFileUploadProxy">					
+			<result>cartoon_upload.jsp</result>
+		</action>
 	</package>
 	
 		

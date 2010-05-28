@@ -62,7 +62,7 @@
 										<li><a href="CatalogManageAction.action">分类管理</a></li>
 										<li><a href="joke_upload.jsp">上传笑话</a></li>
 										<li><a href="JokeListAction.action">笑话列表</a></li>
-										<li><a href="welcome.jsp">上传漫画</a></li>
+										<li><a href="cartoon_upload.jsp">上传漫画</a></li>
 										<li><a href="welcome.jsp">漫画列表</a></li>
 									</ol>
 								</td>
