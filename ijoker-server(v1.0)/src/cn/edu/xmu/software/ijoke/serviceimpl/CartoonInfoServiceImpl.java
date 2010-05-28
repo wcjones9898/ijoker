@@ -105,10 +105,27 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 			return false;
 		}
 	}
+	public boolean delete(String cartoonId) {
+		// TODO Auto-generated method stub
+		try{
+			Cartoon cartoon = (Cartoon) cartoonDAO.findByCartoonId(cartoonId).get(0);
+
+			cartoonDAO.delete(cartoon);
+			return true;
+			}catch(Exception e) 
+			{
+				return false;
+			}
+	}
+//	@Test
+//	public void testVerify()
+//	{
+//		System.out.println(AppFactory.getCartoonInfoService().verify("20100528132405631"));
+//	}
 	@Test
-	public void testVerify()
+	public void testDelete()
 	{
-		System.out.println(AppFactory.getCartoonInfoService().verify("20100528132405631"));
+		System.out.println(AppFactory.getCartoonInfoService().delete("20100528132405631"));
 	}
 //	@Test 
 //	public void testUploadCartoonFiles()
@@ -137,6 +154,8 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //		for(int i=0; i<fileList.size(); i++)
 //		System.out.println(fileList.get(i).getCartoonId());
 //	}
+
+
 
 
 }

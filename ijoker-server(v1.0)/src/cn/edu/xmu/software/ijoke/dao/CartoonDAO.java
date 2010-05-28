@@ -42,7 +42,9 @@ public class CartoonDAO extends HibernateDaoSupport{
 	public void delete(Cartoon persistentInstance) {
 		log.debug("deleting Cartoon instance");
 		try {
-			getSession().delete(persistentInstance);
+			Transaction tx=getSession().beginTransaction();
+			getHibernateTemplate().delete(persistentInstance);
+			tx.commit();  
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);

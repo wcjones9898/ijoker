@@ -12,4 +12,5 @@ public interface CartoonInfoService {
 	public List<Cartoon> getWithoutVerifiedCartoonList(int begin, int pageSize);
 	public boolean updateCartoon(Cartoon cartoon);
 	public boolean verify(String cartoonId);
+	public boolean delete(String cartoonId);
 }
