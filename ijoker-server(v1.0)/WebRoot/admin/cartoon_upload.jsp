@@ -28,15 +28,7 @@
 							<td>
 								<s:textfield name="title" label="标题" size="14" />
 							</td>
-						</tr>
-						<tr>
-							<td>
-								<s:label value="关键词" cssClass="gray"></s:label>
-							</td>
-							<td>
-								<s:textfield name="keyword" label="关键词" size="14" />
-							</td>
-						</tr>
+						</tr>						
 						
 						<tr>
 						

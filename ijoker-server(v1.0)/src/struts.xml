@@ -123,13 +123,35 @@
 			<result type="redirectAction">LoadLockedUser</result>
 		</action>
 		
+		<!-- 漫画列表 -->			
+		<action name="CartoonListAction" class="CartoonListProxy">
+			<result>cartoon_list.jsp</result>
+		</action>
+		<action name="LoadCartoonForModify" class="CartoonListProxy" method="loadCartoonForModify">
+			<result>cartoon_modify.jsp</result>
+		</action>
+		<action name="ModifyCartoon" class="CartoonListProxy" method="modifyCartoon">
+			<result type="redirectAction">CartoonListAction</result>
+		</action>	
+		<action name="DeleteCartoon" class="CartoonListProxy" method="deleteCartoon">
+			<result type="redirectAction">CartoonListAction</result>
+		</action>		
+		<action name="CartoonPrePage" class="CartoonListProxy" method="prePage">
+			<result type="redirectAction">CartoonListAction</result>
+		</action>
+		<action name="CartoonNextPage" class="CartoonListProxy" method="nextPage">
+			<result type="redirectAction">CartoonListAction</result>
+		</action>	
+		
 		
 		<!-- 上传笑话 -->
 		<action name="JokeFileUploadAction" class="JokeFileUploadProxy">
 			<result type="redirectAction">UnverifyListAction</result>
 		</action>
+		
+		<!-- 上传漫画 -->
 		<action name="CartoonFileUploadAction" class="CartoonFileUploadProxy">					
-			<result>cartoon_upload.jsp</result>
+			<result type="redirectAction">CartoonListAction</result>
 		</action>
 	</package>
 	

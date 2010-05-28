@@ -61,9 +61,19 @@
 									<ol>
 										<li><a href="CatalogManageAction.action">分类管理</a></li>
 										<li><a href="joke_upload.jsp">上传笑话</a></li>
-										<li><a href="JokeListAction.action">笑话列表</a></li>
+										<li><a href="JokeListAction.action">笑话列表</a></li>										
+									</ol>
+								</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td height="100" class="bod">
+									<h6 class="subol">
+										漫画管理
+									</h6>
+									<ol>
 										<li><a href="cartoon_upload.jsp">上传漫画</a></li>
-										<li><a href="welcome.jsp">漫画列表</a></li>
+										<li><a href="CartoonListAction.action">漫画列表</a></li>
 									</ol>
 								</td>
 								<td>&nbsp;</td>
@@ -81,7 +91,7 @@
 								<td>&nbsp;</td>
 							</tr>
 							<tr>
-								<td height="208" class="bod">									
+								<td height="128" class="bod">									
 									&nbsp;
 								</td>
 								<td>

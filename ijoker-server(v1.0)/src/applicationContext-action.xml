@@ -14,12 +14,16 @@
 		<property name="jokeInfoService" ref="JokeInfoService"/>		
 	</bean>
 	
+	<bean id="CartoonListProxy" class="cn.edu.xmu.software.ijoke.action.CartoonListAction">
+		<property name="cartoonInfoService" ref="CartoonInfoService"/>		
+	</bean>
+	
 	<bean id="JokeFileUploadProxy" class="cn.edu.xmu.software.ijoke.action.JokeFileUploadAction">
 		<property name="jokeInfoUploadService" ref="JokeInfoUploadService"/>
 	</bean>
 	
 	<bean id="CartoonFileUploadProxy" class="cn.edu.xmu.software.ijoke.action.CartoonFileUploadAction">
-		<property name="jokeInfoUploadService" ref="JokeInfoUploadService"/>
+		<property name="cartoonInfoService" ref="CartoonInfoService"/>
 	</bean>
 	
 	<bean id="UserListProxy" class="cn.edu.xmu.software.ijoke.action.UserListAction">
