@@ -11,8 +11,11 @@ import org.junit.Test;
 
 import cn.edu.xmu.software.ijoke.dao.CartoonDAO;
 import cn.edu.xmu.software.ijoke.dao.CartoonFileDAO;
+import cn.edu.xmu.software.ijoke.dao.IjokerAdminDAO;
+import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.Cartoon;
 import cn.edu.xmu.software.ijoke.entity.CartoonFile;
+import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
 import cn.edu.xmu.software.ijoke.factory.IdFactroy;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.service.CartoonInfoService;
@@ -21,7 +24,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 
 	private CartoonDAO cartoonDAO;
 	private CartoonFileDAO cartoonFileDAO;
-	
+	private IjokerAdminDAO userDAO;
 	public CartoonDAO getCartoonDAO() {
 		return cartoonDAO;
 	}
@@ -38,7 +41,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		this.cartoonFileDAO = cartoonFileDAO;
 	}
 
-	public boolean uploadCartoonFiles(List<File> fileList, String userId,String cartoonTitle) {
+	public boolean uploadCartoonFiles(List<File> fileList, String userName,String cartoonTitle) {
 		// TODO Auto-generated method stub
 		File tempFile = null;
 		try{
@@ -56,7 +59,12 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		    cartoon.setCartoonId(fileId);
 		    cartoon.setFileId(fileId);
 		    cartoon.setCartoonTitle(cartoonTitle);
-		    cartoon.setUploaderId(userId);
+		    IjokerAdmin user = (IjokerAdmin) userDAO.findByAdminName(userName).get(0);
+		    if(user != null)
+		    {
+		    cartoon.setUploaderId(user.getAdminId());
+		    cartoon.setAuthorName(userName);
+		    }
 		    SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		    cartoon.setUploadTime(formatter.format(new Date()));
 		    cartoon.setStatus(0);
@@ -81,6 +89,10 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 	public List<Cartoon> getWithoutVerifiedCartoonList(int begin, int pageSize) {
 		// TODO Auto-generated method stub
 		return cartoonDAO.findByStatus(0, begin, pageSize);
+	}
+	public List<Cartoon> getCartoonList(int begin, int pageSize)
+	{
+		return cartoonDAO.findAll(begin, pageSize);
 	}
 	public boolean updateCartoon(Cartoon cartoon) {
 		// TODO Auto-generated method stub
@@ -154,6 +166,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //		for(int i=0; i<fileList.size(); i++)
 //		System.out.println(fileList.get(i).getCartoonId());
 //	}
+
 
 
 

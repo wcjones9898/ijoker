@@ -176,6 +176,15 @@ public class CartoonDAO extends HibernateDaoSupport{
 		return cartoonList;
     	
     }
+    public List findAll(int begin,int pageSize)
+    {
+
+		List cartoonList =   getSession().createQuery("from Cartoon ")
+		.setFirstResult(begin).setMaxResults(begin+pageSize).list();
+	    
+		return cartoonList;
+    	
+    }
 	public void save(Cartoon cartoon) {
 		
 		try {
