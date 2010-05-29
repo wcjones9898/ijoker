@@ -11,7 +11,9 @@ public interface CartoonInfoService {
 	public List<Cartoon> getVerifiedCartoonList( int begin, int pageSize);
 	public List<Cartoon> getWithoutVerifiedCartoonList(int begin, int pageSize);
 	public boolean updateCartoon(Cartoon cartoon);
-	public boolean verify(String cartoonId);
-	public boolean delete(String cartoonId);
+	public boolean verify(Integer cartoonId);
+	public boolean delete(Integer cartoonId);
+	public boolean deleteCartoonFile(Integer cartoonFileId);
+	public boolean deleteCartoonFile(String cartoonFileId);
 	public List<Cartoon> getCartoonList(int begin, int pageSize);
 }

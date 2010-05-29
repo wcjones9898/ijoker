@@ -1,5 +1,8 @@
 package cn.edu.xmu.software.ijoke.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Cartoon entity.
  * 
@@ -11,13 +14,13 @@ public class Cartoon implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String cartoonId;
-	private String fileId;
 	private String cartoonTitle;
 	private String uploadTime;
 	private String authorName;
 	private String uploaderId;
-    private Integer status;
+	private Integer status;
+	private Set cartoonFiles = new HashSet(0);
+
 	// Constructors
 
 	/** default constructor */
@@ -25,19 +28,19 @@ public class Cartoon implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Cartoon(String cartoonId) {
-		this.cartoonId = cartoonId;
+	public Cartoon(Integer status) {
+		this.status = status;
 	}
 
 	/** full constructor */
-	public Cartoon(String cartoonId, String fileId, String cartoonTitle,
-			String uploadTime, String authorName, String uploaderId) {
-		this.cartoonId = cartoonId;
-		this.fileId = fileId;
+	public Cartoon(String cartoonTitle, String uploadTime, String authorName,
+			String uploaderId, Integer status, Set cartoonFiles) {
 		this.cartoonTitle = cartoonTitle;
 		this.uploadTime = uploadTime;
 		this.authorName = authorName;
 		this.uploaderId = uploaderId;
+		this.status = status;
+		this.cartoonFiles = cartoonFiles;
 	}
 
 	// Property accessors
@@ -48,22 +51,6 @@ public class Cartoon implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getCartoonId() {
-		return this.cartoonId;
-	}
-
-	public void setCartoonId(String cartoonId) {
-		this.cartoonId = cartoonId;
-	}
-
-	public String getFileId() {
-		return this.fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
 	}
 
 	public String getCartoonTitle() {
@@ -99,11 +86,19 @@ public class Cartoon implements java.io.Serializable {
 	}
 
 	public Integer getStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Set getCartoonFiles() {
+		return this.cartoonFiles;
+	}
+
+	public void setCartoonFiles(Set cartoonFiles) {
+		this.cartoonFiles = cartoonFiles;
 	}
 
 }

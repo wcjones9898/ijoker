@@ -1,18 +1,18 @@
 package cn.edu.xmu.software.ijoke.dao;
 
 import java.util.List;
-
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.xmu.software.ijoke.entity.BaseHibernateDAO;
 import cn.edu.xmu.software.ijoke.entity.Cartoon;
-import cn.edu.xmu.software.ijoke.entity.Catalog;
-import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -26,37 +26,25 @@ import cn.edu.xmu.software.ijoke.factory.HibernateSessionFactory;
  * @author MyEclipse Persistence Tools
  */
 
-public class CartoonDAO extends HibernateDaoSupport{
+public class CartoonDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(CartoonDAO.class);
 	// property constants
-	public static final String CARTOON_ID = "cartoonId";
-	public static final String FILE_ID = "fileId";
 	public static final String CARTOON_TITLE = "cartoonTitle";
 	public static final String UPLOAD_TIME = "uploadTime";
 	public static final String AUTHOR_NAME = "authorName";
 	public static final String UPLOADER_ID = "uploaderId";
 	public static final String STATUS = "status";
 
-	
 
-	public void delete(Cartoon persistentInstance) {
-		log.debug("deleting Cartoon instance");
-		try {
-			Transaction tx=getSession().beginTransaction();
-			getHibernateTemplate().delete(persistentInstance);
-			tx.commit();  
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
-	}
+
 
 	public Cartoon findById(java.lang.Integer id) {
 		log.debug("getting Cartoon instance with id: " + id);
 		try {
-			Cartoon instance = (Cartoon) getSession().get(
+			
+			Cartoon instance = (Cartoon) getHibernateTemplate().get(
 					"cn.edu.xmu.software.ijoke.entity.Cartoon", id);
+
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -92,14 +80,6 @@ public class CartoonDAO extends HibernateDaoSupport{
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByCartoonId(Object cartoonId) {
-		return findByProperty(CARTOON_ID, cartoonId);
-	}
-
-	public List findByFileId(Object fileId) {
-		return findByProperty(FILE_ID, fileId);
 	}
 
 	public List findByCartoonTitle(Object cartoonTitle) {
@@ -210,6 +190,19 @@ public class CartoonDAO extends HibernateDaoSupport{
 			
 		} catch (RuntimeException re) {
 			
+			throw re;
+		}
+	}
+	public void delete(Cartoon persistentInstance) {
+		log.debug("deleting Cartoon instance");
+		try {
+
+			Transaction tx=getSession().beginTransaction();
+			getHibernateTemplate().delete(persistentInstance);
+			tx.commit();  
+			log.debug("delete successful");
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
 			throw re;
 		}
 	}

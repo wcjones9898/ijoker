@@ -186,5 +186,8 @@
 		<property name="cartoonFileDAO">
 			<ref bean="CartoonFileDAO" />
 		</property>
+			<property name="adminDAO">
+			<ref bean="IjokerAdminDAO" />
+		</property>
 	</bean>
 </beans>

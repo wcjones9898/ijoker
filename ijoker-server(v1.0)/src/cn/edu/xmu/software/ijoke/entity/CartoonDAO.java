@@ -1,6 +1,7 @@
 package cn.edu.xmu.software.ijoke.entity;
 
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -25,8 +26,6 @@ import cn.edu.xmu.software.ijoke.entity.Cartoon;
 public class CartoonDAO extends BaseHibernateDAO {
 	private static final Log log = LogFactory.getLog(CartoonDAO.class);
 	// property constants
-	public static final String CARTOON_ID = "cartoonId";
-	public static final String FILE_ID = "fileId";
 	public static final String CARTOON_TITLE = "cartoonTitle";
 	public static final String UPLOAD_TIME = "uploadTime";
 	public static final String AUTHOR_NAME = "authorName";
@@ -95,14 +94,6 @@ public class CartoonDAO extends BaseHibernateDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByCartoonId(Object cartoonId) {
-		return findByProperty(CARTOON_ID, cartoonId);
-	}
-
-	public List findByFileId(Object fileId) {
-		return findByProperty(FILE_ID, fileId);
 	}
 
 	public List findByCartoonTitle(Object cartoonTitle) {

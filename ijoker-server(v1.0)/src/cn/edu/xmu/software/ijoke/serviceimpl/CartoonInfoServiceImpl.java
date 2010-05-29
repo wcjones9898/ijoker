@@ -4,7 +4,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Transaction;
 import org.junit.Test;
@@ -24,7 +27,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 
 	private CartoonDAO cartoonDAO;
 	private CartoonFileDAO cartoonFileDAO;
-	private IjokerAdminDAO userDAO;
+	private IjokerAdminDAO adminDAO;
 	public CartoonDAO getCartoonDAO() {
 		return cartoonDAO;
 	}
@@ -45,21 +48,13 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		// TODO Auto-generated method stub
 		File tempFile = null;
 		try{
-		for(int i=0;i<fileList.size();i++)
-		{
-			String fileId = IdFactroy.createId();
-			tempFile = fileList.get(i);
-			CartoonFile cartoonFile = new CartoonFile();
-			cartoonFile.setFileExtension(tempFile.getName().substring(tempFile.getName().indexOf(".")));
-		    cartoonFile.setFileName(fileId);
-		    cartoonFile.setFileId(fileId);
-		    
 		    Cartoon cartoon = new Cartoon();
 		    cartoon.setAuthorName("");
-		    cartoon.setCartoonId(fileId);
-		    cartoon.setFileId(fileId);
+		    String cartoonId =  IdFactroy.createId();
+		  
+		    
 		    cartoon.setCartoonTitle(cartoonTitle);
-		    IjokerAdmin user = (IjokerAdmin) userDAO.findByAdminName(userName).get(0);
+		    IjokerAdmin user = (IjokerAdmin) adminDAO.findByAdminName(userName).get(0);
 		    if(user != null)
 		    {
 		    cartoon.setUploaderId(user.getAdminId());
@@ -68,11 +63,21 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		    SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		    cartoon.setUploadTime(formatter.format(new Date()));
 		    cartoon.setStatus(0);
-		    cartoonFileDAO.save(cartoonFile);
-		    cartoonDAO.save(cartoon);
-		
+		  
+        Set cartoonFiles = new HashSet();
+		for(int i=0;i<fileList.size();i++)
+		{
+			String fileId = IdFactroy.createId();
+			tempFile = fileList.get(i);
+			
+			CartoonFile cartoonFile = new CartoonFile();
+			cartoonFile.setFileExtension(tempFile.getName().substring(tempFile.getName().indexOf(".")));
+		    cartoonFile.setFileName(fileId);
+		    cartoonFile.setFileId(fileId);
+		    cartoonFiles.add(cartoonFile);	
 		}
-		
+		cartoon.setCartoonFiles(cartoonFiles);
+		  cartoonDAO.save(cartoon);
 		return true;
 		}catch(Exception e)
 		{
@@ -104,24 +109,53 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 			return false;
 		}
 	}
+	public IjokerAdminDAO getAdminDAO() {
+		return adminDAO;
+	}
 
-	public boolean verify(String cartoonId) {
-		// TODO Auto-generated method stub\
+	public void setAdminDAO(IjokerAdminDAO adminDAO) {
+		this.adminDAO = adminDAO;
+	}
+
+	public boolean deleteCartoonFile(Integer cartoonFileId) {
+		// TODO Auto-generated method stub
 		try{
-		Cartoon cartoon = (Cartoon) cartoonDAO.findByCartoonId(cartoonId).get(0);
-		cartoon.setStatus(1);
-		cartoonDAO.update(cartoon);
+		CartoonFile cartoonFile = cartoonFileDAO.findById(cartoonFileId);
+		cartoonFileDAO.delete(cartoonFile);
 		return true;
-		}catch(Exception e) 
+		}catch(Exception e)
 		{
 			return false;
 		}
 	}
-	public boolean delete(String cartoonId) {
+	public boolean deleteCartoonFile(String cartoonFileId) {
 		// TODO Auto-generated method stub
 		try{
-			Cartoon cartoon = (Cartoon) cartoonDAO.findByCartoonId(cartoonId).get(0);
-
+		CartoonFile cartoonFile = (CartoonFile) cartoonFileDAO.findByFileId(cartoonFileId).get(0);
+		cartoonFileDAO.delete(cartoonFile);
+		return true;
+		}catch(Exception e)
+		{
+			return false;
+		}
+	}
+	public boolean verify(Integer cartoonId) {
+		// TODO Auto-generated method stub\
+//		try{
+//		Cartoon cartoon = (Cartoon) cartoonDAO.findByCartoonId(cartoonId).get(0);
+//		cartoon.setStatus(1);
+//		cartoonDAO.update(cartoon);
+//		return true;
+//		}catch(Exception e) 
+//		{
+//			return false;
+//		}
+		return true;
+	}
+	public boolean delete(Integer cartoonId) {
+		// TODO Auto-generated method stub
+		try{
+			Cartoon cartoon = (Cartoon) cartoonDAO.findById(cartoonId);
 			cartoonDAO.delete(cartoon);
 			return true;
 			}catch(Exception e) 
@@ -129,16 +163,38 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 				return false;
 			}
 	}
+
 //	@Test
 //	public void testVerify()
 //	{
 //		System.out.println(AppFactory.getCartoonInfoService().verify("20100528132405631"));
 //	}
+//	@Test
+//	public void testDelete()
+//	{
+//		System.out.println(AppFactory.getCartoonInfoService().delete(1));
+//	}
 	@Test
-	public void testDelete()
+	public void testDeleteCartoonFile()
 	{
-		System.out.println(AppFactory.getCartoonInfoService().delete("20100528132405631"));
+		System.out.println(AppFactory.getCartoonInfoService().deleteCartoonFile("20100529135351422"));
 	}
+//  @Test
+//  public void getCartoonList()
+//  {
+//		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getCartoonList(0, 5);
+//		for(int i=0; i<fileList.size(); i++)
+//		{
+//			System.out.println(fileList.get(i).getAuthorName());
+//			Iterator it = fileList.get(i).getCartoonFiles().iterator();
+//			 while(it.hasNext())
+//           {
+//               CartoonFile cartoonFile= (CartoonFile)it.next();
+//               System.out.println("书名： "+cartoonFile.getFileName());
+//
+//           }
+//		}
+//  }
 //	@Test 
 //	public void testUploadCartoonFiles()
 //	{
@@ -148,7 +204,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //		fileList.add(file1);
 //		fileList.add(file2);
 //		
-//		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"1","风景"));
+//		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"ijoker","风景"));
 //		
 //	}
 //	@Test
@@ -164,8 +220,18 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //	{
 //		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getWithoutVerifiedCartoonList(0, 5);
 //		for(int i=0; i<fileList.size(); i++)
-//		System.out.println(fileList.get(i).getCartoonId());
+//		{
+//			System.out.println(fileList.get(i).getAuthorName());
+//			Iterator it = fileList.get(i).getCartoonFiles().iterator();
+//			 while(it.hasNext())
+//             {
+//                 CartoonFile cartoonFile= (CartoonFile)it.next();
+//                 System.out.println("书名： "+cartoonFile.getFileName());
+//
+//             }
+//		}
 //	}
+
 
 
 

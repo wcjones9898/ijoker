@@ -1,14 +1,11 @@
-package cn.edu.xmu.software.ijoke.dao;
+package cn.edu.xmu.software.ijoke.entity;
 
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.edu.xmu.software.ijoke.entity.BaseHibernateDAO;
 import cn.edu.xmu.software.ijoke.entity.CartoonFile;
@@ -25,7 +22,7 @@ import cn.edu.xmu.software.ijoke.entity.CartoonFile;
  * @author MyEclipse Persistence Tools
  */
 
-public class CartoonFileDAO extends HibernateDaoSupport {
+public class CartoonFileDAO extends BaseHibernateDAO {
 	private static final Log log = LogFactory.getLog(CartoonFileDAO.class);
 	// property constants
 	public static final String FILE_ID = "fileId";
@@ -34,15 +31,10 @@ public class CartoonFileDAO extends HibernateDaoSupport {
 	public static final String FILE_PATH = "filePath";
 	public static final String FILE_LENGTH = "fileLength";
 
-	public void save(CartoonFile transientInstance){
+	public void save(CartoonFile transientInstance) {
 		log.debug("saving CartoonFile instance");
 		try {
-			
-
-			Transaction tx= getSession().beginTransaction();
-			getHibernateTemplate().save(transientInstance);
-			tx.commit();
-		
+			getSession().save(transientInstance);
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -53,11 +45,7 @@ public class CartoonFileDAO extends HibernateDaoSupport {
 	public void delete(CartoonFile persistentInstance) {
 		log.debug("deleting CartoonFile instance");
 		try {
-			
-			Transaction tx= getSession().beginTransaction();
-			getHibernateTemplate().delete(persistentInstance);
-			tx.commit();
-
+			getSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
