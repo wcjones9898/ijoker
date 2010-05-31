@@ -1,7 +1,12 @@
 package cn.edu.xmu.software.ijoke.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+
+
 
 /**
  * Cartoon entity.
@@ -99,6 +104,17 @@ public class Cartoon implements java.io.Serializable {
 
 	public void setCartoonFiles(Set cartoonFiles) {
 		this.cartoonFiles = cartoonFiles;
+	}
+	public List<CartoonFile> getCartoonFilesList()
+	{
+		List cartoonFiles = new ArrayList<CartoonFile>();
+		Iterator it = this.cartoonFiles.iterator();
+		while(it.hasNext())
+		{
+			cartoonFiles.add(it.next());
+		}
+		return cartoonFiles;
+		
 	}
 
 }

@@ -106,14 +106,19 @@ public class UserDAO extends HibernateDaoSupport  {
 		tx.commit();  
 		session.close();
 	}
-    @Test 
-    public void testInsertUser()
-    {
-    	User user = new User();
-    	user.setNickName("asdf");
-    	user.setPassWord("adf");
-    	user.setUserId("adf");
-    	user.setUserName("adfad");
-    	 insertUser(user);
-    }
+//    @Test 
+//    public void testInsertUser()
+//    {
+//    	User user = new User();
+//    	user.setNickName("asdf");
+//    	user.setPassWord("adf");
+//    	user.setUserId("adf");
+//    	user.setUserName("adfad");
+//    	 insertUser(user);
+//    }
+	 @Test
+	 public void testFindByUserName()
+	 {
+		 System.out.println(findByUserName("ijoker").getNickName());
+	 }
   }

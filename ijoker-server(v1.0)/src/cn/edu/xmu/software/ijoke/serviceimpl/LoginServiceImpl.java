@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
 	@Test
 	public void testLoginService()
 	{
-		System.out.println(loginService("ijoker2","123"));
+		System.out.println(loginService("ijoker","123"));
 	}
 
 

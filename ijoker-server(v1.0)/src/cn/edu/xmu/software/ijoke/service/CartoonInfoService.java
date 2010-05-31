@@ -16,4 +16,5 @@ public interface CartoonInfoService {
 	public boolean deleteCartoonFile(Integer cartoonFileId);
 	public boolean deleteCartoonFile(String cartoonFileId);
 	public List<Cartoon> getCartoonList(int begin, int pageSize);
+	public Cartoon findCartoon(Integer cartoonId);
 }

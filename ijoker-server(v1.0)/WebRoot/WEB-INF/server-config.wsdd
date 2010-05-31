@@ -64,6 +64,11 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
         <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.SearchByJokeIdServiceImpl"/>
         <parameter name="allowedMethods" value="searchByJokeIdService"/> 
     </service>       
+                                         <!--Cartoon Service(动漫服务)-->
+        <service name="cartoonService" provider="java:RPC">
+        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.CartoonServiceForClient"/>
+        <parameter name="allowedMethods" value="cartoonService"/> 
+    </service>
 <transport name="http">
 <requestFlow>
     <handler type="URLMapper"/>
