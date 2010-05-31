@@ -1,6 +1,10 @@
 package cn.edu.xmu.software.ijoke.serviceimpl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +23,11 @@ import cn.edu.xmu.software.ijoke.dao.UserDAO;
 import cn.edu.xmu.software.ijoke.entity.Cartoon;
 import cn.edu.xmu.software.ijoke.entity.CartoonFile;
 import cn.edu.xmu.software.ijoke.entity.IjokerAdmin;
+import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.factory.IdFactroy;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
 import cn.edu.xmu.software.ijoke.service.CartoonInfoService;
+import cn.edu.xmu.software.ijoke.utils.Consts;
 
 public class CartoonInfoServiceImpl implements CartoonInfoService{
 
@@ -69,12 +75,15 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		{
 			String fileId = IdFactroy.createId();
 			tempFile = fileList.get(i);
-			
+	
 			CartoonFile cartoonFile = new CartoonFile();
 			cartoonFile.setFileExtension(tempFile.getName().substring(tempFile.getName().indexOf(".")));
 		    cartoonFile.setFileName(fileId);
 		    cartoonFile.setFileId(fileId);
-		    cartoonFiles.add(cartoonFile);	
+		    cartoonFiles.add(cartoonFile);
+		    cartoonFile.setFilePath(Consts.CARTOON_ROOTPATH);
+			tempFile.renameTo(new File(Consts.CARTOON_UPLOAD_ROOTPATH+
+					fileId+cartoonFile.getFileExtension()));
 		}
 		cartoon.setCartoonFiles(cartoonFiles);
 		  cartoonDAO.save(cartoon);
@@ -167,6 +176,19 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		// TODO Auto-generated method stub
 		return cartoonDAO.findById(cartoonId);
 	}
+	private boolean copyTo(String oldFilePath,String filePath)
+	{
+		File file = new File(oldFilePath);
+		File file1 = new File(filePath);
+		file.renameTo(file1);
+		return true;
+	}
+
+//	@Test
+//	public void testCopyTo()
+//	{
+//		System.out.print(copyTo("D:/2.jpg","D:/jokes/2.jpg"));
+//	}
 //	@Test
 //	public void testVerify()
 //	{
@@ -201,18 +223,18 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //           }
 		}
   }
-//	@Test 
-//	public void testUploadCartoonFiles()
-//	{
-//		ArrayList<File> fileList = new ArrayList();
-//		File file1 = new File("D:/1.jpg");
-//		File file2 = new File("D:/2.jpg");
-//		fileList.add(file1);
-//		fileList.add(file2);
-//		
-//		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"ijoker","风景"));
-//		
-//	}
+	@Test 
+	public void testUploadCartoonFiles()
+	{
+		ArrayList<File> fileList = new ArrayList();
+		File file1 = new File("D:/1.jpg");
+		File file2 = new File("D:/2.jpg");
+		fileList.add(file1);
+		fileList.add(file2);
+		
+		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"ijoker","风景"));
+		
+	}
 //	@Test
 //	public void testGetCartoonList()
 //	{

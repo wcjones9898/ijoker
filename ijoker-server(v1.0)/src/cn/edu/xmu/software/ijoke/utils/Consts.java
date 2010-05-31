@@ -10,11 +10,11 @@ public class Consts {
 	public final static int BUFFER_SIZE = 100000;
 	public final static String jokeRootPath="/jokes/";
 	public final static String jokeTempPath="/jokes/temp/";
-
+    public final static String CARTOON_ROOTPATH="/jokes/cartoon/";
 
 	public final static String jokeUploadRootPath="D:/jokes/";
 	public final static String jokeUploadTempPath="D:/jokes/temp/";
-
+    public final static String CARTOON_UPLOAD_ROOTPATH="D:/jokes/cartoon/";
 	public final static String jokeMediaServerPath = "http://59.77.5.42:80";
 	public final static String NO_USER ="user not exists";
 	public final static String REGISTER_USER_EXISTS ="userName has already existed";
