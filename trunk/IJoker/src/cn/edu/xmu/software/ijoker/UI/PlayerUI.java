@@ -135,6 +135,7 @@ public class PlayerUI extends BaseActivity {
 					Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent();
 			intent.setClass(PlayerUI.this, CartoonGallery.class);
+		    intent.putExtra("jokeId", joke.getId());
 			startActivity(intent);
 		}
 	};
