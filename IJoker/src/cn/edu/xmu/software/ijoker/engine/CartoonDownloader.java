@@ -11,7 +11,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 public class CartoonDownloader extends Thread{
 
     
-	public static byte[]  downLoad(String url, Integer Port)
+	public static  byte[] downLoad(String url, Integer Port)
 	{
 
 		GetMethod fileGet = new GetMethod(url);

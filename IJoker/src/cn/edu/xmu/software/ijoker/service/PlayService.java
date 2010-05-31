@@ -30,7 +30,7 @@ public class PlayService extends Thread {
 	private String location;
 	private long mediaLengthInKb, mediaLengthInSeconds;
 	private ProgressBar progressBar;
-	private static final int INTIAL_KB_BUFFER = 96 * 10 / 8;// assume
+	private static final int INTIAL_KB_BUFFER = 8 * 10 / 8;// assume
 
 	// 96kbps*10secs/8bits
 	// per byte
