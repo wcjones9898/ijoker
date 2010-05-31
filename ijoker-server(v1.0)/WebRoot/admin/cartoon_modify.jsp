@@ -26,9 +26,10 @@
 			<tr>
 				<td>内容</td>
 				<td>
-					<s:iterator value="selectedCartoonFiles" status="st" id="cartoonFiles">					
-						<s:property value="#cartoonFiles.filePath" />
-						<s:property value="filePath" />
+					<s:iterator value="selectedCartoonFiles" status="st">
+						<img src="<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>">
+						<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>
+						
 					</s:iterator>
 					
 				</td>

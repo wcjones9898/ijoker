@@ -16,7 +16,7 @@ public class CartoonListAction extends BaseAction {
 	private int selectedCartoonId;
 	private int selectedCartoonIndex;
 	private Cartoon selectedCartoon;
-	private Set<CartoonFile> selectedCartoonFiles;
+	private List<CartoonFile> selectedCartoonFiles;
 	private int index_start,index_end;
 	
 	public CartoonListAction(){
@@ -33,7 +33,7 @@ public class CartoonListAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	public String loadCartoonForModify(){
 		selectedCartoon=cartoonList.get(selectedCartoonIndex);
-		selectedCartoonFiles=selectedCartoon.getCartoonFiles();	
+		selectedCartoonFiles=selectedCartoon.getCartoonFilesList();
 		
 		System.out.println(selectedCartoonFiles.size());
 		
@@ -140,12 +140,14 @@ public class CartoonListAction extends BaseAction {
 		this.index_end = index_end;
 	}
 
-	public Set<CartoonFile> getSelectedCartoonFiles() {
+	public List<CartoonFile> getSelectedCartoonFiles() {
 		return selectedCartoonFiles;
 	}
 
-	public void setSelectedCartoonFiles(Set<CartoonFile> selectedCartoonFiles) {
+	public void setSelectedCartoonFiles(List<CartoonFile> selectedCartoonFiles) {
 		this.selectedCartoonFiles = selectedCartoonFiles;
 	}
+
+	
 	
 }
