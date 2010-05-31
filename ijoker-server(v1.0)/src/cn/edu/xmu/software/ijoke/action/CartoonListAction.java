@@ -1,8 +1,10 @@
 package cn.edu.xmu.software.ijoke.action;
 
 import java.util.List;
+import java.util.Set;
 
 import cn.edu.xmu.software.ijoke.entity.Cartoon;
+import cn.edu.xmu.software.ijoke.entity.CartoonFile;
 import cn.edu.xmu.software.ijoke.service.CartoonInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.Messages;
@@ -11,9 +13,10 @@ import cn.edu.xmu.software.ijoke.utils.Messages;
 public class CartoonListAction extends BaseAction {
 	private CartoonInfoService cartoonInfoService;
 	private List<Cartoon> cartoonList;
-	private String selectedCartoonId;
+	private int selectedCartoonId;
 	private int selectedCartoonIndex;
 	private Cartoon selectedCartoon;
+	private Set<CartoonFile> selectedCartoonFiles;
 	private int index_start,index_end;
 	
 	public CartoonListAction(){
@@ -27,8 +30,13 @@ public class CartoonListAction extends BaseAction {
 		return SUCCESS;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public String loadCartoonForModify(){
 		selectedCartoon=cartoonList.get(selectedCartoonIndex);
+		selectedCartoonFiles=selectedCartoon.getCartoonFiles();	
+		
+		System.out.println(selectedCartoonFiles.size());
+		
 		return SUCCESS;
 	}
 	
@@ -92,11 +100,11 @@ public class CartoonListAction extends BaseAction {
 		this.cartoonList = cartoonList;
 	}
 
-	public String getSelectedCartoonId() {
+	public int getSelectedCartoonId() {
 		return selectedCartoonId;
 	}
 
-	public void setSelectedCartoonId(String selectedCartoonId) {
+	public void setSelectedCartoonId(int selectedCartoonId) {
 		this.selectedCartoonId = selectedCartoonId;
 	}
 
@@ -130,6 +138,14 @@ public class CartoonListAction extends BaseAction {
 
 	public void setIndex_end(int index_end) {
 		this.index_end = index_end;
+	}
+
+	public Set<CartoonFile> getSelectedCartoonFiles() {
+		return selectedCartoonFiles;
+	}
+
+	public void setSelectedCartoonFiles(Set<CartoonFile> selectedCartoonFiles) {
+		this.selectedCartoonFiles = selectedCartoonFiles;
 	}
 	
 }

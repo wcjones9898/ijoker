@@ -24,6 +24,17 @@
 				</td>
 			</tr>
 			<tr>
+				<td>内容</td>
+				<td>
+					<s:iterator value="selectedCartoonFiles" status="st" id="cartoonFiles">					
+						<s:property value="#cartoonFiles.filePath" />
+						<s:property value="filePath" />
+					</s:iterator>
+					
+				</td>
+				
+			</tr>
+			<tr>
 				<td>上传时间</td>
 				<td>
 					<s:property value="selectedCartoon.uploadTime" />
