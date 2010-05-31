@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import cn.edu.xmu.software.ijoker.UI.TestMain;
 import cn.edu.xmu.software.ijoker.entity.Joke;
 import cn.edu.xmu.software.ijoker.exception.CallWebServiceException;
 import cn.edu.xmu.software.ijoker.util.Consts;
@@ -61,6 +62,7 @@ public class GetCartoonListWSMethod extends AbstractWSMethod{
 		Bundle b = new Bundle();
 		b.putStringArrayList("data", list);
 		message.setData(b);
+
 		handler.sendMessage(message);
 		
 	
