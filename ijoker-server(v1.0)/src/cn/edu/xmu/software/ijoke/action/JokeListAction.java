@@ -2,6 +2,8 @@ package cn.edu.xmu.software.ijoke.action;
 
 import java.util.List;
 
+import cn.edu.xmu.software.ijoke.entity.Catalog;
+import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.Messages;
@@ -10,11 +12,14 @@ import cn.edu.xmu.software.ijoke.view.Joke;
 @SuppressWarnings("serial")
 public class JokeListAction extends BaseAction {
 	private JokeInfoService jokeInfoService;
+	private CatalogManageService catalogManageService;
 	private List<Joke> jokeList;
 	private String selectedJokeId;
 	private int selectedJokeIndex;
 	private Joke selectedJoke;
 	private int index_start,index_end;
+	private List<Catalog> catalogList;
+	private String selectedCatalogId;
 	
 	public JokeListAction(){
 		index_start=0;
@@ -29,12 +34,15 @@ public class JokeListAction extends BaseAction {
 	
 	public String loadJokeForModify(){
 		selectedJoke=jokeList.get(selectedJokeIndex);
+		catalogList=catalogManageService.getCatalogList(0, Consts.ONEPAGE_ITEM_NUM);
 		return SUCCESS;
 	}
 	
 	public String modifyJoke(){	
 		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
 		jokeInfoService.updateJoke(selectedJoke);
+		jokeInfoService.deleteJokeToClass(selectedJoke.getId(), classId);
+		jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedCatalogId);
 		return SUCCESS;
 	}
 	
@@ -117,6 +125,31 @@ public class JokeListAction extends BaseAction {
 	public void setJokeList(List<Joke> jokeList) {
 		this.jokeList = jokeList;
 	}
+
+	public CatalogManageService getCatalogManageService() {
+		return catalogManageService;
+	}
+
+	public void setCatalogManageService(CatalogManageService catalogManageService) {
+		this.catalogManageService = catalogManageService;
+	}
+
+	public List<Catalog> getCatalogList() {
+		return catalogList;
+	}
+
+	public void setCatalogList(List<Catalog> catalogList) {
+		this.catalogList = catalogList;
+	}
+
+	public String getSelectedCatalogId() {
+		return selectedCatalogId;
+	}
+
+	public void setSelectedCatalogId(String selectedCatalogId) {
+		this.selectedCatalogId = selectedCatalogId;
+	}
+	
 	
 	
 	

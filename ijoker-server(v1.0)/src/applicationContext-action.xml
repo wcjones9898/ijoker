@@ -11,7 +11,8 @@
 	</bean>	
 	
 	<bean id="JokeListProxy" class="cn.edu.xmu.software.ijoke.action.JokeListAction">
-		<property name="jokeInfoService" ref="JokeInfoService"/>		
+		<property name="jokeInfoService" ref="JokeInfoService"/>
+		<property name="catalogManageService" ref="CatalogManageService"/>		
 	</bean>
 	
 	<bean id="CartoonListProxy" class="cn.edu.xmu.software.ijoke.action.CartoonListAction">

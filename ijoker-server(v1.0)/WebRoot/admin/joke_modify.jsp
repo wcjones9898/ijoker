@@ -26,7 +26,8 @@
 			<tr>
 				<td>分类</td>
 				<td>
-								
+					<s:select name="selectedCatalogId" list="catalogList" listKey="catalogId" listValue="catalogName">						
+					</s:select>			
 				</td>
 			</tr>
 			<tr>
