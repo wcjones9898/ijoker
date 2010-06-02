@@ -15,8 +15,9 @@ public class CartoonServiceForClient {
 	private CartoonInfoService cartooInfoService = AppFactory.getCartoonInfoService();
 	public List<String> cartoonService(int cartoonId)
 	{
-		System.out.println("this is in cartoon service");
-		Cartoon cartoon = cartooInfoService.findCartoon(cartoonId);
+		List<Cartoon> cartoonList = cartooInfoService.getCartoonList(0, 5);
+		Cartoon cartoon = cartoonList.get((int)(Math.random()*cartoonList.size()+1)-1);
+		//Cartoon cartoon = cartooInfoService.findCartoon(cartoonId);
 		List filesName = new ArrayList<String>();
 		Iterator it = cartoon.getCartoonFiles().iterator();
 		while(it.hasNext())
@@ -24,6 +25,7 @@ public class CartoonServiceForClient {
 			CartoonFile cartoonFile = (CartoonFile)it.next();
 			filesName.add(cartoonFile.getFilePath()+cartoonFile.getFileName()+cartoonFile.getFileExtension());
 		}
+
 		return filesName;
 	}
 	@Test

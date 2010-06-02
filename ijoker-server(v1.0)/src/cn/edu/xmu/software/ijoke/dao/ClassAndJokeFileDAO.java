@@ -107,4 +107,13 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 		
 	
 	}
+	public List findCatalogAndJokeByJokeId(String jokeId, int begin, int pageSize)
+	{
+		session =  HibernateSessionFactory.getSession();
+		List catalogAndJokeList = session.createQuery("from ClassAndJokeFile classAndJokeFile where classAndJokeFile.jokeId='"
+				+jokeId+"'").setFirstResult(begin).setMaxResults(begin+pageSize).list();
+		session.close();
+		return catalogAndJokeList;
+		
+	}
 }

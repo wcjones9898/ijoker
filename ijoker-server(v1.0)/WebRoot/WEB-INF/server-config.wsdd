@@ -10,15 +10,16 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
                        <!--JokeList Service-->
     
     <service name="jokeListService" provider="java:RPC">
-        <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.JokeListServiceImpl"/>
+        <parameter name="className" value=
+        "cn.edu.xmu.software.ijoke.serviceimpl.JokeListServiceImpl"/>
         <parameter name="allowedMethods" value="jokeListService"/> 
         <beanMapping xmlns:ns="http://ijoker.cn/ijwebservice/schemas" 
          qname="ns:Joke" languageSpecificType="java:cn.edu.xmu.software.ijoke.view.Joke"/>
            
-           
+          </service> 
            
                                        <!--Login Service (登录服务)-->
-    </service>
+    
         <service name="loginService" provider="java:RPC">
         <parameter name="className" value="cn.edu.xmu.software.ijoke.serviceimpl.LoginServiceImpl"/>
         <parameter name="allowedMethods" value="loginService"/> 

@@ -10,7 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import cn.edu.xmu.software.ijoke.entity.BaseHibernateDAO;
+
 import cn.edu.xmu.software.ijoke.entity.CartoonFile;
 
 /**

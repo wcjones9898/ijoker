@@ -73,7 +73,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
         Set cartoonFiles = new HashSet();
 		for(int i=0;i<fileList.size();i++)
 		{
-			String fileId = IdFactroy.createId();
+			String fileId = IdFactroy.createId()+i;
 			tempFile = fileList.get(i);
 	
 			CartoonFile cartoonFile = new CartoonFile();

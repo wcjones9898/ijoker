@@ -176,6 +176,10 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			return false;
 		}
 	}
+	public List<ClassAndJokeFile> getCatalogAndJokeList(String jokeId,int begin,int pageSize) {
+		// TODO Auto-generated method stub
+		return classAndJokeFileDAO.findCatalogAndJokeByJokeId(jokeId, begin, pageSize);
+	}
 
 //	@Test
 //	public void testUpdateJokeClass() {
@@ -214,16 +218,28 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //	 System.out.println(jokesView.get(i).getAuthor());
 //	 }
 //	 }
+//	 @Test
+//	 public void testGetVerifiedJokes()
+//	 {
+//		 
+//	 List<Joke> jokesView =
+//	 AppFactory.getJokeInfoService().getVerifiedJokes(0,16);
+//	 for(int i=0; i<jokesView.size(); i++)
+//	 {
+//	 System.out.println(jokesView.get(i).getAuthor());
+//	 }
+//	 }
 	 @Test
-	 public void testGetVerifiedJokes()
+	 public void testGetCatalogAndJoke()
 	 {
 		 
-	 List<Joke> jokesView =
-	 AppFactory.getJokeInfoService().getVerifiedJokes(0,16);
-	 for(int i=0; i<jokesView.size(); i++)
+	 List<ClassAndJokeFile> catalogAndJokeList =
+	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
+	 for(int i=0; i<catalogAndJokeList.size(); i++)
 	 {
-	 System.out.println(jokesView.get(i).getAuthor());
+	 System.out.println(catalogAndJokeList.get(i).getClassId());
 	 }
 	 }
+
 
 }
