@@ -26,8 +26,19 @@
 			<tr>
 				<td>分类</td>
 				<td>
-					<s:select name="selectedCatalogId" list="catalogList" listKey="catalogId" listValue="catalogName">						
-					</s:select>			
+					<s:iterator value="jokeCatalogs" status="st">
+						<s:property value="catalogName" />
+						<s:url action="DeleteFromCatalog" id="delete">
+							<s:param name="selectedCatalogId" value="catalogId"></s:param>
+						</s:url>
+						<s:a href="%{delete}">[删除]</s:a>
+						<br>
+					</s:iterator>
+					<s:select name="selectedNewCatalogId" list="catalogList" listKey="catalogId" listValue="catalogName">						
+					</s:select>	
+					<s:url action="AddToCatalog" id="add">							
+					</s:url>
+					<s:a href="%{add}">[添加]</s:a>		
 				</td>
 			</tr>
 			<tr>

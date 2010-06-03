@@ -55,6 +55,12 @@
 		<action name="ModifyJoke" class="JokeListProxy" method="modifyJoke">
 			<result type="redirectAction">JokeListAction</result>
 		</action>
+		<action name="DeleteFromCatalog" class="JokeListProxy" method="deleteFromCatalog">
+			<result>joke_modify.jsp</result>
+		</action>
+		<action name="AddToCatalog" class="JokeListProxy" method="addToCatalog">
+			<result>joke_modify.jsp</result>
+		</action>
 		<action name="JokePrePage" class="JokeListProxy" method="prePage">
 			<result type="redirectAction">JokeListAction</result>
 		</action>

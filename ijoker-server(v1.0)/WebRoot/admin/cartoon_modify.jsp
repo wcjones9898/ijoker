@@ -27,9 +27,15 @@
 				<td>内容</td>
 				<td>
 					<s:iterator value="selectedCartoonFiles" status="st">
-						<img src="<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>">
-						<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>
-						
+						<s:if test="#st.Index==0">
+							<img src="http://59.77.5.42:80/<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>">
+							<br>						
+						</s:if>
+						<s:else>
+							<a target="blank" href="http://59.77.5.42:80/<s:property value='filePath'/><s:property value='fileName'/><s:property value='fileExtension'/>">
+							[图片<s:property value="#st.Index+1" />]
+							</a>
+						</s:else>
 					</s:iterator>
 					
 				</td>

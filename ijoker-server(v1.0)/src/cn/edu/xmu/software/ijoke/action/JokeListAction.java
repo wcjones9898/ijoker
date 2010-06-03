@@ -7,6 +7,7 @@ import cn.edu.xmu.software.ijoke.service.CatalogManageService;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
 import cn.edu.xmu.software.ijoke.utils.Messages;
+import cn.edu.xmu.software.ijoke.view.CatalogAndJokeView;
 import cn.edu.xmu.software.ijoke.view.Joke;
 
 @SuppressWarnings("serial")
@@ -19,7 +20,9 @@ public class JokeListAction extends BaseAction {
 	private Joke selectedJoke;
 	private int index_start,index_end;
 	private List<Catalog> catalogList;
+	private List<CatalogAndJokeView> jokeCatalogs;
 	private String selectedCatalogId;
+	private String selectedNewCatalogId;
 	
 	public JokeListAction(){
 		index_start=0;
@@ -35,14 +38,22 @@ public class JokeListAction extends BaseAction {
 	public String loadJokeForModify(){
 		selectedJoke=jokeList.get(selectedJokeIndex);
 		catalogList=catalogManageService.getCatalogList(0, Consts.ONEPAGE_ITEM_NUM);
+		jokeCatalogs=jokeInfoService.getCatalogAndJokeList(selectedJoke.getId(), 0, Consts.ONEPAGE_ITEM_NUM);
 		return SUCCESS;
 	}
 	
 	public String modifyJoke(){	
 		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
 		jokeInfoService.updateJoke(selectedJoke);
-		jokeInfoService.deleteJokeToClass(selectedJoke.getId(), classId);
-		jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedCatalogId);
+		
+		return SUCCESS;
+	}
+	public String deleteFromCatalog(){	
+		System.out.println(jokeInfoService.deleteJokeToClass(selectedJoke.getId(), selectedCatalogId));
+		return SUCCESS;
+	}
+	public String addToCatalog(){
+		System.out.println(jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedNewCatalogId));
 		return SUCCESS;
 	}
 	
@@ -148,6 +159,38 @@ public class JokeListAction extends BaseAction {
 
 	public void setSelectedCatalogId(String selectedCatalogId) {
 		this.selectedCatalogId = selectedCatalogId;
+	}
+
+	public int getIndex_start() {
+		return index_start;
+	}
+
+	public void setIndex_start(int index_start) {
+		this.index_start = index_start;
+	}
+
+	public int getIndex_end() {
+		return index_end;
+	}
+
+	public void setIndex_end(int index_end) {
+		this.index_end = index_end;
+	}
+
+	public List<CatalogAndJokeView> getJokeCatalogs() {
+		return jokeCatalogs;
+	}
+
+	public void setJokeCatalogs(List<CatalogAndJokeView> jokeCatalogs) {
+		this.jokeCatalogs = jokeCatalogs;
+	}
+
+	public String getSelectedNewCatalogId() {
+		return selectedNewCatalogId;
+	}
+
+	public void setSelectedNewCatalogId(String selectedNewCatalogId) {
+		this.selectedNewCatalogId = selectedNewCatalogId;
 	}
 	
 	
