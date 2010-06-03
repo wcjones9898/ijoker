@@ -20,7 +20,10 @@ public class CatalogManageServiceImpl implements CatalogManageService{
 	{
 		
 	}
-
+    public Catalog findCatalogById(String catalogId)
+    {
+    	return catalogDAO.findCatalogByCatalogId(catalogId);
+    }
 
 	private String createCatalogId()
 	{

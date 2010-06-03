@@ -11,4 +11,5 @@ public interface CatalogManageService {
 	public boolean updateCatalog(String classId,String className);
 	public List<Catalog> getCatalogList(int begin, int pageSize);
 	public boolean addCatalog(String catalogName);
+	public Catalog findCatalogById(String catalogId);
 }

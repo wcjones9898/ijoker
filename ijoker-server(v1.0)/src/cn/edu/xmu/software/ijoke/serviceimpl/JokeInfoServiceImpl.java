@@ -8,14 +8,14 @@ import org.junit.Test;
 import cn.edu.xmu.software.ijoke.dao.ClassAndJokeFileDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeDAO;
 import cn.edu.xmu.software.ijoke.dao.JokeFileDAO;
+import cn.edu.xmu.software.ijoke.entity.Catalog;
 import cn.edu.xmu.software.ijoke.entity.ClassAndJokeFile;
 import cn.edu.xmu.software.ijoke.entity.JokeFile;
-import cn.edu.xmu.software.ijoke.view.Joke;
 import cn.edu.xmu.software.ijoke.factory.AppFactory;
-import cn.edu.xmu.software.ijoke.factory.ConfigFactory;
 import cn.edu.xmu.software.ijoke.service.JokeInfoService;
 import cn.edu.xmu.software.ijoke.utils.Consts;
-
+import cn.edu.xmu.software.ijoke.view.Joke;
+import cn.edu.xmu.software.ijoke.view.CatalogAndJokeView;
 public class JokeInfoServiceImpl implements JokeInfoService {
 
 	private JokeDAO jokeDAO;
@@ -176,9 +176,26 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 			return false;
 		}
 	}
-	public List<ClassAndJokeFile> getCatalogAndJokeList(String jokeId,int begin,int pageSize) {
+	public List getCatalogAndJokeList(String jokeId,int begin,int pageSize) {
 		// TODO Auto-generated method stub
-		return classAndJokeFileDAO.findCatalogAndJokeByJokeId(jokeId, begin, pageSize);
+		List<ClassAndJokeFile> catalogAndJokeList = classAndJokeFileDAO.findCatalogAndJokeByJokeId(jokeId, begin, pageSize);
+		List catalogAndJokeViewList = new ArrayList<CatalogAndJokeView>();
+		for(int i=0; i<catalogAndJokeList.size();i++)
+		{
+			Catalog catalog = AppFactory.getCatalogManageService()
+			.findCatalogById(catalogAndJokeList.get(i).getClassId());
+			
+			if(catalog!=null)
+			{
+			CatalogAndJokeView catalogAndJokeView = new CatalogAndJokeView();
+			catalogAndJokeView.setCatalogName(catalog.getCatalogName());
+			catalogAndJokeView.setCatalogId(catalog.getCatalogId());
+			catalogAndJokeView.setJokeTitle(jokeDAO.findByJokeId(jokeId).getTitle());
+			catalogAndJokeView.setJokeId(jokeId);
+			catalogAndJokeViewList.add(catalogAndJokeView);
+			}
+		}
+		return catalogAndJokeViewList;
 	}
 
 //	@Test
@@ -233,11 +250,11 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	 public void testGetCatalogAndJoke()
 	 {
 		 
-	 List<ClassAndJokeFile> catalogAndJokeList =
+	 List<CatalogAndJokeView> catalogAndJokeList =
 	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
 	 for(int i=0; i<catalogAndJokeList.size(); i++)
 	 {
-	 System.out.println(catalogAndJokeList.get(i).getClassId());
+	 System.out.println(catalogAndJokeList.get(i).getCatalogName());
 	 }
 	 }
 

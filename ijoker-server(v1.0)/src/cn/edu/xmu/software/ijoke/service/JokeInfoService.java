@@ -15,5 +15,5 @@ public interface JokeInfoService {
     public List<Joke> getWithoutVerifyJokes(int begin,int pageSize);
     public List<Joke> getVerifiedJokes(int begin,int pageSize);
 	public boolean deleteJoke(String jokeId);
-	public List<ClassAndJokeFile> getCatalogAndJokeList(String jokeId,int begin,int pageSize);
+	public List getCatalogAndJokeList(String jokeId,int begin,int pageSize);
 }
