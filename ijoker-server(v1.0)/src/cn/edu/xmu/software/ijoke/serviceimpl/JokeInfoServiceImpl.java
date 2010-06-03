@@ -124,9 +124,12 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		// TODO Auto-generated method stub
 		try {
 
-			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null) {
+			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null
+					&& AppFactory.getCatalogManageService()
+					.findCatalogById(classId)!=null 
+					&& jokeDAO.findByJokeId(jokeId)!=null) {
 				classAndJokeFileDAO.addClassAndJoke(classId, jokeId);
-                verify(jokeId);
+               // verify(jokeId);
 				return true;
 			}
 			else
@@ -222,7 +225,7 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //	 public void testDeleteJokeClass()
 //	 {
 //			 System.out.println(AppFactory.getJokeInfoService().deleteJokeToClass(
-//						"2010051221120731", "4"));		 
+//						"5", "20100520121536241"));		 
 //	 }
 //	 @Test
 //	 public void testGetWithoutVerifyJokes()
@@ -257,6 +260,11 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 	 System.out.println(catalogAndJokeList.get(i).getCatalogName());
 	 }
 	 }
+//	@Test
+//	public void testAddCatalogAndJoke()
+//	{
+//		AppFactory.getJokeInfoService().addJokeToClass("20100520121536241","4");
+//	}
 
 
 }
