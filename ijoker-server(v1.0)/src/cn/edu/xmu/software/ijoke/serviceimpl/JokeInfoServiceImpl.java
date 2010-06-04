@@ -200,8 +200,29 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		}
 		return catalogAndJokeViewList;
 	}
+public Joke getJokeByJokeId(String jokeId)
+{
+	cn.edu.xmu.software.ijoke.entity.Joke joke = jokeDAO.findByJokeId(jokeId);
+	JokeFile jokeFile = jokeFileDAO.findJokeFileByFileId(joke.getFileId());
+	Joke jokeView = new Joke();
+	jokeView.setAuthor(joke.getAuthorName());
+	jokeView.setFileLength(jokeFile.getFileLength());
+	jokeView.setFileTime(jokeView.getFileTime());
+	jokeView.setId(joke.getJokeId());
+	jokeView.setTitle(joke.getTitle());
+	jokeView.setLike(joke.getLikeNum());
+	jokeView.setLocation(jokeFile.getFilePath()+jokeFile.getFileName()+jokeFile.getFileExtension());
+	jokeView.setUploadTime(joke.getUploadTime());
+	
+	return jokeView; 
+	}
+@Test
+public void testGetJokeByJokeId()
+{
+        System.out.println(AppFactory.getJokeInfoService().getJokeByJokeId("20100520121536241").getTitle());
 
-//	@Test
+	}
+//@Test
 //	public void testUpdateJokeClass() {
 //		System.out.println(AppFactory.getJokeInfoService().addJokeToClass(
 //				"2010051221120731", "4"));
@@ -249,17 +270,17 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 //	 System.out.println(jokesView.get(i).getAuthor());
 //	 }
 //	 }
-	 @Test
-	 public void testGetCatalogAndJoke()
-	 {
-		 
-	 List<CatalogAndJokeView> catalogAndJokeList =
-	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
-	 for(int i=0; i<catalogAndJokeList.size(); i++)
-	 {
-	 System.out.println(catalogAndJokeList.get(i).getCatalogName());
-	 }
-	 }
+//	 @Test
+//	 public void testGetCatalogAndJoke()
+//	 {
+//		 
+//	 List<CatalogAndJokeView> catalogAndJokeList =
+//	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
+//	 for(int i=0; i<catalogAndJokeList.size(); i++)
+//	 {
+//	 System.out.println(catalogAndJokeList.get(i).getCatalogName());
+//	 }
+//	 }
 //	@Test
 //	public void testAddCatalogAndJoke()
 //	{
