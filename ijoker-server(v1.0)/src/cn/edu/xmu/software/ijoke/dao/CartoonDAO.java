@@ -40,10 +40,9 @@ public class CartoonDAO extends HibernateDaoSupport {
 	public Cartoon findById(java.lang.Integer id) {
 		log.debug("getting Cartoon instance with id: " + id);
 		try {
-			
 			Cartoon instance = (Cartoon) getHibernateTemplate().get(
 					"cn.edu.xmu.software.ijoke.entity.Cartoon", id);
-
+          
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -168,6 +167,7 @@ public class CartoonDAO extends HibernateDaoSupport {
 		
 		try {
 
+			
 			Transaction tx=getSession().beginTransaction();
 			getHibernateTemplate().save(cartoon);
 			tx.commit();  
@@ -181,9 +181,9 @@ public class CartoonDAO extends HibernateDaoSupport {
 	public void update(Cartoon cartoon) {
 		
 		try {
-
+            
 			Transaction tx=getSession().beginTransaction();
-			getHibernateTemplate().update(cartoon);
+			this.getHibernateTemplate().merge(cartoon);
 			tx.commit();  
 
 			
