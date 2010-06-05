@@ -52,6 +52,7 @@ public class UnverifyListAction extends BaseAction {
 	public String verifyJoke(){	
 		System.out.println(selectedJoke.getTitle()+" "+selectedJoke.getAuthor()+" "+selectedJoke.getKeyWord());
 		jokeInfoService.updateJoke(selectedJoke);
+		jokeInfoService.verify(selectedJoke.getId());
 		System.out.println("addJokeToCatalog:"+selectedJoke.getId()+"->"+selectedCatalogId);
 		jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedCatalogId);
 		return SUCCESS;

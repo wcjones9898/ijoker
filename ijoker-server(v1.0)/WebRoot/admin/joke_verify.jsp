@@ -14,7 +14,8 @@
 		height="45" 
 		width="500" 
 		loop="false" 
-		src="<s:property value='selectedJoke.location'/>"/>
+		src="http://www.9i5j.com/ringfile/1/19/9i5j.com_心情车站.wav"/>
+<%--		src="<s:property value='selectedJoke.location'/>"/>--%>
   	
 	<s:form action="VerifyJoke">
 	<table class="eTable">		

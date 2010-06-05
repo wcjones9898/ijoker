@@ -142,8 +142,8 @@
 							</tr>
 							<tr height="29" align="center">
 								<td>
-									<p> 
-										&copy;2009 All Right Reserved By CreditES Develop Team 
+									<p>  
+										&copy;2010 All Right Reserved By 笑客中国  
 										<br>
 									</p>
 								</td>

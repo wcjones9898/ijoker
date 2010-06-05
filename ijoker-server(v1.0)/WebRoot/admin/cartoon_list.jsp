@@ -40,7 +40,7 @@
 							<s:param name="selectedCartoonIndex" value="#st.Index"></s:param>
 						</s:url>
 						<s:url action="DeleteCartoon" id="delete">
-							<s:param name="selectedCartoonId" value="cartoonId"></s:param>
+							<s:param name="selectedCartoonId" value="id"></s:param>
 						</s:url>						
 
 						<s:a href="%{load}">[修改]</s:a>						
