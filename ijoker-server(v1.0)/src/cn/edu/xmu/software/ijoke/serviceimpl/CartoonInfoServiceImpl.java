@@ -111,7 +111,7 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 	public boolean updateCartoon(Cartoon cartoon) {
 		// TODO Auto-generated method stub
 		try{
-		cartoonDAO.save(cartoon);
+		cartoonDAO.update(cartoon);
 		return true;
 		}catch(Exception e)
 		{
@@ -183,7 +183,38 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 		file.renameTo(file1);
 		return true;
 	}
+  @Test
+  public void getCartoonList()
+  {
+		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getCartoonList(0, 5);
+		for(int i=0; i<fileList.size(); i++)
+		{
+			System.out.println(fileList.get(i).getAuthorName());
+			List<CartoonFile> l  = fileList.get(i).getCartoonFilesList();
+			for(int j=0; j<l.size();j++)
+				System.out.println(l.get(j).getFileExtension());
+			Iterator it = fileList.get(i).getCartoonFiles().iterator();
+			 while(it.hasNext())
+           {
+               CartoonFile cartoonFile= (CartoonFile)it.next();
+               System.out.println("书名： "+cartoonFile.getFileName());
 
+           }
+		}
+  }
+	@Test
+	public void testFindCartoon()
+	{
+		Cartoon cartoon =AppFactory.getCartoonInfoService().findCartoon(1);
+		System.out.println(cartoon.getCartoonTitle());
+	}
+	@Test
+	public void testUpdate()
+	{
+		Cartoon cartoon =AppFactory.getCartoonInfoService().findCartoon(1);
+		cartoon.setCartoonTitle("啦啦啦la ");
+		System.out.println(AppFactory.getCartoonInfoService().updateCartoon(cartoon));
+	}
 //	@Test
 //	public void testCopyTo()
 //	{
@@ -197,44 +228,26 @@ public class CartoonInfoServiceImpl implements CartoonInfoService{
 //	@Test
 //	public void testDelete()
 //	{
-//		System.out.println(AppFactory.getCartoonInfoService().delete(1));
+//		System.out.println(AppFactory.getCartoonInfoService().delete(4));
 //	}
 //	@Test
 //	public void testDeleteCartoonFile()
 //	{
 //		System.out.println(AppFactory.getCartoonInfoService().deleteCartoonFile("20100529135351422"));
 //	}
-  @Test
-  public void getCartoonList()
-  {
-		ArrayList<Cartoon> fileList = (ArrayList<Cartoon>) AppFactory.getCartoonInfoService().getCartoonList(0, 5);
-		for(int i=0; i<fileList.size(); i++)
-		{
-			System.out.println(fileList.get(i).getAuthorName());
-			List<CartoonFile> l  = fileList.get(i).getCartoonFilesList();
-			for(int j=0; j<l.size();j++)
-				System.out.println(l.get(j).getFileExtension());
-//			Iterator it = fileList.get(i).getCartoonFiles().iterator();
-//			 while(it.hasNext())
-//           {
-//               CartoonFile cartoonFile= (CartoonFile)it.next();
-//               System.out.println("书名： "+cartoonFile.getFileName());
-//
-//           }
-		}
-  }
-	@Test 
-	public void testUploadCartoonFiles()
-	{
-		ArrayList<File> fileList = new ArrayList();
-		File file1 = new File("D:/1.jpg");
-		File file2 = new File("D:/2.jpg");
-		fileList.add(file1);
-		fileList.add(file2);
-		
-		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"ijoker","风景"));
-		
-	}
+
+//	@Test 
+//	public void testUploadCartoonFiles()
+//	{
+//		ArrayList<File> fileList = new ArrayList();
+//		File file1 = new File("D:/1.jpg");
+//		File file2 = new File("D:/2.jpg");
+//		fileList.add(file1);
+//		fileList.add(file2);
+//		
+//		System.out.println(AppFactory.getCartoonInfoService().uploadCartoonFiles(fileList,"ijoker","风景"));
+//		
+//	}
 //	@Test
 //	public void testGetCartoonList()
 //	{
