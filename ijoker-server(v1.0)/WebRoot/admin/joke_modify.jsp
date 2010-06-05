@@ -36,9 +36,9 @@
 					</s:iterator>
 					<s:select name="selectedNewCatalogId" list="catalogList" listKey="catalogId" listValue="catalogName">						
 					</s:select>	
-					<s:url action="AddToCatalog" id="add">							
-					</s:url>
-					<s:a href="%{add}">[添加]</s:a>		
+					
+					<s:submit value="添加" cssStyle="width:20%"action="AddToCatalog"/>
+					
 				</td>
 			</tr>
 			<tr>

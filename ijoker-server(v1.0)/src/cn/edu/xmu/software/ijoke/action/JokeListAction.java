@@ -49,11 +49,17 @@ public class JokeListAction extends BaseAction {
 		return SUCCESS;
 	}
 	public String deleteFromCatalog(){	
-		System.out.println(jokeInfoService.deleteJokeToClass(selectedJoke.getId(), selectedCatalogId));
+		
+		jokeInfoService.deleteJokeToClass(selectedJoke.getId(), selectedCatalogId);
+		jokeCatalogs=jokeInfoService.getCatalogAndJokeList(selectedJoke.getId(), 0, Consts.ONEPAGE_ITEM_NUM);
+		
 		return SUCCESS;
 	}
 	public String addToCatalog(){
-		System.out.println(jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedNewCatalogId));
+		System.out.println(selectedNewCatalogId);
+		jokeInfoService.addJokeToClass(selectedJoke.getId(), selectedNewCatalogId);
+		jokeCatalogs=jokeInfoService.getCatalogAndJokeList(selectedJoke.getId(), 0, Consts.ONEPAGE_ITEM_NUM);
+		
 		return SUCCESS;
 	}
 	
