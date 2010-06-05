@@ -82,7 +82,7 @@ public class ClassAndJokeFileDAO extends HibernateDaoSupport{
 		session =  HibernateSessionFactory.getSession();
 		Transaction tx=session.beginTransaction();
 
-		session.delete(classAndJoke);
+		getHibernateTemplate().delete(classAndJoke);
 		tx.commit();
 		session.close();
 		return true;

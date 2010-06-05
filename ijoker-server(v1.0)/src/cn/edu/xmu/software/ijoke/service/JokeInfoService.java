@@ -18,4 +18,5 @@ public interface JokeInfoService {
 	public boolean deleteJoke(String jokeId);
 	public List<CatalogAndJokeView> getCatalogAndJokeList(String jokeId,int begin,int pageSize);
 	public Joke getJokeByJokeId(String jokeId);
+	public boolean verify(String jokeId);
 }

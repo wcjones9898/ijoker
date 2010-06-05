@@ -216,12 +216,12 @@ public Joke getJokeByJokeId(String jokeId)
 	
 	return jokeView; 
 	}
-@Test
-public void testGetJokeByJokeId()
-{
-        System.out.println(AppFactory.getJokeInfoService().getJokeByJokeId("20100520121536241").getTitle());
-
-	}
+//@Test
+//public void testGetJokeByJokeId()
+//{
+//        System.out.println(AppFactory.getJokeInfoService().getJokeByJokeId("20100520121536241").getTitle());
+//
+//	}
 //@Test
 //	public void testUpdateJokeClass() {
 //		System.out.println(AppFactory.getJokeInfoService().addJokeToClass(
@@ -246,7 +246,7 @@ public void testGetJokeByJokeId()
 //	 public void testDeleteJokeClass()
 //	 {
 //			 System.out.println(AppFactory.getJokeInfoService().deleteJokeToClass(
-//						"5", "20100520121536241"));		 
+//						"20100522164940615", "4"));		 
 //	 }
 //	 @Test
 //	 public void testGetWithoutVerifyJokes()
@@ -270,22 +270,23 @@ public void testGetJokeByJokeId()
 //	 System.out.println(jokesView.get(i).getAuthor());
 //	 }
 //	 }
-//	 @Test
-//	 public void testGetCatalogAndJoke()
-//	 {
-//		 
-//	 List<CatalogAndJokeView> catalogAndJokeList =
-//	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
-//	 for(int i=0; i<catalogAndJokeList.size(); i++)
-//	 {
-//	 System.out.println(catalogAndJokeList.get(i).getCatalogName());
-//	 }
-//	 }
-//	@Test
-//	public void testAddCatalogAndJoke()
-//	{
-//		AppFactory.getJokeInfoService().addJokeToClass("20100520121536241","4");
-//	}
+@Test
+public void testAddCatalogAndJoke()
+{
+	AppFactory.getJokeInfoService().addJokeToClass("20100522164940615","1");
+}
+	 @Test
+	 public void testGetCatalogAndJoke()
+	 {
+		 
+	 List<CatalogAndJokeView> catalogAndJokeList =
+	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100522164940615",0,5);
+	 for(int i=0; i<catalogAndJokeList.size(); i++)
+	 {
+	 System.out.println(catalogAndJokeList.get(i).getCatalogId());
+	 }
+	 }
+
 
 
 }
