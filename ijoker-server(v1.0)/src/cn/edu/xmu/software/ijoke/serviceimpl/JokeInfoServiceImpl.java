@@ -124,6 +124,13 @@ public class JokeInfoServiceImpl implements JokeInfoService {
 		// TODO Auto-generated method stub
 		try {
 
+			ClassAndJokeFile classAndJokeFile = 
+				classAndJokeFileDAO.findClassAndJoke("0", jokeId);
+			if(classAndJokeFile!=null)
+			{
+				classAndJokeFileDAO.deleteClassAndJoke("0", jokeId);
+			}
+			
 			if (classAndJokeFileDAO.findClassAndJoke(classId, jokeId) == null
 					&& AppFactory.getCatalogManageService()
 					.findCatalogById(classId)!=null 
@@ -273,14 +280,14 @@ public Joke getJokeByJokeId(String jokeId)
 @Test
 public void testAddCatalogAndJoke()
 {
-	AppFactory.getJokeInfoService().addJokeToClass("20100522164940615","1");
+	AppFactory.getJokeInfoService().addJokeToClass("20100520122823437","1");
 }
 	 @Test
 	 public void testGetCatalogAndJoke()
 	 {
 		 
 	 List<CatalogAndJokeView> catalogAndJokeList =
-	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100522164940615",0,5);
+	 AppFactory.getJokeInfoService().getCatalogAndJokeList("20100520122823437",0,5);
 	 for(int i=0; i<catalogAndJokeList.size(); i++)
 	 {
 	 System.out.println(catalogAndJokeList.get(i).getCatalogId());
