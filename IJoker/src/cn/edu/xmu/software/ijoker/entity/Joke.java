@@ -21,6 +21,8 @@ public class Joke implements Parcelable {
 	private String location;
 	private String keyword;
 	private int like;
+	private long fileLength;
+	private long fileTime;
 
 	/**
 	 * * @return
@@ -28,6 +30,22 @@ public class Joke implements Parcelable {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public long getFileLength() {
+		return fileLength;
+	}
+
+	public void setFileLength(long fileLength) {
+		this.fileLength = fileLength;
+	}
+
+	public long getFileTime() {
+		return fileTime;
+	}
+
+	public void setFileTime(long fileTime) {
+		this.fileTime = fileTime;
 	}
 
 	public String getId() {
@@ -110,6 +128,8 @@ public class Joke implements Parcelable {
 		this.location = in.readString();
 		this.like = in.readInt();
 		this.keyword = in.readString();
+		this.fileLength = in.readLong();
+		this.fileTime = in.readLong();
 	}
 
 	@Override
@@ -127,6 +147,8 @@ public class Joke implements Parcelable {
 		dest.writeString(location);
 		dest.writeInt(like);
 		dest.writeString(keyword);
+		dest.writeLong(fileLength);
+		dest.writeLong(fileTime);
 	}
 
 	public void like() {

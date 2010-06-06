@@ -27,7 +27,8 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 		ArrayList<Joke> list = null;
 		SoapObject result = null;
 		try {
-			result = (SoapObject) WSUtils.callWebService(this.methodName, parms);
+			result = (SoapObject) WSUtils
+					.callWebService(this.methodName, parms);
 			Log.i(TAG, "get data from webservice with method: "
 					+ this.methodName + "\nget result: " + result.toString());
 		} catch (Exception e) {
@@ -52,6 +53,10 @@ public class GetJokeListWSMethod extends AbstractWSMethod {
 				joke.setTitle(o.getProperty("title").toString());
 				joke.setUploadTime(o.getProperty("uploadTime").toString());
 				joke.setKeyword(o.getProperty("keyWord").toString());
+				joke.setFileLength(Long.parseLong(o.getProperty("fileLength")
+						.toString()));
+				joke.setFileTime(Long.parseLong(o.getProperty("fileTime")
+						.toString()));
 				list.add(joke);
 			}
 			Log.i(TAG, "get data from webservice with method: "
