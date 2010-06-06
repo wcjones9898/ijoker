@@ -39,6 +39,12 @@ public class PlayerUI extends BaseActivity {
 			case Consts.MSG_PREPARE_PLAY:
 				play_btn.setEnabled(true);
 				break;
+			case Consts.MSG_START_PLAY:
+				play_btn.setEnabled(true);
+				play_btn.setBackgroundResource(R.drawable.pause);
+				play_btn.setOnClickListener(pause);
+				play_btn.setOnTouchListener(pauseTouched);
+				break;
 			case Consts.MSG_STOP_PLAY:
 				play_btn.setBackgroundResource(R.drawable.play);
 				play_btn.setOnClickListener(play);
@@ -115,7 +121,8 @@ public class PlayerUI extends BaseActivity {
 		title_txt.setText(joke.getTitle());
 		play_btn.setEnabled(false);
 		playService = new PlayService(this, handler, progress_bar);
-		playService.doStart(joke.getLocation(), 8020, 2736);
+		playService.doStart(joke.getLocation(), joke.getFileLength(), joke
+				.getFileTime());
 
 	}
 
@@ -135,7 +142,7 @@ public class PlayerUI extends BaseActivity {
 					Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent();
 			intent.setClass(PlayerUI.this, CartoonGallery.class);
-		    intent.putExtra("jokeId", joke.getId());
+			intent.putExtra("jokeId", joke.getId());
 			startActivity(intent);
 		}
 	};
@@ -152,7 +159,7 @@ public class PlayerUI extends BaseActivity {
 	private ImageButton.OnClickListener pause = new ImageButton.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			playService.stopPlayer();
+			playService.pausePlayer();
 			play_btn.setOnClickListener(play);
 			play_btn.setOnTouchListener(playTouched);
 		}
