@@ -93,6 +93,7 @@ public class Consts {
 	public static final int MSG_CARTOONPIC_DATA = 0x45;
 	
 	public static final int CARTOONGALLERY_UPDATEUI = 0x46;
+	public static final int MSG_START_PLAY = 0x47;
 	// user login session
 	public final static String preferencesSetting = "IJoker";
 	public final static String session = "session";
