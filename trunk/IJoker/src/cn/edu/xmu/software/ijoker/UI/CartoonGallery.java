@@ -60,11 +60,13 @@ public class CartoonGallery extends Activity {
 					progressDialog = ProgressDialog.show(CartoonGallery.this, "提示",
 							"正在获取漫画，请稍候...", true);
 					//buffer=CartoonDownloader.downLoad(Consts.MEDIA_CENTER_BASE_URL+filesPath.get(cartoonIndex++),port);
-
+					if(filesPath.size()>1)
+					{
 					CartoonDownloadThread cdThread1 = new CartoonDownloadThread(handler,port++,1);
 					cdThread1.doStart(Consts.MEDIA_CENTER_BASE_URL+filesPath.get(1));
+					}
 	//				progressDialog.dismiss();
-					if(filesPath.size()>1)
+					if(filesPath.size()>0)
 					{
 						//bufferLeft=CartoonDownloader.downLoad(Consts.MEDIA_CENTER_BASE_URL+filesPath.get(cartoonIndex++),port);
 						
@@ -100,7 +102,7 @@ public class CartoonGallery extends Activity {
 				case 0:
 					isLeftBufferReady = true;
 					bufferLeft = msg.getData().getByteArray("picData");
-					Toast.makeText(CartoonGallery.this, "Left buffer is ready",
+					Toast.makeText(CartoonGallery.this, "向左缓冲完毕",
 							Toast.LENGTH_SHORT).show();
 					break;
 				case 1:
@@ -110,7 +112,7 @@ public class CartoonGallery extends Activity {
 				case 2:
 					isRightBufferReady = true;
 					bufferRight = msg.getData().getByteArray("picData");
-					Toast.makeText(CartoonGallery.this, "Right buffer is ready",
+					Toast.makeText(CartoonGallery.this, "向右缓冲完毕",
 							Toast.LENGTH_SHORT).show();
 					break;
 				}
