@@ -30,7 +30,7 @@ public class PlayService extends Thread {
 	private String location;
 	private long mediaLengthInKb, mediaLengthInSeconds;
 	private ProgressBar progressBar;
-	private static final int INTIAL_KB_BUFFER = 8 * 10 / 8;// assume
+	private static final int INTIAL_KB_BUFFER = 96 * 10 / 8;// assume
 
 	// 96kbps*10secs/8bits
 	// per byte
@@ -45,6 +45,8 @@ public class PlayService extends Thread {
 		this.location = location;
 		this.mediaLengthInKb = mediaLengthInKb;
 		this.mediaLengthInSeconds = mediaLengthInSeconds;
+		Log.i(TAG, "mediaLengthInKb:" + mediaLengthInKb
+				+ "MeddiaLengthInSeconds:" + mediaLengthInSeconds);
 		this.start();
 	}
 
@@ -61,9 +63,13 @@ public class PlayService extends Thread {
 			Log.e(getClass().getName(),
 					"Unable to initialize the MediaPlayer for fileUrl="
 							+ location, e);
-			Message message = handler.obtainMessage(Consts.ERROR_PLAY);
-			handler.sendMessage(message);
+			sendMessage();
 		}
+	}
+
+	private void sendMessage() {
+		Message message = handler.obtainMessage(Consts.ERROR_PLAY);
+		handler.sendMessage(message);
 	}
 
 	/**
@@ -79,6 +85,8 @@ public class PlayService extends Thread {
 		if (stream == null) {
 			Log.e(getClass().getName(),
 					"Unable to create InputStream for mediaUrl:" + mediaUrl);
+			this.sendMessage();
+			return;
 		}
 
 		downloadingMediaFile = new File(context.getCacheDir(),
@@ -88,17 +96,16 @@ public class PlayService extends Thread {
 		}
 		FileOutputStream out = new FileOutputStream(downloadingMediaFile);
 		byte buf[] = new byte[16384];
-		int totalBytesRead = 0, incrementalBytesRead = 0;
+		int totalBytesRead = 0;
 		do {
 			int numread = stream.read(buf);
 			if (numread <= 0)
 				break;
 			out.write(buf, 0, numread);
 			totalBytesRead += numread;
-			incrementalBytesRead += numread;
-			totalKbRead = totalBytesRead / 1000;
-			testMediaBuffer();
+			totalKbRead = totalBytesRead / 1024;
 			fireDataLoadUpdate();
+			testMediaBuffer();
 		} while (validateNotInterrupted());
 		stream.close();
 		if (validateNotInterrupted()) {
@@ -121,11 +128,13 @@ public class PlayService extends Thread {
 						try {
 							Log.i(TAG, "prepare for play!");
 							Message m = handler
-									.obtainMessage(Consts.MSG_PREPARE_PLAY);
+									.obtainMessage(Consts.MSG_START_PLAY);
 							handler.sendMessage(m);
+							startPlayer();
 						} catch (Exception e) {
 							Log.e(getClass().getName(),
 									"Error copying buffered conent.", e);
+							sendMessage();
 						}
 					}
 				} else if (mp.getDuration() - mp.getCurrentPosition() <= 1000) {
@@ -143,7 +152,20 @@ public class PlayService extends Thread {
 
 	public void stopPlayer() {
 		isInterrupted = true;
-		validateNotInterrupted();
+		if (mp != null) {
+			if (mp.isPlaying())
+				mp.stop();
+			mp.reset();
+			mp.release();
+			mp = null;
+		}
+	}
+
+	public void pausePlayer() {
+		if (mp != null) {
+			if (mp.isPlaying())
+				mp.pause();
+		}
 	}
 
 	/**
@@ -155,8 +177,12 @@ public class PlayService extends Thread {
 		try {
 			// First determine if we need to restart the player after
 			// transferring data...e.g. perhaps the user pressed pause
-			boolean wasPlaying = mp.isPlaying();
-			int curPosition = mp.getCurrentPosition();
+			boolean wasPlaying = true;
+			int curPosition = 0;
+			if (mp != null) {
+				wasPlaying = mp.isPlaying();
+				curPosition = mp.getCurrentPosition();
+			}
 
 			// Copy the currently downloaded content to a new buffered File.
 			// Store the old File for deleting later.
@@ -177,12 +203,19 @@ public class PlayService extends Thread {
 			// a new one. So far (Android v1.5),
 			// this always happens so quickly that the user never realized we've
 			// stopped the player and started a new one
-			mp.pause();
+			if (mp != null) {
+				if (mp.isPlaying())
+					mp.stop();
+				mp.reset();
+				mp.release();
+				mp = null;
+			}
 
 			// Create a new MediaPlayer rather than try to re-prepare the prior
 			// one.
 			mp = createMediaPlayer(bufferedFile);
-			mp.seekTo(curPosition);
+			if (wasPlaying)
+				mp.seekTo(curPosition);
 
 			// Restart if at end of prior buffered content or mediaPlayer was
 			// previously playing.
@@ -191,7 +224,8 @@ public class PlayService extends Thread {
 			// a few milliseconds of data left to play
 			boolean atEndOfFile = mp.getDuration() - mp.getCurrentPosition() <= 1000;
 			if (wasPlaying || atEndOfFile) {
-				mp.start();
+				if (validateNotInterrupted())
+					mp.start();
 			}
 
 			// Lastly delete the previously playing buffered File as it's no
@@ -204,12 +238,13 @@ public class PlayService extends Thread {
 		}
 	}
 
-	private MediaPlayer createMediaPlayer(File mediaFile) throws IOException {
+	private MediaPlayer createMediaPlayer(File mediaFile) throws Exception {
 		MediaPlayer mPlayer = new MediaPlayer();
 		mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 			public boolean onError(MediaPlayer mp, int what, int extra) {
 				Log.e(getClass().getName(), "Error in MediaPlayer: (" + what
 						+ ") with extra (" + extra + ")");
+				sendMessage();
 				return false;
 			}
 		});
@@ -228,45 +263,54 @@ public class PlayService extends Thread {
 
 	public void startPlayer() {
 		try {
-			File bufferedFile = new File(context.getCacheDir(), "playingMedia"
-					+ (counter++) + ".dat");
-			// We double buffer the data to avoid potential read/write errors
-			// that could happen if the
-			// download thread attempted to write at the same time the
-			// MediaPlayer was trying to read.
-			// For example, we can't guarantee that the MediaPlayer won't open a
-			// file for playing and leave it locked while
-			// the media is playing. This would permanently deadlock the file
-			// download. To avoid such a deadloack,
-			// we move the currently loaded data to a temporary buffer file that
-			// we start playing while the remaining
-			// data downloads.
-			moveFile(downloadingMediaFile, bufferedFile);
+			if (mp == null) {
+				File bufferedFile = new File(context.getCacheDir(),
+						"playingMedia" + (counter) + ".dat");
+				// We double buffer the data to avoid potential read/write
+				// errors
+				// that could happen if the
+				// download thread attempted to write at the same time the
+				// MediaPlayer was trying to read.
+				// For example, we can't guarantee that the MediaPlayer won't
+				// open a
+				// file for playing and leave it locked while
+				// the media is playing. This would permanently deadlock the
+				// file
+				// download. To avoid such a deadloack,
+				// we move the currently loaded data to a temporary buffer file
+				// that
+				// we start playing while the remaining
+				// data downloads.
+				moveFile(downloadingMediaFile, bufferedFile);
 
-			Log.i(getClass().getName(), "Buffered File path: "
-					+ bufferedFile.getAbsolutePath());
-			Log.i(getClass().getName(), "Buffered File length: "
-					+ bufferedFile.length() + "");
+				Log.i(getClass().getName(), "Buffered File path: "
+						+ bufferedFile.getAbsolutePath());
+				Log.i(getClass().getName(), "Buffered File length: "
+						+ bufferedFile.length() + "");
 
-			mp = createMediaPlayer(bufferedFile);
-
+				mp = createMediaPlayer(bufferedFile);
+			}
 			// We have pre-loaded enough content and started the MediaPlayer so
 			// update the buttons & progress meters.
 			mp.start();
 			startPlayProgressUpdater();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Log.e(getClass().getName(), "Error initializing the MediaPlayer.",
 					e);
-			return;
+			sendMessage();
 		}
 	}
 
 	private boolean validateNotInterrupted() {
 		if (isInterrupted) {
 			if (mp != null) {
-				mp.pause();
-				// mp.release();
+				if (mp.isPlaying())
+					mp.stop();
+				mp.reset();
+				mp.release();
+				mp = null;
 			}
+			downloadingMediaFile.delete();
 			return false;
 		} else {
 			return true;
@@ -337,139 +381,19 @@ public class PlayService extends Thread {
 	}
 
 	public void startPlayProgressUpdater() {
-		float progress = (((float) mp.getCurrentPosition() / 1000) / mediaLengthInSeconds);
-		progressBar.setProgress((int) (progress * 100));
+		if (mp != null) {
+			float progress = (((float) mp.getCurrentPosition() / 1000) / mediaLengthInSeconds);
+			progressBar.setProgress((int) (progress * 100));
 
-		if (mp.isPlaying()) {
-			Runnable notification = new Runnable() {
-				public void run() {
-					startPlayProgressUpdater();
-				}
-			};
-			handler.postDelayed(notification, 1000);
+			if (mp.isPlaying()) {
+				Runnable notification = new Runnable() {
+					public void run() {
+						startPlayProgressUpdater();
+					}
+				};
+				handler.postDelayed(notification, 1000);
+			}
 		}
 	}
-	// private Handler handler = new Handler() {
-	//
-	// @Override
-	// public void handleMessage(Message msg) {
-	// super.handleMessage(msg);
-	// switch (msg.what) {
-	// case Consts.CMD_PAUSE:
-	// mp.pause();
-	// break;
-	// case Consts.CMD_PLAY:
-	// Joke newJoke = msg.getData().getParcelable("data");
-	// playJoke(newJoke);
-	// break;
-	// case Consts.CMD_STOP:
-	// if (mp != null) {
-	// mp.stop();
-	// mp.release();
-	// mp = null;
-	// }
-	// break;
-	// default:
-	// }
-	//
-	// }
-	//
-	// };
-	//
-	// private void playJoke(Joke newJoke) {
-	// try {
-	//
-	// Log.i("play a new joke: ", newJoke.getLocation());
-	// playingJoke = newJoke;
-	// if (mp == null)
-	// mp = new MediaPlayer();
-	// else
-	// mp.reset();
-	// mp.setDataSource(playingJoke.getLocation());
-	// mp.setOnPreparedListener(new OnPreparedListener() {
-	//
-	// @Override
-	// public void onPrepared(MediaPlayer mp) {
-	// mp.start();
-	// }
-	//
-	// });
-	// mp.prepare();
-	// mp.setOnCompletionListener(new OnCompletionListener() {
-	// public void onCompletion(MediaPlayer arg0) {
-	// if (mp != null) {
-	// mp.release();
-	// mp = null;
-	// }
-	// Intent intent = new Intent(Consts.ACTION_STOP_PLAY);
-	// sendBroadcast(intent);
-	// }
-	// });
-	// mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-	//
-	// @Override
-	// public boolean onError(MediaPlayer mp, int what, int extra) {
-	// Log.e(TAG, "MediaPlayer error!");
-	// if (mp != null) {
-	// mp.release();
-	// mp = null;
-	// }
-	// Intent intent = new Intent(Consts.ACTION_STOP_PLAY);
-	// sendBroadcast(intent);
-	// return false;
-	// }
-	// });
-	// } catch (Exception e) {
-	// Log.e(TAG, e.getMessage(), e);
-	// if (mp != null) {
-	// mp.stop();
-	// mp.release();
-	// mp = null;
-	// }
-	// Intent intent = new Intent(Consts.ACTION_ERROR_PLAY);
-	// sendBroadcast(intent);
-	// }
-	// }
-
-	// private final IPlayService.Stub mBinder = new IPlayService.Stub() {
-	//
-	// @Override
-	// public void pause() throws RemoteException {
-	// Message message = handler.obtainMessage(Consts.CMD_PAUSE);
-	// handler.sendMessage(message);
-	// }
-	//
-	// @Override
-	// public void stop() throws RemoteException {
-	// Message message = handler.obtainMessage(Consts.CMD_STOP);
-	// handler.sendMessage(message);
-	//
-	// }
-	//
-	// @Override
-	// public void play(Joke joke) throws RemoteException {
-	// Message message = handler.obtainMessage(Consts.CMD_PLAY);
-	// Bundle b = new Bundle();
-	// b.putParcelable("data", joke);
-	// message.setData(b);
-	// handler.sendMessage(message);
-	//
-	// }
-	//
-	// @Override
-	// public Joke getJokePlaying() throws RemoteException {
-	// return playingJoke;
-	// }
-	//
-	// @Override
-	// public boolean isPlaying() throws RemoteException {
-	// if (mp != null) {
-	// Log.i(TAG, "the mediaplayer playing status: " + mp.isPlaying());
-	// return mp.isPlaying();
-	// } else
-	// return false;
-	// }
-	//
-	// };
 
 }
