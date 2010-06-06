@@ -176,7 +176,7 @@ public class PlayService extends Thread {
 		try {
 			// First determine if we need to restart the player after
 			// transferring data...e.g. perhaps the user pressed pause
-			boolean wasPlaying = true;
+			boolean wasPlaying = false;
 			int curPosition = 0;
 			if (mp != null) {
 				wasPlaying = mp.isPlaying();
@@ -247,7 +247,14 @@ public class PlayService extends Thread {
 				return false;
 			}
 		});
+		mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				Message m = handler.obtainMessage(Consts.MSG_STOP_PLAY);
+				handler.sendMessage(m);
+			}
+		});
 		// It appears that for security/permission reasons, it is better to pass
 		// a FileDescriptor rather than a direct path to the File.
 		// Also I have seen errors such as "PVMFErrNotSupported" and
