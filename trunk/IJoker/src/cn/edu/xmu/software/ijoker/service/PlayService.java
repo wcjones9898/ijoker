@@ -22,15 +22,15 @@ public class PlayService extends Thread {
 	public final String TAG = PlayService.class.getName();
 	private MediaPlayer mp = null;
 	private File downloadingMediaFile;
-	private int totalKbRead = 0;
+	private int totalBRead = 0;
 	private int counter = 0;
 	private boolean isInterrupted;
 	private Handler handler;
 	private Context context;
 	private String location;
-	private long mediaLengthInKb, mediaLengthInSeconds;
+	private long mediaLengthInB, mediaLengthInSeconds;
 	private ProgressBar progressBar;
-	private static final int INTIAL_KB_BUFFER = 96 * 10 / 8;// assume
+	private static final int INTIAL_KB_BUFFER = 96 * 10 * 1024 / 8;// assume
 
 	// 96kbps*10secs/8bits
 	// per byte
@@ -40,12 +40,12 @@ public class PlayService extends Thread {
 		this.progressBar = progressBar;
 	}
 
-	public void doStart(String location, long mediaLengthInKb,
+	public void doStart(String location, long mediaLengthInB,
 			long mediaLengthInSeconds) {
 		this.location = location;
-		this.mediaLengthInKb = mediaLengthInKb;
+		this.mediaLengthInB = mediaLengthInB;
 		this.mediaLengthInSeconds = mediaLengthInSeconds;
-		Log.i(TAG, "mediaLengthInKb:" + mediaLengthInKb
+		Log.i(TAG, "mediaLengthInB:" + mediaLengthInB
 				+ "MeddiaLengthInSeconds:" + mediaLengthInSeconds);
 		this.start();
 	}
@@ -103,7 +103,7 @@ public class PlayService extends Thread {
 				break;
 			out.write(buf, 0, numread);
 			totalBytesRead += numread;
-			totalKbRead = totalBytesRead / 1024;
+			totalBRead = totalBytesRead;
 			fireDataLoadUpdate();
 			testMediaBuffer();
 		} while (validateNotInterrupted());
@@ -124,7 +124,7 @@ public class PlayService extends Thread {
 				if (mp == null) {
 					// Only create the MediaPlayer once we have the minimum
 					// buffered data
-					if (totalKbRead >= INTIAL_KB_BUFFER) {
+					if (totalBRead >= INTIAL_KB_BUFFER) {
 						try {
 							Log.i(TAG, "prepare for play!");
 							Message m = handler
@@ -361,7 +361,7 @@ public class PlayService extends Thread {
 	private void fireDataLoadUpdate() {
 		Runnable updater = new Runnable() {
 			public void run() {
-				float loadProgress = ((float) totalKbRead / (float) mediaLengthInKb);
+				float loadProgress = ((float) totalBRead / (float) mediaLengthInB);
 				progressBar.setSecondaryProgress((int) (loadProgress * 100));
 			}
 		};
