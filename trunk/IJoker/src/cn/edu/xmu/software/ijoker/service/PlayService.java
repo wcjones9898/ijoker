@@ -128,9 +128,8 @@ public class PlayService extends Thread {
 						try {
 							Log.i(TAG, "prepare for play!");
 							Message m = handler
-									.obtainMessage(Consts.MSG_START_PLAY);
+									.obtainMessage(Consts.MSG_PREPARE_PLAY);
 							handler.sendMessage(m);
-							startPlayer();
 						} catch (Exception e) {
 							Log.e(getClass().getName(),
 									"Error copying buffered conent.", e);
