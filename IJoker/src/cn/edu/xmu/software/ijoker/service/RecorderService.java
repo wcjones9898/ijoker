@@ -9,7 +9,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -31,14 +30,14 @@ public class RecorderService extends Service {
 	@Override
 	public void onDestroy() {
 		if (mediaPlayer != null) {
-			if (mediaPlayer.isPlaying())
-				mediaPlayer.stop();
+			// if (mediaPlayer.isPlaying())
+			// mediaPlayer.stop();
 			mediaPlayer.reset();
 			mediaPlayer.release();
 			mediaPlayer = null;
 		}
 		if (mRecorder != null) {
-			mRecorder.stop();
+			// mRecorder.stop();
 			mRecorder.reset();
 			mRecorder.release();
 		}
@@ -75,6 +74,15 @@ public class RecorderService extends Service {
 				try {
 					fis = new FileInputStream(currentRecord);
 					mediaPlayer.setDataSource(fis.getFD());
+					mediaPlayer
+							.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+								@Override
+								public void onCompletion(MediaPlayer mp) {
+									playerState = 3;
+
+								}
+							});
 					mediaPlayer.prepare();
 				} catch (FileNotFoundException e) {
 					Log.e(TAG, e.getMessage(), e);
